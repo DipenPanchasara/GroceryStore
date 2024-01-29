@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  Categories.swift
 //  Meals
 //
 //  Created by Dipen Panchasara on 29/01/2024.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct Categories: View {
     var body: some View {
         VStack {
             Image(systemName: "globe")
@@ -20,7 +20,7 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+  Categories()
 }
 
 /*
