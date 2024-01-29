@@ -22,3 +22,11 @@ struct ContentView: View {
 #Preview {
     ContentView()
 }
+
+/*
+ 
+ API for Meals
+ 
+ https://www.themealdb.com/api.php
+ 
+ */
