@@ -72,6 +72,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2557F06D2B683E770013EFA1 /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "New Group";
+			sourceTree = "<group>";
+		};
 		257D6E742B683B9A00CA666A = {
 			isa = PBXGroup;
 			children = (
@@ -95,6 +102,7 @@
 		257D6E7F2B683B9A00CA666A /* GroceryStore */ = {
 			isa = PBXGroup;
 			children = (
+				2557F06D2B683E770013EFA1 /* New Group */,
 				257D6E802B683B9A00CA666A /* GroceryStoreApp.swift */,
 				257D6E822B683B9A00CA666A /* ContentView.swift */,
 				257D6E842B683B9B00CA666A /* Assets.xcassets */,
