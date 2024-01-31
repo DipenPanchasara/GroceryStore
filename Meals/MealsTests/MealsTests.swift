@@ -5,31 +5,24 @@
 //  Created by Dipen Panchasara on 29/01/2024.
 //
 
+@testable import Meals
 import XCTest
 
 final class MealsTests: XCTestCase {
-
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
-
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
-    }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        measure {
-            // Put the code you want to measure the time of here.
-        }
-    }
-
+  
+  func testViewModel_whenOnAppearCalled() async throws {
+    let expectedCategories: [ViewModel.CategoriesData.Category] = [
+      .init(idCategory: "a", strCategory: "abc", strCategoryThumb: "thumb"),
+      .init(idCategory: "b", strCategory: "bcd", strCategoryThumb: nil)
+    ]
+    let vm = ViewModel(
+      network: MockNetworkManager(
+        object: ViewModel.CategoriesData(
+          categories: expectedCategories
+        )
+      )
+    )
+    await vm.onAppear()
+    XCTAssertEqual(vm.categories, expectedCategories)
+  }
 }
