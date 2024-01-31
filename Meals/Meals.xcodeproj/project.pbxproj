@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		257478262B6AC92F004A4861 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257478252B6AC92F004A4861 /* NetworkManager.swift */; };
 		25C44FBB2B684433001CE21F /* MealsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C44FBA2B684433001CE21F /* MealsApp.swift */; };
 		25C44FBD2B684433001CE21F /* Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C44FBC2B684433001CE21F /* Categories.swift */; };
 		25C44FBF2B684436001CE21F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 25C44FBE2B684436001CE21F /* Assets.xcassets */; };
@@ -34,6 +35,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		257478252B6AC92F004A4861 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		25C44FB72B684433001CE21F /* Meals.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Meals.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		25C44FBA2B684433001CE21F /* MealsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealsApp.swift; sourceTree = "<group>"; };
 		25C44FBC2B684433001CE21F /* Categories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Categories.swift; sourceTree = "<group>"; };
@@ -72,6 +74,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		257478242B6AC913004A4861 /* NetworkManager */ = {
+			isa = PBXGroup;
+			children = (
+				257478252B6AC92F004A4861 /* NetworkManager.swift */,
+			);
+			path = NetworkManager;
+			sourceTree = "<group>";
+		};
 		25C44FAE2B684433001CE21F = {
 			isa = PBXGroup;
 			children = (
@@ -95,6 +105,7 @@
 		25C44FB92B684433001CE21F /* Meals */ = {
 			isa = PBXGroup;
 			children = (
+				257478242B6AC913004A4861 /* NetworkManager */,
 				25C44FBA2B684433001CE21F /* MealsApp.swift */,
 				25C44FBC2B684433001CE21F /* Categories.swift */,
 				25C44FBE2B684436001CE21F /* Assets.xcassets */,
@@ -259,6 +270,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				257478262B6AC92F004A4861 /* NetworkManager.swift in Sources */,
 				25C44FBD2B684433001CE21F /* Categories.swift in Sources */,
 				25C44FBB2B684433001CE21F /* MealsApp.swift in Sources */,
 			);
