@@ -6,20 +6,19 @@
 //
 
 import Foundation
+/*
+ 
+ API for Meals
+ 
+ https://www.themealdb.com/api.php
+ 
+ */
 
 protocol NetworkProvider {
   func execute<T:Decodable>(request: URLRequest) async throws -> T
 }
 
-struct NetworkManager: NetworkProvider {
-  enum NetworkError: Error {
-    case invalidUrl
-    case invalidResponse
-    case invalidData
-    case failed(Error)
-    case decodingFailed(Error)
-  }
-  
+struct NetworkManager: NetworkProvider {  
   private let sessionConfiguration = URLSessionConfiguration.default
   private let session: URLSession
   
