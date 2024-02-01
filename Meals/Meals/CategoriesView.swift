@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct Categories: View {
+struct CategoriesView: View {
   let viewModel = ViewModel(network: NetworkManager())
     var body: some View {
         VStack {
@@ -24,7 +24,7 @@ struct Categories: View {
 }
 
 #Preview {
-  Categories()
+  CategoriesView()
 }
 
 class ViewModel {
@@ -56,10 +56,3 @@ extension ViewModel {
     }
   }
 }
-/*
- 
- API for Meals
- 
- https://www.themealdb.com/api.php
- 
- */
