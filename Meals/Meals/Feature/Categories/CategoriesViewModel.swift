@@ -7,18 +7,17 @@
 
 import Foundation
 
-class ViewModel {
-  let network: NetworkProvider
-  var categories: [CategoriesData.Category] = []
+class CategoriesViewModel: ObservableObject {
+  private let useCase: CategoriesUseCaseProtocol
+  @Published var categories: [CategoryModel] = []
   
-  init(network: NetworkProvider) {
-    self.network = network
+  init(useCase: CategoriesUseCaseProtocol) {
+    self.useCase = useCase
   }
   
   func onAppear() async {
     do {
-      let categoriesData: CategoriesData = try await network.execute(request: URLRequest(url: URL(string: "https://www.themealdb.com/api/json/v1/1/categories.php")!))
-      categories = categoriesData.categories
+      categories = try await useCase.fetchCategories()
     } catch {
       print(error)
     }

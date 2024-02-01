@@ -8,21 +8,46 @@
 import SwiftUI
 
 struct CategoriesView: View {
-  let viewModel = ViewModel(network: NetworkManager())
+  @ObservedObject var viewModel: CategoriesViewModel
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
-        }
-        .padding()
+      NavigationStack {
+        List(viewModel.categories, rowContent: { categoryModel in
+          VStack(spacing: .zero) {
+            HStack {
+              Image(uiImage: .add)
+                .frame(width: 24, height: 24)
+                .background(Color.gray)
+                .mask({
+                  Circle()
+                    .cornerRadius(16)
+                })
+              Text(categoryModel.name)
+                .font(.title)
+            }
+          }
+          .listRowSeparator(.hidden)
+          .padding()
+          .cornerRadius(10)
+        })
+        .listStyle(.plain)
+        .navigationTitle("Categories")
+        .navigationBarTitleDisplayMode(.inline)
         .task {
           await viewModel.onAppear()
         }
+      }
     }
 }
 
+#if DEBUG
 #Preview {
-  CategoriesView()
+  CategoriesView(
+    viewModel: CategoriesViewModel(
+      useCase: MockCategoriesUseCase(
+        categories: .mock
+      )
+    )
+  )
 }
+
+#endif

@@ -11,7 +11,13 @@ import SwiftUI
 struct MealsApp: App {
     var body: some Scene {
         WindowGroup {
-          CategoriesView()
+          CategoriesView(
+            viewModel: CategoriesViewModel(
+              useCase: CategoriesUseCase(
+                networkManager: NetworkManager()
+              )
+            )
+          )
         }
     }
 }
