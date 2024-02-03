@@ -15,6 +15,7 @@ class CategoriesViewModel: ObservableObject {
     self.useCase = useCase
   }
   
+  @MainActor
   func onAppear() async {
     do {
       categories = try await useCase.fetchCategories()

@@ -22,7 +22,7 @@ struct CategoriesUseCase: CategoriesUseCaseProtocol {
     do {
       let categoriesData: CategoriesData = try await networkManager.execute(request: URLRequest(url: URL(string: "https://www.themealdb.com/api/json/v1/1/categories.php")!))
       let categories = categoriesData.categories
-      return categories.map({ map(categoryData: $0) })
+      return categories.map({ map(categoryData: $0) }).sorted(by: { $0.name < $1.name })
     } catch {
       throw error
     }

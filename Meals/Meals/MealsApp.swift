@@ -14,7 +14,7 @@ struct MealsApp: App {
           CategoriesView(
             viewModel: CategoriesViewModel(
               useCase: CategoriesUseCase(
-                networkManager: NetworkManager()
+                networkManager: NetworkManager(baseURL: URL(string: "https://www.themealdb.com")!)
               )
             )
           )
