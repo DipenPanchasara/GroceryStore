@@ -21,12 +21,14 @@ protocol NetworkProvider {
 struct NetworkManager: NetworkProvider {  
   private let sessionConfiguration = URLSessionConfiguration.default
   private let session: URLSession
+  private var baseURL: URL
   
-  init() {
+  init(baseURL: URL) {
     self.sessionConfiguration.timeoutIntervalForRequest = 60
     self.sessionConfiguration.requestCachePolicy = .reloadIgnoringLocalAndRemoteCacheData
-    
+
     self.session = URLSession(configuration: sessionConfiguration)
+    self.baseURL = baseURL
   }
   
   func execute<T: Decodable>(request: URLRequest) async throws -> T {
@@ -60,7 +62,6 @@ class Decoder: JSONDecoder, DecoderProvider {
     try super.decode(type, from: data)
   }
 }
-
 
 struct MockNetworkManager: NetworkProvider {
   let object: Decodable?

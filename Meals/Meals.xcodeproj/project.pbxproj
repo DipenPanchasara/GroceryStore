@@ -21,6 +21,7 @@
 		25C44FCD2B684436001CE21F /* MealsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C44FCC2B684436001CE21F /* MealsTests.swift */; };
 		25C44FD72B684436001CE21F /* MealsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C44FD62B684436001CE21F /* MealsUITests.swift */; };
 		25C44FD92B684436001CE21F /* MealsUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C44FD82B684436001CE21F /* MealsUITestsLaunchTests.swift */; };
+		25F3CA4B2B6ED25600EDD214 /* NetworkManagerUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F3CA4A2B6ED25600EDD214 /* NetworkManagerUnitTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +60,7 @@
 		25C44FD22B684436001CE21F /* MealsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MealsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		25C44FD62B684436001CE21F /* MealsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealsUITests.swift; sourceTree = "<group>"; };
 		25C44FD82B684436001CE21F /* MealsUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealsUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		25F3CA4A2B6ED25600EDD214 /* NetworkManagerUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManagerUnitTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -192,6 +194,7 @@
 		25C44FCB2B684436001CE21F /* MealsTests */ = {
 			isa = PBXGroup;
 			children = (
+				25F3CA492B6ED22500EDD214 /* NetworkManager */,
 				25C44FCC2B684436001CE21F /* MealsTests.swift */,
 			);
 			path = MealsTests;
@@ -204,6 +207,14 @@
 				25C44FD82B684436001CE21F /* MealsUITestsLaunchTests.swift */,
 			);
 			path = MealsUITests;
+			sourceTree = "<group>";
+		};
+		25F3CA492B6ED22500EDD214 /* NetworkManager */ = {
+			isa = PBXGroup;
+			children = (
+				25F3CA4A2B6ED25600EDD214 /* NetworkManagerUnitTests.swift */,
+			);
+			path = NetworkManager;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -352,6 +363,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				25F3CA4B2B6ED25600EDD214 /* NetworkManagerUnitTests.swift in Sources */,
 				25C44FCD2B684436001CE21F /* MealsTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
