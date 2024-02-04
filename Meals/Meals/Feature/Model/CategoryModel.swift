@@ -14,7 +14,7 @@ struct CategoryModel: Identifiable, Equatable {
 }
 
 
-// MARK: - Mock Models
+// MARK: - Mock Models for preview
 #if DEBUG
 extension [CategoryModel] {
   static let mock: [CategoryModel] = [
@@ -24,5 +24,4 @@ extension [CategoryModel] {
     CategoryModel(id: UUID().uuidString, name: "Chinese", thumbnailURL: nil),
   ]
 }
-
 #endif

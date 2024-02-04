@@ -12,26 +12,18 @@ struct CategoriesView: View {
     var body: some View {
       NavigationStack {
         List(viewModel.categories, rowContent: { categoryModel in
-          VStack(spacing: .zero) {
-            HStack {
-              Image(uiImage: .add)
-                .frame(width: 24, height: 24)
-                .background(Color.gray)
-                .mask({
-                  Circle()
-                    .cornerRadius(16)
-                })
-              Text(categoryModel.name)
-                .font(.title)
-            }
-          }
-          .listRowSeparator(.hidden)
-          .padding()
-          .cornerRadius(10)
+          CategoryCard(categoryModel: categoryModel)
+            .listRowBackground(Color.clear)
+            .listRowSeparator(.hidden)
         })
+        .background(Color.black)
         .listStyle(.plain)
-        .navigationTitle("Categories")
+        .navigationBarTitle("Categories", displayMode: .inline)
         .navigationBarTitleDisplayMode(.inline)
+        .toolbarColorScheme(.dark, for: .navigationBar)
+        .toolbarBackground(Color.pink, for: .navigationBar)
+        .toolbarBackground(.visible, for: .navigationBar)
+        .edgesIgnoringSafeArea(.bottom)
         .task {
           await viewModel.onAppear()
         }
@@ -48,6 +40,7 @@ struct CategoriesView: View {
       )
     )
   )
+  .preferredColorScheme(.dark)
+  
 }
-
 #endif

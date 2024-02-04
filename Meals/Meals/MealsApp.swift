@@ -11,13 +11,7 @@ import SwiftUI
 struct MealsApp: App {
     var body: some Scene {
         WindowGroup {
-          CategoriesView(
-            viewModel: CategoriesViewModel(
-              useCase: CategoriesUseCase(
-                networkManager: NetworkManager(baseURL: URL(string: "https://www.themealdb.com")!)
-              )
-            )
-          )
+          RootView(viewModel: RootViewModel())
         }
     }
 }
