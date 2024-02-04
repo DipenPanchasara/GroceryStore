@@ -22,13 +22,18 @@ struct NetworkManager: NetworkProvider {
   private let sessionConfiguration = URLSessionConfiguration.default
   private let session: URLSession
   private var baseURL: URL
+  private let decoder: ResponseDecoderProvider
   
-  init(baseURL: URL) {
+  init(
+    baseURL: URL,
+    decoder: ResponseDecoderProvider = ResponseDecoder()
+  ) {
     self.sessionConfiguration.timeoutIntervalForRequest = 60
     self.sessionConfiguration.requestCachePolicy = .reloadIgnoringLocalAndRemoteCacheData
 
     self.session = URLSession(configuration: sessionConfiguration)
     self.baseURL = baseURL
+    self.decoder = decoder
   }
   
   func execute<T: Decodable>(request: URLRequest) async throws -> T {
@@ -39,7 +44,7 @@ struct NetworkManager: NetworkProvider {
       switch responseCode.statusCode {
         case 200...299: 
           do {
-            let object = try JSONDecoder().decode(T.self, from: data)
+            let object = try decoder.decode(T.self, from: data)
             return object
           } catch {
             throw NetworkError.decodingFailed(error)
@@ -50,37 +55,5 @@ struct NetworkManager: NetworkProvider {
     } catch {
       throw NetworkError.failed(error)
     }
-  }
-}
-
-protocol DecoderProvider {
-  func decode<T>(_ type: T.Type, from data: Data) throws -> T where T : Decodable
-}
-
-class Decoder: JSONDecoder, DecoderProvider {
-  override func decode<T>(_ type: T.Type, from data: Data) throws -> T where T : Decodable {
-    try super.decode(type, from: data)
-  }
-}
-
-struct MockNetworkManager: NetworkProvider {
-  let object: Decodable?
-  let error: Error
-  
-  struct NoStubError: Error {}
-  
-  init(object: Decodable) {
-    self.object = object
-    self.error = NoStubError()
-  }
-  
-  init(error: Error) {
-    self.error = error
-    self.object = nil
-  }
-  
-  func execute<T: Decodable>(request: URLRequest) async throws -> T {
-    guard let model = object as? T else { throw error }
-    return model
   }
 }

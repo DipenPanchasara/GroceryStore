@@ -8,8 +8,11 @@
 import SwiftUI
 
 class RootViewModel: ObservableObject {
-  // TODO: Move base URL into xcconfig later.
-  private(set) var baseURL = URL(string: "https://www.themealdb.com")!
+  private(set) var baseURL: URL
 
   @Published var path = NavigationPath()
+  
+  init(baseURL: URL) {
+    self.baseURL = baseURL
+  }
 }

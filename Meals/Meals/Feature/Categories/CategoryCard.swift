@@ -30,7 +30,6 @@ struct CategoryCard: View {
       .padding(.horizontal, 16)
     }
     .cornerRadius(16)
-    .shadow(color: Color.white.opacity(0.8), radius: 2, y: 4)
     .padding(.top, 2)
     .frame(height: 200)
   }

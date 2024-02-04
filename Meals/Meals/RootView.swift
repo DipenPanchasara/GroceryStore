@@ -25,7 +25,11 @@ struct RootView: View {
 #if DEBUG
 struct RootView_Previews: PreviewProvider {
   static var previews: some View {
-    RootView(viewModel: RootViewModel())
+    RootView(
+      viewModel: RootViewModel(
+        baseURL: URL(string: "https://www.test.com")!
+      )
+    )
     .previewDisplayName("RootView")
   }
 }

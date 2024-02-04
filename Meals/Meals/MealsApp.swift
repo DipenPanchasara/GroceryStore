@@ -9,9 +9,11 @@ import SwiftUI
 
 @main
 struct MealsApp: App {
-    var body: some Scene {
-        WindowGroup {
-          RootView(viewModel: RootViewModel())
-        }
+  private let configurationManager = LaunchConfigurationManager()
+
+  var body: some Scene {
+    WindowGroup {
+      RootView(viewModel: RootViewModel(baseURL: configurationManager.baseURL))
     }
+  }
 }
