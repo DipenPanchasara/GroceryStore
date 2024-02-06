@@ -1,5 +1,5 @@
 //
-//  MealsTests.swift
+//  CategoriesViewModelTests.swift
 //  MealsTests
 //
 //  Created by Dipen Panchasara on 29/01/2024.
@@ -8,8 +8,7 @@
 @testable import Meals
 import XCTest
 
-final class MealsTests: XCTestCase {
-  
+final class CategoriesViewModelTests: XCTestCase {
   func testViewModel_whenOnAppearCalled() async throws {
     let expectedCategories: [CategoryModel] = .mock
     let vm = CategoriesViewModel(

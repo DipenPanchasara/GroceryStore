@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		250F02B82B72B08E0044AA7D /* MockNetworkSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250F02B72B72B08D0044AA7D /* MockNetworkSession.swift */; };
+		250F02BA2B72B0BD0044AA7D /* NetworkSessionProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250F02B92B72B0BD0044AA7D /* NetworkSessionProvider.swift */; };
 		2567DFF92B6C018F00D7EEE5 /* CategoriesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2567DFF82B6C018F00D7EEE5 /* CategoriesViewModel.swift */; };
 		2567DFFC2B6C01AF00D7EEE5 /* CategoriesData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2567DFFB2B6C01AF00D7EEE5 /* CategoriesData.swift */; };
 		2567E0012B6C025500D7EEE5 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2567E0002B6C025500D7EEE5 /* NetworkError.swift */; };
@@ -23,7 +25,7 @@
 		25C44FBD2B684433001CE21F /* CategoriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C44FBC2B684433001CE21F /* CategoriesView.swift */; };
 		25C44FBF2B684436001CE21F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 25C44FBE2B684436001CE21F /* Assets.xcassets */; };
 		25C44FC32B684436001CE21F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 25C44FC22B684436001CE21F /* Preview Assets.xcassets */; };
-		25C44FCD2B684436001CE21F /* MealsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C44FCC2B684436001CE21F /* MealsTests.swift */; };
+		25C44FCD2B684436001CE21F /* CategoriesViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C44FCC2B684436001CE21F /* CategoriesViewModelTests.swift */; };
 		25C44FD72B684436001CE21F /* MealsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C44FD62B684436001CE21F /* MealsUITests.swift */; };
 		25C44FD92B684436001CE21F /* MealsUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C44FD82B684436001CE21F /* MealsUITestsLaunchTests.swift */; };
 		25F3CA4B2B6ED25600EDD214 /* NetworkManagerUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F3CA4A2B6ED25600EDD214 /* NetworkManagerUnitTests.swift */; };
@@ -48,6 +50,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		250F02B72B72B08D0044AA7D /* MockNetworkSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNetworkSession.swift; sourceTree = "<group>"; };
+		250F02B92B72B0BD0044AA7D /* NetworkSessionProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkSessionProvider.swift; sourceTree = "<group>"; };
 		2567DFF82B6C018F00D7EEE5 /* CategoriesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesViewModel.swift; sourceTree = "<group>"; };
 		2567DFFB2B6C01AF00D7EEE5 /* CategoriesData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesData.swift; sourceTree = "<group>"; };
 		2567E0002B6C025500D7EEE5 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
@@ -67,7 +71,7 @@
 		25C44FC02B684436001CE21F /* Meals.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Meals.entitlements; sourceTree = "<group>"; };
 		25C44FC22B684436001CE21F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		25C44FC82B684436001CE21F /* MealsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MealsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		25C44FCC2B684436001CE21F /* MealsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealsTests.swift; sourceTree = "<group>"; };
+		25C44FCC2B684436001CE21F /* CategoriesViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesViewModelTests.swift; sourceTree = "<group>"; };
 		25C44FD22B684436001CE21F /* MealsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MealsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		25C44FD62B684436001CE21F /* MealsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealsUITests.swift; sourceTree = "<group>"; };
 		25C44FD82B684436001CE21F /* MealsUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealsUITestsLaunchTests.swift; sourceTree = "<group>"; };
@@ -156,9 +160,11 @@
 		257478242B6AC913004A4861 /* NetworkManager */ = {
 			isa = PBXGroup;
 			children = (
-				257478252B6AC92F004A4861 /* NetworkManager.swift */,
 				25A417162B702E2000D90813 /* MockNetworkManager.swift */,
+				250F02B72B72B08D0044AA7D /* MockNetworkSession.swift */,
 				2567E0002B6C025500D7EEE5 /* NetworkError.swift */,
+				257478252B6AC92F004A4861 /* NetworkManager.swift */,
+				250F02B92B72B0BD0044AA7D /* NetworkSessionProvider.swift */,
 				25A417142B702DBF00D90813 /* ResponseDecoder.swift */,
 			);
 			path = NetworkManager;
@@ -213,7 +219,7 @@
 			isa = PBXGroup;
 			children = (
 				25F3CA492B6ED22500EDD214 /* NetworkManager */,
-				25C44FCC2B684436001CE21F /* MealsTests.swift */,
+				25C44FCC2B684436001CE21F /* CategoriesViewModelTests.swift */,
 			);
 			path = MealsTests;
 			sourceTree = "<group>";
@@ -376,10 +382,12 @@
 				25A417192B702EB000D90813 /* LaunchConfigurationManager.swift in Sources */,
 				2567DFF92B6C018F00D7EEE5 /* CategoriesViewModel.swift in Sources */,
 				25C44FBB2B684433001CE21F /* MealsApp.swift in Sources */,
+				250F02B82B72B08E0044AA7D /* MockNetworkSession.swift in Sources */,
 				2567E0042B6C043400D7EEE5 /* CategoryModel.swift in Sources */,
 				25A417152B702DBF00D90813 /* ResponseDecoder.swift in Sources */,
 				257B8CD62B6FD5E900F40246 /* RootViewModel.swift in Sources */,
 				257B8CD42B6FD4B300F40246 /* RootView.swift in Sources */,
+				250F02BA2B72B0BD0044AA7D /* NetworkSessionProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -388,7 +396,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				25F3CA4B2B6ED25600EDD214 /* NetworkManagerUnitTests.swift in Sources */,
-				25C44FCD2B684436001CE21F /* MealsTests.swift in Sources */,
+				25C44FCD2B684436001CE21F /* CategoriesViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -541,6 +549,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Meals/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
@@ -577,6 +586,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Meals/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;

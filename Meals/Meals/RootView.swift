@@ -14,7 +14,7 @@ struct RootView: View {
       CategoriesView(
         viewModel: CategoriesViewModel(
           useCase: CategoriesUseCase(
-            networkManager: NetworkManager(baseURL: viewModel.baseURL)
+            networkManager: NetworkManager(baseURL: viewModel.baseURL, session: viewModel.session)
           )
         )
       )

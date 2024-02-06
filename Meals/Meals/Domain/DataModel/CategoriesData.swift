@@ -7,10 +7,10 @@
 
 import Foundation
 
-struct CategoriesData: Decodable {
+struct CategoriesData: Codable {
   let categories: [Category]
   
-  struct Category: Decodable, Equatable {
+  struct Category: Codable, Equatable {
     let idCategory: String
     let strCategory: String
     let strCategoryThumb: String?

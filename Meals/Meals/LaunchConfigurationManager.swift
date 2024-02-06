@@ -15,7 +15,7 @@ class LaunchConfigurationManager {
     guard
       let urlString = processInfo.environment["baseURL"],
       let url = URL(string: urlString)
-    else { preconditionFailure("baseURL not defined") }
+    else { preconditionFailure("\"baseURL\" not defined") }
     return url
   }
 }

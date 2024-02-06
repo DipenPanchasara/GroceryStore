@@ -20,19 +20,17 @@ protocol NetworkProvider {
 
 struct NetworkManager: NetworkProvider {  
   private let sessionConfiguration = URLSessionConfiguration.default
-  private let session: URLSession
-  private var baseURL: URL
+  private let baseURL: URL
+  private let session: NetworkSessionProvider
   private let decoder: ResponseDecoderProvider
   
   init(
     baseURL: URL,
+    session: NetworkSessionProvider,
     decoder: ResponseDecoderProvider = ResponseDecoder()
   ) {
-    self.sessionConfiguration.timeoutIntervalForRequest = 60
-    self.sessionConfiguration.requestCachePolicy = .reloadIgnoringLocalAndRemoteCacheData
-
-    self.session = URLSession(configuration: sessionConfiguration)
     self.baseURL = baseURL
+    self.session = session
     self.decoder = decoder
   }
   
@@ -53,7 +51,7 @@ struct NetworkManager: NetworkProvider {
           throw NetworkError.invalidData
       }
     } catch {
-      throw NetworkError.failed(error)
+      throw error
     }
   }
 }
