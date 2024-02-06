@@ -34,7 +34,7 @@ struct MockNetworkSession: NetworkSessionProvider {
   }
   
   func data(for request: URLRequest) async throws -> (Data, URLResponse) {
-    guard let baseURL, let data, let response else { throw error }
+    guard let data, let response else { throw error }
     return (data, response)
   }
 }

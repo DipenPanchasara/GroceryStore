@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CategoryCard: View {
   let categoryModel: CategoryModel
-
+  
   var body: some View {
     ZStack(alignment: .bottom) {
 //        Image(.init(name: "placeholder", bundle: .main))
@@ -30,7 +30,6 @@ struct CategoryCard: View {
       .padding(.horizontal, 16)
     }
     .cornerRadius(16)
-    .padding(.top, 2)
     .frame(height: 200)
   }
 }
