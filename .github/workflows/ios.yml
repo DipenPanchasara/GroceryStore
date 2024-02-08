@@ -1,4 +1,4 @@
-name: Build and Test App
+name: iOS starter workflow
 
 on:
   push:
