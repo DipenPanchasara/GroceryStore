@@ -5,9 +5,9 @@
 //  Created by Dipen Panchasara on 04/02/2024.
 //
 
+#if DEBUG
 import Foundation
 
-#if DEBUG
 struct MockNetworkManager: NetworkProvider {
   let object: Decodable?
   let error: Error
