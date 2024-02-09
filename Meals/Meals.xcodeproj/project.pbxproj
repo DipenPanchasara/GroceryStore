@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		250F02B82B72B08E0044AA7D /* MockNetworkSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250F02B72B72B08D0044AA7D /* MockNetworkSession.swift */; };
 		250F02BA2B72B0BD0044AA7D /* NetworkSessionProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250F02B92B72B0BD0044AA7D /* NetworkSessionProvider.swift */; };
+		251553592B7696580000FB17 /* LoadingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251553582B7696580000FB17 /* LoadingState.swift */; };
 		2567DFF92B6C018F00D7EEE5 /* CategoriesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2567DFF82B6C018F00D7EEE5 /* CategoriesViewModel.swift */; };
 		2567DFFC2B6C01AF00D7EEE5 /* CategoriesData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2567DFFB2B6C01AF00D7EEE5 /* CategoriesData.swift */; };
 		2567E0012B6C025500D7EEE5 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2567E0002B6C025500D7EEE5 /* NetworkError.swift */; };
@@ -52,6 +53,7 @@
 /* Begin PBXFileReference section */
 		250F02B72B72B08D0044AA7D /* MockNetworkSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNetworkSession.swift; sourceTree = "<group>"; };
 		250F02B92B72B0BD0044AA7D /* NetworkSessionProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkSessionProvider.swift; sourceTree = "<group>"; };
+		251553582B7696580000FB17 /* LoadingState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingState.swift; sourceTree = "<group>"; };
 		2567DFF82B6C018F00D7EEE5 /* CategoriesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesViewModel.swift; sourceTree = "<group>"; };
 		2567DFFB2B6C01AF00D7EEE5 /* CategoriesData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesData.swift; sourceTree = "<group>"; };
 		2567E0002B6C025500D7EEE5 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
@@ -128,6 +130,7 @@
 				2567E0052B6C046300D7EEE5 /* UseCases */,
 				2567E0022B6C042600D7EEE5 /* Model */,
 				2567DFFD2B6C01DA00D7EEE5 /* Categories */,
+				251553582B7696580000FB17 /* LoadingState.swift */,
 			);
 			path = Feature;
 			sourceTree = "<group>";
@@ -377,6 +380,7 @@
 				2567E0092B6C072200D7EEE5 /* MockCategoriesUseCase.swift in Sources */,
 				25A417172B702E2000D90813 /* MockNetworkManager.swift in Sources */,
 				257478262B6AC92F004A4861 /* NetworkManager.swift in Sources */,
+				251553592B7696580000FB17 /* LoadingState.swift in Sources */,
 				25C44FBD2B684433001CE21F /* CategoriesView.swift in Sources */,
 				2567E0012B6C025500D7EEE5 /* NetworkError.swift in Sources */,
 				25A417192B702EB000D90813 /* LaunchConfigurationManager.swift in Sources */,
