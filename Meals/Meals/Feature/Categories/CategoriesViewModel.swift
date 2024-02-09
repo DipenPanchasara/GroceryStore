@@ -8,8 +8,12 @@
 import Foundation
 
 class CategoriesViewModel: ObservableObject {
+  struct ViewModel: Equatable {
+    var categories: [CategoryModel]
+  }
+  
   private let useCase: CategoriesUseCaseProtocol
-  @Published var categories: [CategoryModel] = []
+  @Published var loadingState: LoadingState<ViewModel> = .idle
   
   init(useCase: CategoriesUseCaseProtocol) {
     self.useCase = useCase
@@ -17,10 +21,12 @@ class CategoriesViewModel: ObservableObject {
   
   @MainActor
   func onAppear() async {
+    loadingState = .loading
     do {
-      categories = try await useCase.fetchCategories()
+      let categories = try await useCase.fetchCategories()
+      loadingState = .loaded(model: ViewModel(categories: categories))
     } catch {
-      print(error)
+      loadingState = .failed("Unable to load categories.")
     }
   }
 }
