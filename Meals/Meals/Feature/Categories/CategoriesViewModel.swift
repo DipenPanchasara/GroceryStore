@@ -26,7 +26,11 @@ class CategoriesViewModel: ObservableObject {
       let categories = try await useCase.fetchCategories()
       loadingState = .loaded(model: ViewModel(categories: categories))
     } catch {
-      loadingState = .failed("Unable to load categories.")
+      loadingState = .failed(model: ErrorModel(message: "Unable to load categories."))
     }
+  }
+  
+  func onRetryTap() async {
+    await onAppear()
   }
 }

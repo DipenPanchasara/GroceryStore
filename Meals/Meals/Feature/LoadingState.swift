@@ -11,5 +11,5 @@ enum LoadingState<ViewModel: Equatable>: Equatable {
   case idle
   case loading
   case loaded(model: ViewModel)
-  case failed(String)
+  case failed(model: ErrorModel)
 }

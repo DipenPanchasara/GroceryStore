@@ -10,6 +10,7 @@
 		250F02B82B72B08E0044AA7D /* MockNetworkSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250F02B72B72B08D0044AA7D /* MockNetworkSession.swift */; };
 		250F02BA2B72B0BD0044AA7D /* NetworkSessionProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250F02B92B72B0BD0044AA7D /* NetworkSessionProvider.swift */; };
 		251553592B7696580000FB17 /* LoadingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251553582B7696580000FB17 /* LoadingState.swift */; };
+		2515535C2B7697C70000FB17 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2515535B2B7697C70000FB17 /* ErrorView.swift */; };
 		2567DFF92B6C018F00D7EEE5 /* CategoriesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2567DFF82B6C018F00D7EEE5 /* CategoriesViewModel.swift */; };
 		2567DFFC2B6C01AF00D7EEE5 /* CategoriesData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2567DFFB2B6C01AF00D7EEE5 /* CategoriesData.swift */; };
 		2567E0012B6C025500D7EEE5 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2567E0002B6C025500D7EEE5 /* NetworkError.swift */; };
@@ -54,6 +55,7 @@
 		250F02B72B72B08D0044AA7D /* MockNetworkSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNetworkSession.swift; sourceTree = "<group>"; };
 		250F02B92B72B0BD0044AA7D /* NetworkSessionProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkSessionProvider.swift; sourceTree = "<group>"; };
 		251553582B7696580000FB17 /* LoadingState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingState.swift; sourceTree = "<group>"; };
+		2515535B2B7697C70000FB17 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		2567DFF82B6C018F00D7EEE5 /* CategoriesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesViewModel.swift; sourceTree = "<group>"; };
 		2567DFFB2B6C01AF00D7EEE5 /* CategoriesData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesData.swift; sourceTree = "<group>"; };
 		2567E0002B6C025500D7EEE5 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
@@ -106,6 +108,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2515535A2B7697B30000FB17 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				2515535B2B7697C70000FB17 /* ErrorView.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
 		2567DFFA2B6C01A500D7EEE5 /* Domain */ = {
 			isa = PBXGroup;
 			children = (
@@ -127,6 +137,7 @@
 		2567DFFE2B6C022A00D7EEE5 /* Feature */ = {
 			isa = PBXGroup;
 			children = (
+				2515535A2B7697B30000FB17 /* Components */,
 				2567E0052B6C046300D7EEE5 /* UseCases */,
 				2567E0022B6C042600D7EEE5 /* Model */,
 				2567DFFD2B6C01DA00D7EEE5 /* Categories */,
@@ -376,6 +387,7 @@
 			files = (
 				2567DFFC2B6C01AF00D7EEE5 /* CategoriesData.swift in Sources */,
 				25F3CA4D2B6ED3D800EDD214 /* CategoryCard.swift in Sources */,
+				2515535C2B7697C70000FB17 /* ErrorView.swift in Sources */,
 				2567E0072B6C047300D7EEE5 /* CategoriesUseCase.swift in Sources */,
 				2567E0092B6C072200D7EEE5 /* MockCategoriesUseCase.swift in Sources */,
 				25A417172B702E2000D90813 /* MockNetworkManager.swift in Sources */,

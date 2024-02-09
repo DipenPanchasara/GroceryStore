@@ -19,8 +19,12 @@ struct CategoriesView: View {
             loadingView()
           case .loaded(let viewModel):
             list(categories: viewModel.categories)
-          case .failed(let errorMessage):
-            errorView(message: errorMessage)
+          case .failed(let errorModel):
+            ErrorView(viewModel: errorModel) {
+              Task {
+                await viewModel.onRetryTap()
+              }
+            }
         }
       }
       .task {
@@ -65,34 +69,6 @@ struct CategoriesView: View {
       .listRowBackground(Color.clear)
       .listRowSeparator(.hidden)
     })
-  }
-  
-  private func errorView(message: String) -> some View {
-    VStack {
-      Spacer()
-      HStack {
-        Spacer()
-        Text(message)
-          .font(.headline)
-          .fontWeight(.bold)
-          .foregroundStyle(.black)
-        Spacer()
-      }
-      Button("Retry", action: {
-        Task {
-          await viewModel.onAppear()
-        }
-      })
-      .bold()
-      .foregroundColor(.white)
-      .padding(8)
-      .background(
-        RoundedRectangle(cornerRadius: 16, style: .continuous)
-          .stroke(.white, lineWidth: 1)
-          .fill(.pink)
-      )
-      Spacer()
-    }
   }
 }
 
