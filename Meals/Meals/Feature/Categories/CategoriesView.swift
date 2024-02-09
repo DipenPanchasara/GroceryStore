@@ -49,7 +49,6 @@ struct CategoriesView: View {
         .visible,
         for: .navigationBar
       )
-      .edgesIgnoringSafeArea(.bottom)
     }
   }
   
