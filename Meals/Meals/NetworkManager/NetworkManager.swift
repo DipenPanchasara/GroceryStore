@@ -15,43 +15,61 @@ import Foundation
  */
 
 protocol NetworkProvider {
-  func execute<T:Decodable>(request: URLRequest) async throws -> T
+  func execute(request: NetworkRequest) async throws -> NetworkResponse
 }
 
 struct NetworkManager: NetworkProvider {  
   private let sessionConfiguration = URLSessionConfiguration.default
-  private let baseURL: URL
+  private let scheme: String
+  private let baseURLString: String
   private let session: NetworkSessionProvider
-  private let decoder: ResponseDecoderProvider
   
   init(
-    baseURL: URL,
-    session: NetworkSessionProvider,
-    decoder: ResponseDecoderProvider = ResponseDecoder()
+    scheme: String,
+    baseURLString: String,
+    session: NetworkSessionProvider
   ) {
-    self.baseURL = baseURL
+    self.scheme = scheme
+    self.baseURLString = baseURLString
     self.session = session
-    self.decoder = decoder
   }
-  
-  func execute<T: Decodable>(request: URLRequest) async throws -> T {
+
+  func execute(request: NetworkRequest) async throws -> NetworkResponse {
     do {
+      let request = try prepareURLRequest(networkRequest: request)
       let (data, response) = try await session.data(for: request)
       guard let responseCode = response as? HTTPURLResponse else { throw NetworkError.invalidResponse }
       
       switch responseCode.statusCode {
-        case 200...299: 
-          do {
-            let object = try decoder.decode(T.self, from: data)
-            return object
-          } catch {
-            throw NetworkError.decodingFailed(error)
-          }
+        case 200...299:
+          return NetworkResponse(data: data, statusCode: responseCode.statusCode)
         default:
-          throw NetworkError.invalidData
+          throw NetworkError.serverError
       }
     } catch {
       throw error
     }
+  }
+}
+
+extension NetworkManager {
+  func prepareURLRequest(networkRequest: NetworkRequest) throws -> URLRequest {
+    var components = URLComponents()
+    components.scheme = self.scheme
+    components.host = self.baseURLString
+    components.path = "/api/json/v1/1/\(networkRequest.endpoint.rawValue)"
+
+    guard 
+      let url = components.url
+    else {
+      throw NetworkError.badURL(request: networkRequest)
+    }
+    var request = URLRequest(url: url)
+    request.httpMethod = networkRequest.httpMethod.value
+    request.httpBody = networkRequest.data
+    if let headers = networkRequest.headers {
+      request.allHTTPHeaderFields = headers
+    }
+    return request
   }
 }

@@ -12,9 +12,9 @@ enum NetworkError: Error, Equatable {
     lhs.localizedDescription == rhs.localizedDescription
   }
   
-  case invalidUrl
+  case badURL(request: NetworkRequest)
   case invalidResponse
-  case invalidData
+  case serverError
   case failed(Error)
-  case decodingFailed(Error)
+  case decodingFailed(String)
 }

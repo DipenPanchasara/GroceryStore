@@ -10,13 +10,15 @@ import SwiftUI
 class RootViewModel: ObservableObject {
   private let sessionConfiguration = URLSessionConfiguration.default
 
-  private(set) var baseURL: URL
+  private(set) var scheme: String
+  private(set) var baseURLString: String
   private(set) var session: URLSession
 
   @Published var path = NavigationPath()
   
-  init(baseURL: URL) {
-    self.baseURL = baseURL
+  init(scheme: String, baseURLString: String) {
+    self.scheme = scheme
+    self.baseURLString = baseURLString
     self.sessionConfiguration.timeoutIntervalForRequest = 60
     self.sessionConfiguration.requestCachePolicy = .reloadIgnoringLocalAndRemoteCacheData
     self.session = URLSession(configuration: sessionConfiguration)

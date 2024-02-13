@@ -31,6 +31,7 @@ struct CategoryCard: View {
     }
     .cornerRadius(16)
     .frame(height: 200)
+    .shadow(color: .gray,radius: 4)
   }
 }
 

@@ -10,12 +10,19 @@ import Foundation
 class LaunchConfigurationManager {
   private let processInfo = ProcessInfo.processInfo
 
-  /// Returns `baseURL` for the API endpoint.
-  var baseURL: URL {
+  /// Returns `scheme` string for the API endpoint.
+  var scheme: String {
     guard
-      let urlString = processInfo.environment["baseURL"],
-      let url = URL(string: urlString)
+      let scheme = processInfo.environment["scheme"]
+    else { preconditionFailure("\"scheme\" not defined") }
+    return scheme
+  }
+
+  /// Returns `baseURL` string for the API endpoint.
+  var baseURLString: String {
+    guard
+      let urlString = processInfo.environment["baseURL"]
     else { preconditionFailure("\"baseURL\" not defined") }
-    return url
+    return urlString
   }
 }

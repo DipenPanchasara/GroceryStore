@@ -9,133 +9,113 @@
 import XCTest
 
 final class NetworkManagerUnitTests: XCTestCase {
-  enum MockError: Error {
-    case decodingFailed
-    case serverError
-    case networkError
+  private let baseURLString = "www.test.com"
+  private var baseURL: URL?
+
+  override func setUp() async throws {
+    try await super.setUp()
+    self.baseURL = try XCTUnwrap(URL(string: baseURLString))
+  }
+
+  override func tearDown() async throws {
+    self.baseURL = nil
+    try await super.tearDown()
   }
 
   func testNetworkRequestSuccess() async throws {
     let obj = CategoriesData.Category(idCategory: "idCategory", strCategory: "strCategory", strCategoryThumb: "strCategoryThumb")
     let data: Data = try JSONEncoder().encode(obj)
-    let baseURL = try XCTUnwrap(URL(string: "https://www.test.com"))
-    let networkManager = NetworkManager(
-      baseURL: baseURL,
+    let sut = try NetworkManager(
+      scheme: "https",
+      baseURLString: baseURLString,
       session: MockNetworkSession(
-        baseURL: baseURL,
+        baseURL: XCTUnwrap(baseURL),
         data: data,
-        response: HTTPURLResponse(url: baseURL, statusCode: 200, httpVersion: "testVersion", headerFields: nil)
-      ),
-      decoder: MockResponseDecoder(object: CategoriesData.Category(idCategory: "idCategory", strCategory: "strCategory", strCategoryThumb: "strCategoryThumb"))
+        response: HTTPURLResponse(
+          url: XCTUnwrap(baseURL),
+          statusCode: 200,
+          httpVersion: "testVersion",
+          headerFields: nil
+        )
+      )
     ) 
     
-    let result: CategoriesData.Category = try await networkManager.execute(request: URLRequest(url: baseURL))
-    XCTAssertEqual(result.idCategory, "idCategory")
-  }
-  
-  func testNetworkRequestThrows_whenNetworkError() async throws {
-    let baseURL = try XCTUnwrap(URL(string: "https://www.test.com"))
-    let networkManager = NetworkManager(
-      baseURL: baseURL,
-      session: MockNetworkSession(error: MockError.networkError),
-      decoder: MockResponseDecoder(
-        object: CategoriesData.Category(
-          idCategory: "idCategory",
-          strCategory: "strCategory",
-          strCategoryThumb: "strCategoryThumb"
-        )
+    let response: NetworkResponse = try await sut.execute(
+      request: NetworkRequest(
+        httpMethod: .get,
+        endpoint: .allCategories
       )
     )
-    
-    do {
-      let _: CategoriesData.Category = try await networkManager.execute(request: URLRequest(url: baseURL))
-      XCTFail("Should throw")
-    } catch {
-      guard
-        let err = error as? MockError
-      else {
-        XCTFail("Expected `NetworkError` type.")
-        return
-      }
-      switch err {
-        case .networkError:
-          break
-        default:
-          XCTFail("Expected `networkError` error.")
-      }
-    }
-
+    XCTAssertEqual(response.statusCode, 200)
+    XCTAssertNotNil(response.data)
   }
-
-  func testNetworkRequestThrows_whenFailedStatusCode() async throws {
-    let baseURL = try XCTUnwrap(URL(string: "https://www.test.com"))
-    let networkManager = NetworkManager(
-      baseURL: baseURL,
+  
+  func testNetworkRequest_whenThrowsBadURL() async throws {
+    let sut = try NetworkManager(
+      scheme: "https",
+      baseURLString: "https://www.test.com",
       session: MockNetworkSession(
-        baseURL: baseURL,
+        baseURL: XCTUnwrap(baseURL),
         data: Data(),
-        response: HTTPURLResponse(url: baseURL, statusCode: 300, httpVersion: "testVersion", headerFields: nil)
-      ),
-      decoder: MockResponseDecoder(
-        object: CategoriesData.Category(
-          idCategory: "idCategory",
-          strCategory: "strCategory",
-          strCategoryThumb: "strCategoryThumb"
+        response: HTTPURLResponse(
+          url: XCTUnwrap(baseURL),
+          statusCode: 200,
+          httpVersion: "testVersion",
+          headerFields: nil
         )
       )
     )
-
+    let expectation = expectation(description: "Wait for NetworkError error.")
     do {
-      let _: CategoriesData.Category = try await networkManager.execute(request: URLRequest(url: baseURL))
-      XCTFail("Should throw")
+      let _: NetworkResponse = try await sut.execute(
+        request: NetworkRequest(
+          httpMethod: .get,
+          endpoint: .allCategories
+        )
+      )
+      XCTFail("Should throw NetworkError")
+    } catch NetworkError.badURL(let request) {
+      XCTAssertEqual(request.httpMethod, .get)
+      XCTAssertEqual(request.endpoint, .allCategories)
+      XCTAssertNil(request.headers)
+      XCTAssertNil(request.data)
+      expectation.fulfill()
     } catch {
-      guard
-        let err = error as? NetworkError
-      else {
-        XCTFail("Expected `NetworkError` type.")
-        return
-      }
-      switch err {
-        case .invalidData:
-          break
-        default:
-          XCTFail("Expected `invalidData` error.")
-      }
+      XCTFail("Expected `NetworkError.badURL` error.")
     }
+    await fulfillment(of: [expectation], timeout: .zero)
   }
-  
-  func testNetworkRequestThrows_whenDecodingFails() async throws {
-    let obj = CategoriesData.Category(idCategory: "idCategory", strCategory: "strCategory", strCategoryThumb: "strCategoryThumb")
-    let data: Data = try JSONEncoder().encode(obj)
-    let baseURL = try XCTUnwrap(URL(string: "https://www.test.com"))
-    let networkManager = NetworkManager(
-      baseURL: baseURL,
-      session: MockNetworkSession(
-        baseURL: baseURL,
-        data: data,
-        response: HTTPURLResponse(url: baseURL, statusCode: 200, httpVersion: "testVersion", headerFields: nil)
-      ),
-      decoder: MockResponseDecoder(error: MockError.decodingFailed)
-    )
-    
-    do {
-      let _: CategoriesData.Category = try await networkManager.execute(request: URLRequest(url: baseURL))
-      XCTFail("Should throw")
-    } catch {
-      guard
-        let err = error as? NetworkError
-      else {
-        XCTFail("Expected `NetworkError` type.")
-        return
-      }
-      switch err {
-        case .decodingFailed(let error):
-          XCTAssertEqual(error as? NetworkManagerUnitTests.MockError, MockError.decodingFailed)
-          break
-        default:
-          XCTFail("Expected `decodingFailed` error.")
-      }
-    }
 
+  func testNetworkRequestThrows_whenReceivedServerError() async throws {
+    let sut = try NetworkManager(
+      scheme: "https",
+      baseURLString: "www.test.com",
+      session: MockNetworkSession(
+        baseURL: XCTUnwrap(baseURL),
+        data: Data(),
+        response: HTTPURLResponse(
+          url: XCTUnwrap(baseURL),
+          statusCode: 400,
+          httpVersion: "testVersion",
+          headerFields: nil
+        )
+      )
+    )
+    let expectation = expectation(description: "Wait for NetworkError error.")
+    do {
+      let _: NetworkResponse = try await sut.execute(
+        request: NetworkRequest(
+          httpMethod: .get,
+          endpoint: .allCategories,
+          headers: ["anyHeaderKey": "anyValue"]
+        )
+      )
+      XCTFail("Should throw NetworkError")
+    } catch NetworkError.serverError {
+      expectation.fulfill()
+    } catch {
+      XCTFail("Expected `NetworkError.serverError` error.\n Received \(error)")
+    }
+    await fulfillment(of: [expectation], timeout: .zero)
   }
 }

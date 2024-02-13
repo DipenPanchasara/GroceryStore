@@ -5,8 +5,8 @@
 //  Created by Dipen Panchasara on 06/02/2024.
 //
 
-#if DEBUG
 import Foundation
+@testable import Meals
 
 struct MockNetworkSession: NetworkSessionProvider {
   let baseURL: URL?
@@ -39,4 +39,3 @@ struct MockNetworkSession: NetworkSessionProvider {
     return (data, response)
   }
 }
-#endif

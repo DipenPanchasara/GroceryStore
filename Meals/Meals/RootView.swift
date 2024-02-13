@@ -14,9 +14,13 @@ struct RootView: View {
       CategoriesView(
         viewModel: CategoriesViewModel(
           useCase: CategoriesUseCase(
-            networkManager: NetworkManager(
-              baseURL: viewModel.baseURL,
-              session: viewModel.session
+            categoryRepository: CategoryRepository(
+              networkManager: NetworkManager(
+                scheme: viewModel.scheme,
+                baseURLString: viewModel.baseURLString,
+                session: viewModel.session
+              ),
+              decoder: ResponseDecoder()
             )
           )
         )
@@ -30,7 +34,7 @@ struct RootView_Previews: PreviewProvider {
   static var previews: some View {
     RootView(
       viewModel: RootViewModel(
-        baseURL: URL(string: "https://www.test.com")!
+        scheme: "https", baseURLString: "www.test.com"
       )
     )
     .previewDisplayName("RootView")

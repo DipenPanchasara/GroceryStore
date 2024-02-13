@@ -13,7 +13,12 @@ struct MealsApp: App {
 
   var body: some Scene {
     WindowGroup {
-      RootView(viewModel: RootViewModel(baseURL: configurationManager.baseURL))
+      RootView(
+        viewModel: RootViewModel(
+          scheme: configurationManager.scheme,
+          baseURLString: configurationManager.baseURLString
+        )
+      )
     }
   }
 }

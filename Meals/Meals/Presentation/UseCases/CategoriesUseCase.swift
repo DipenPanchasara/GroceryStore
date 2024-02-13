@@ -12,16 +12,15 @@ protocol CategoriesUseCaseProtocol {
 }
 
 struct CategoriesUseCase: CategoriesUseCaseProtocol {
-  private let networkManager: NetworkManager
+  private let categoryRepository: CategoryRepositoryProtocol
   
-  init(networkManager: NetworkManager) {
-    self.networkManager = networkManager
+  init(categoryRepository: CategoryRepositoryProtocol) {
+    self.categoryRepository = categoryRepository
   }
   
   func fetchCategories() async throws -> [CategoryModel] {
     do {
-      let categoriesData: CategoriesData = try await networkManager.execute(request: URLRequest(url: URL(string: "https://www.themealdb.com/api/json/v1/1/categories.php")!))
-      let categories = categoriesData.categories
+      let categories = try await categoryRepository.allCategories()
       return categories.map({ map(categoryData: $0) }).sorted(by: { $0.name < $1.name })
     } catch {
       throw error
