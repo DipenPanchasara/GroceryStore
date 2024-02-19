@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Combine
 /*
  
  API for Meals
@@ -18,7 +19,7 @@ protocol NetworkProvider {
   func execute(request: NetworkRequest) async throws -> NetworkResponse
 }
 
-struct NetworkManager: NetworkProvider {  
+final class NetworkManager: NetworkProvider {
   private let sessionConfiguration = URLSessionConfiguration.default
   private let scheme: String
   private let baseURLString: String
@@ -38,11 +39,11 @@ struct NetworkManager: NetworkProvider {
     do {
       let request = try prepareURLRequest(networkRequest: request)
       let (data, response) = try await session.data(for: request)
-      guard let responseCode = response as? HTTPURLResponse else { throw NetworkError.invalidResponse }
+      guard let httpURLResponse = response as? HTTPURLResponse else { throw NetworkError.invalidResponse }
       
-      switch responseCode.statusCode {
+      switch httpURLResponse.statusCode {
         case 200...299:
-          return NetworkResponse(data: data, statusCode: responseCode.statusCode)
+          return NetworkResponse(data: data, urlResponse: httpURLResponse)
         default:
           throw NetworkError.serverError
       }

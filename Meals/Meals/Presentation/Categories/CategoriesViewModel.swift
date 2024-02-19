@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 class CategoriesViewModel: ObservableObject {
   struct ViewModel: Equatable {
@@ -13,15 +14,17 @@ class CategoriesViewModel: ObservableObject {
   }
   
   private let useCase: CategoriesUseCaseProtocol
+  private(set) var router: CategoryRouter
   @Published var loadingState: LoadingState<ViewModel> = .idle
-  
-  init(useCase: CategoriesUseCaseProtocol) {
+
+  init(useCase: CategoriesUseCaseProtocol, router: CategoryRouter) {
     self.useCase = useCase
+    self.router = router
   }
   
   @MainActor
   func onAppear() async {
-    loadingState = .loading
+     loadingState = .loading
     do {
       let categories = try await useCase.fetchCategories()
       loadingState = .loaded(model: ViewModel(categories: categories))
@@ -32,5 +35,10 @@ class CategoriesViewModel: ObservableObject {
   
   func onRetryTap() async {
     await onAppear()
+  }
+
+  @MainActor
+  func onSelect(category: CategoryModel) {
+    router.push(destination: .categoryItems(model: category))
   }
 }

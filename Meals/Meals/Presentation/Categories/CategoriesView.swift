@@ -8,48 +8,41 @@
 import SwiftUI
 
 struct CategoriesView: View {
-  @ObservedObject var viewModel: CategoriesViewModel
+  @StateObject var viewModel: CategoriesViewModel
   var body: some View {
-    NavigationStack {
-      Group {
-        switch viewModel.loadingState {
-          case .idle:
-            EmptyView()
-          case .loading:
-            loadingView()
-          case .loaded(let viewModel):
-            list(categories: viewModel.categories)
-          case .failed(let errorModel):
-            ErrorView(viewModel: errorModel) {
-              Task {
-                await viewModel.onRetryTap()
-              }
+    Group {
+      switch viewModel.loadingState {
+        case .idle:
+          EmptyView()
+        case .loading:
+          loadingView()
+        case .loaded(let viewModel):
+          list(categories: viewModel.categories)
+        case .failed(let errorModel):
+          ErrorView(viewModel: errorModel) {
+            Task {
+              await viewModel.onRetryTap()
             }
-        }
+          }
       }
-      .task {
-        await viewModel.onAppear()
-      }
-      .background(Color.white)
-      .listStyle(.plain)
-      .navigationBarTitle(
-        "Categories",
-        displayMode: .inline
-      )
-      .navigationBarTitleDisplayMode(.inline)
-      .toolbarColorScheme(
-        .dark,
-        for: .navigationBar
-      )
-      .toolbarBackground(
-        Color.pink,
-        for: .navigationBar
-      )
-      .toolbarBackground(
-        .visible,
-        for: .navigationBar
-      )
     }
+    .background(Color.white)
+    .withCategoryRoutes(router: viewModel.router)
+    .listStyle(.plain)
+    .task {
+      await viewModel.onAppear()
+    }
+    .navigationBarTitle(
+      "Categories",
+      displayMode: .inline
+    )
+    .navigationBarTitleDisplayMode(.inline)
+    .refreshable {
+      Task {
+        await viewModel.onRetryTap()
+      }
+    }
+    .toolBarStyle()
   }
   
   private func loadingView() -> some View {
@@ -67,6 +60,9 @@ struct CategoriesView: View {
       )
       .listRowBackground(Color.clear)
       .listRowSeparator(.hidden)
+      .onTapGesture {
+        viewModel.onSelect(category: categoryModel)
+      }
     })
   }
 }
@@ -77,33 +73,50 @@ struct CategoriesView_Previews: PreviewProvider {
     case failed
   }
 
+  static let categoryRouter = CategoryRouter(router: Router(path: NavigationPath()))
   static let viewModel = CategoriesViewModel(
     useCase: MockCategoriesUseCase(
       categories: .mock
-    )
+    ),
+    router: categoryRouter
   )
 
   static let failedViewModel = CategoriesViewModel(
     useCase: MockCategoriesUseCase(
       error: MockError.failed
-    )
+    ),
+    router: categoryRouter
   )
   
   static var previews: some View {
     Group {
-      CategoriesView(viewModel: viewModel)
-        .task {
-          await viewModel.onAppear()
-        }
-        .preferredColorScheme(.dark)
-        .previewDisplayName("Categories_Success")
-      CategoriesView(viewModel: failedViewModel)
-        .task {
-          await failedViewModel.onAppear()
-        }
-        .preferredColorScheme(.dark)
-        .previewDisplayName("Categories_failed")
+      NavigationStack {
+        CategoriesView(viewModel: viewModel)
+          .task {
+            await viewModel.onAppear()
+          }
+          .preferredColorScheme(.dark)
+          .previewDisplayName("Categories_Success")
+      }
+      NavigationStack {
+        CategoriesView(viewModel: failedViewModel)
+          .task {
+            await failedViewModel.onAppear()
+          }
+          .preferredColorScheme(.dark)
+          .previewDisplayName("Categories_failed")
+      }
     }
   }
+}
+
+struct MockCategoryRouter: CategoryFlowRouter {
+  func push(destination: CategoryRouter.Route) {}
+  
+  func pop() {}
+  
+  func popToRootView() {}
+  
+  var router: Router
 }
 #endif

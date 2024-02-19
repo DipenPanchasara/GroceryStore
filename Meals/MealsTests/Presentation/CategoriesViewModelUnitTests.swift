@@ -8,7 +8,7 @@
 @testable import Meals
 import XCTest
 
-final class CategoriesViewModelTests: XCTestCase {
+final class CategoriesViewModelUnitTests: XCTestCase {
   func testViewModel_whenInit() async throws {
     let vm = CategoriesViewModel(
       useCase: MockCategoriesUseCase(

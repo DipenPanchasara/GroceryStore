@@ -10,13 +10,15 @@ import SwiftUI
 @main
 struct MealsApp: App {
   private let configurationManager = LaunchConfigurationManager()
+  @StateObject private var router = Router(path: NavigationPath())
 
   var body: some Scene {
     WindowGroup {
       RootView(
         viewModel: RootViewModel(
           scheme: configurationManager.scheme,
-          baseURLString: configurationManager.baseURLString
+          baseURLString: configurationManager.baseURLString,
+          router: router
         )
       )
     }

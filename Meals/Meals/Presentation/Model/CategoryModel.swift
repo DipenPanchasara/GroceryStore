@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct CategoryModel: Identifiable, Equatable {
+struct CategoryModel: Identifiable, Equatable, Hashable {
   let id: String
   let name: String
   let thumbnailURL: URL?

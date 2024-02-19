@@ -42,7 +42,7 @@ struct ErrorView: View {
 
 struct ErrorModel: Equatable {
   static func == (lhs: ErrorModel, rhs: ErrorModel) -> Bool {
-    lhs.id == rhs.id
+    lhs.message == rhs.message
   }
   
   let id: UUID = UUID()

@@ -9,8 +9,9 @@ import SwiftUI
 
 struct RootView: View {
   @ObservedObject var viewModel: RootViewModel
+  
   var body: some View {
-    NavigationStack(path: $viewModel.path) {
+    NavigationStack(path: viewModel.$router.path) {
       CategoriesView(
         viewModel: CategoriesViewModel(
           useCase: CategoriesUseCase(
@@ -22,7 +23,8 @@ struct RootView: View {
               ),
               decoder: ResponseDecoder()
             )
-          )
+          ),
+          router: CategoryRouter(router: viewModel.router)
         )
       )
     }
@@ -31,10 +33,14 @@ struct RootView: View {
 
 #if DEBUG
 struct RootView_Previews: PreviewProvider {
+  static let router = Router(path: NavigationPath())
+  
   static var previews: some View {
     RootView(
       viewModel: RootViewModel(
-        scheme: "https", baseURLString: "www.test.com"
+        scheme: "https",
+        baseURLString: "www.test.com",
+        router: router
       )
     )
     .previewDisplayName("RootView")

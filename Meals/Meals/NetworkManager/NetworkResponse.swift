@@ -9,5 +9,5 @@ import Foundation
 
 struct NetworkResponse: Equatable {
   let data: Data?
-  let statusCode: Int
+  let urlResponse: HTTPURLResponse
 }
