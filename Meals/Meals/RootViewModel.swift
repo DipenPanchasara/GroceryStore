@@ -13,7 +13,9 @@ class RootViewModel: ObservableObject {
   private(set) var scheme: String
   private(set) var baseURLString: String
   private(set) var session: URLSession
+
   private let categoryVMFactory: CategoryViewModelFactoryProtocol
+  private let networkManager: NetworkProvider
 
   @ObservedObject private(set) var router: Router
 
@@ -28,13 +30,14 @@ class RootViewModel: ObservableObject {
     self.sessionConfiguration.requestCachePolicy = .reloadIgnoringLocalAndRemoteCacheData
     self.session = URLSession(configuration: sessionConfiguration)
     self.router = router
+    self.networkManager = NetworkManager(
+      scheme: scheme,
+      baseURLString: baseURLString,
+      session: session
+    )
     self.categoryVMFactory = CategoryViewModelFactory(
       categoryRepository: CategoryRepository(
-        networkManager: NetworkManager(
-          scheme: scheme,
-          baseURLString: baseURLString,
-          session: session
-        ),
+        networkManager: networkManager,
         decoder: ResponseDecoder()
       ),
       categoryRouter: CategoryRouter(router: router)

@@ -42,7 +42,9 @@ struct FoodItemsView: View {
         await viewModel.onRetryTap()
       }
     }
-    .toolBarStyle()
+    .toolBarStyle(showBackButton: true) {
+      viewModel.onBackTap()
+    }
   }
   
   private func loadingView() -> some View {

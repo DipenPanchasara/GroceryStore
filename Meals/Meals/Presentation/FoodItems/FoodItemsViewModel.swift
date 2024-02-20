@@ -51,4 +51,8 @@ final class FoodItemsViewModel: ObservableObject {
   func onRetryTap() async {
     await onAppear()
   }
+  
+  func onBackTap() {
+    categoryRouter.pop()
+  }
 }

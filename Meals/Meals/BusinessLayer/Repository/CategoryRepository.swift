@@ -17,11 +17,11 @@ final class CategoryRepository: CategoryRepositoryProtocol {
     case noDataFound
   }
 
-  private let networkManager: NetworkManager
+  private let networkManager: NetworkProvider
   private let decoder: ResponseDecoderProvider
 
   init(
-    networkManager: NetworkManager,
+    networkManager: NetworkProvider,
     decoder: ResponseDecoderProvider
   ) {
     self.networkManager = networkManager
