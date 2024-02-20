@@ -55,12 +55,17 @@ final class NetworkManager: NetworkProvider {
 
 extension NetworkManager {
   func prepareURLRequest(networkRequest: NetworkRequest) throws -> URLRequest {
+    let endpoint = networkRequest.endpoint
     var components = URLComponents()
     components.scheme = self.scheme
     components.host = self.baseURLString
-    components.path = "/api/json/v1/1/\(networkRequest.endpoint.rawValue)"
-
-    guard 
+    components.path = "/api/json/v1/1/\(endpoint.path)"
+    if let queryItems = endpoint.queryItems {
+      components.queryItems = queryItems.map{ queryItem in
+        URLQueryItem(name: queryItem.key, value: queryItem.value)
+      }
+    }
+    guard
       let url = components.url
     else {
       throw NetworkError.badURL(request: networkRequest)

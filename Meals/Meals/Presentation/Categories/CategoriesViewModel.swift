@@ -14,12 +14,18 @@ class CategoriesViewModel: ObservableObject {
   }
   
   private let useCase: CategoriesUseCaseProtocol
-  private(set) var router: CategoryRouter
+  private(set) var categoryRouter: CategoryRouterProtocol
+  private(set) var categoryViewModelFactory: CategoryViewModelFactoryProtocol
   @Published var loadingState: LoadingState<ViewModel> = .idle
 
-  init(useCase: CategoriesUseCaseProtocol, router: CategoryRouter) {
+  init(
+    useCase: CategoriesUseCaseProtocol,
+    categoryRouter: CategoryRouterProtocol,
+    categoryViewModelFactory: CategoryViewModelFactoryProtocol
+  ) {
     self.useCase = useCase
-    self.router = router
+    self.categoryRouter = categoryRouter
+    self.categoryViewModelFactory = categoryViewModelFactory
   }
   
   @MainActor
@@ -39,6 +45,8 @@ class CategoriesViewModel: ObservableObject {
 
   @MainActor
   func onSelect(category: CategoryModel) {
-    router.push(destination: .categoryItems(model: category))
+    categoryRouter.push(
+      destination: .foodItems(categoryName: category.name)
+    )
   }
 }

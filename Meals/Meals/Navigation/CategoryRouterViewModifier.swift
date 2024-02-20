@@ -8,13 +8,15 @@
 import SwiftUI
 
 extension View {
-  func withCategoryRoutes(router: CategoryRouter) -> some View {
-    self.navigationDestination(for: CategoryRouter.Route.self) { destination in
+  func withCategoryRoutes(categoryViewModelFactory: CategoryViewModelFactoryProtocol) -> some View {
+    self.navigationDestination(for: CategoryRoutes.self) { destination in
       switch destination {
-        case .categoryItems(let model):
-          TestView(categoryModel: model)
-            .navigationTitle(model.name)
-            .toolBarStyle()
+      case .foodItems(let categoryName):
+        FoodItemsView(
+          viewModel: categoryViewModelFactory.foodItemsViewModel(
+            categoryName: categoryName
+          )
+        )
       }
     }
   }

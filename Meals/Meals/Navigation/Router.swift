@@ -6,12 +6,23 @@
 //
 
 import SwiftUI
+import Combine
 
-class Router: ObservableObject {
+protocol RouterProtocol {
+  func pop()
+  func popToRootView()
+}
+
+final class Router: ObservableObject, RouterProtocol {
   @Published var path: NavigationPath
-  
+//  var anycancellable: AnyCancellable?
+
   init(path: NavigationPath) {
     self.path = path
+//    anycancellable = $path.sink { path in
+//      print(path)
+//      print(path.count)
+//    }
   }
   
   func push(destination: any Hashable) {
@@ -23,10 +34,6 @@ class Router: ObservableObject {
   }
   
   func popToRootView() {
-    print(path.count)
+    path = NavigationPath()
   }
-}
-
-protocol FlowRouter {
-//  var router: Router { get }
 }

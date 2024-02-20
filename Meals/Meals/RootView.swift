@@ -13,19 +13,7 @@ struct RootView: View {
   var body: some View {
     NavigationStack(path: viewModel.$router.path) {
       CategoriesView(
-        viewModel: CategoriesViewModel(
-          useCase: CategoriesUseCase(
-            categoryRepository: CategoryRepository(
-              networkManager: NetworkManager(
-                scheme: viewModel.scheme,
-                baseURLString: viewModel.baseURLString,
-                session: viewModel.session
-              ),
-              decoder: ResponseDecoder()
-            )
-          ),
-          router: CategoryRouter(router: viewModel.router)
-        )
+        viewModel: viewModel.categoryViewModel()
       )
     }
   }

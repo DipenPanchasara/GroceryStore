@@ -13,15 +13,35 @@ class RootViewModel: ObservableObject {
   private(set) var scheme: String
   private(set) var baseURLString: String
   private(set) var session: URLSession
-  
+  private let categoryVMFactory: CategoryViewModelFactoryProtocol
+
   @ObservedObject private(set) var router: Router
 
-  init(scheme: String, baseURLString: String, router: Router) {
+  init(
+    scheme: String,
+    baseURLString: String,
+    router: Router
+  ) {
     self.scheme = scheme
     self.baseURLString = baseURLString
     self.sessionConfiguration.timeoutIntervalForRequest = 60
     self.sessionConfiguration.requestCachePolicy = .reloadIgnoringLocalAndRemoteCacheData
     self.session = URLSession(configuration: sessionConfiguration)
     self.router = router
+    self.categoryVMFactory = CategoryViewModelFactory(
+      categoryRepository: CategoryRepository(
+        networkManager: NetworkManager(
+          scheme: scheme,
+          baseURLString: baseURLString,
+          session: session
+        ),
+        decoder: ResponseDecoder()
+      ),
+      categoryRouter: CategoryRouter(router: router)
+    )
+  }
+  
+  func categoryViewModel() -> CategoriesViewModel {
+    categoryVMFactory.categoryListViewModel()
   }
 }

@@ -34,7 +34,11 @@
 		25C44FCD2B684436001CE21F /* CategoriesViewModelUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C44FCC2B684436001CE21F /* CategoriesViewModelUnitTests.swift */; };
 		25C44FD72B684436001CE21F /* MealsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C44FD62B684436001CE21F /* MealsUITests.swift */; };
 		25C44FD92B684436001CE21F /* MealsUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C44FD82B684436001CE21F /* MealsUITestsLaunchTests.swift */; };
+		25CDF2E42B84BB1F00288C3B /* CategoryViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25CDF2E32B84BB1F00288C3B /* CategoryViewModelFactory.swift */; };
 		25F30BD62B83E703007D0CDF /* ToolbarStyleModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F30BD52B83E703007D0CDF /* ToolbarStyleModifier.swift */; };
+		25F30BD92B83F555007D0CDF /* FoodItemsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F30BD82B83F555007D0CDF /* FoodItemsView.swift */; };
+		25F30BDB2B83F572007D0CDF /* FoodItemsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F30BDA2B83F572007D0CDF /* FoodItemsViewModel.swift */; };
+		25F30BDD2B83F698007D0CDF /* FoodItemsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F30BDC2B83F698007D0CDF /* FoodItemsUseCase.swift */; };
 		25F3CA4B2B6ED25600EDD214 /* NetworkManagerUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F3CA4A2B6ED25600EDD214 /* NetworkManagerUnitTests.swift */; };
 		25F3CA4D2B6ED3D800EDD214 /* CategoryCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F3CA4C2B6ED3D800EDD214 /* CategoryCard.swift */; };
 		25FA2C252B7FC4FF00B3E40F /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25FA2C242B7FC4FF00B3E40F /* Router.swift */; };
@@ -91,7 +95,11 @@
 		25C44FD22B684436001CE21F /* MealsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MealsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		25C44FD62B684436001CE21F /* MealsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealsUITests.swift; sourceTree = "<group>"; };
 		25C44FD82B684436001CE21F /* MealsUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealsUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		25CDF2E32B84BB1F00288C3B /* CategoryViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewModelFactory.swift; sourceTree = "<group>"; };
 		25F30BD52B83E703007D0CDF /* ToolbarStyleModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarStyleModifier.swift; sourceTree = "<group>"; };
+		25F30BD82B83F555007D0CDF /* FoodItemsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodItemsView.swift; sourceTree = "<group>"; };
+		25F30BDA2B83F572007D0CDF /* FoodItemsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodItemsViewModel.swift; sourceTree = "<group>"; };
+		25F30BDC2B83F698007D0CDF /* FoodItemsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodItemsUseCase.swift; sourceTree = "<group>"; };
 		25F3CA4A2B6ED25600EDD214 /* NetworkManagerUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManagerUnitTests.swift; sourceTree = "<group>"; };
 		25F3CA4C2B6ED3D800EDD214 /* CategoryCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCard.swift; sourceTree = "<group>"; };
 		25FA2C242B7FC4FF00B3E40F /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
@@ -155,6 +163,8 @@
 		2567DFFE2B6C022A00D7EEE5 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				25CDF2E22B84BB0500288C3B /* ViewModelFactory */,
+				25F30BD72B83F427007D0CDF /* FoodItems */,
 				25F30BD42B83E6E8007D0CDF /* ViewModifiers */,
 				2515535A2B7697B30000FB17 /* Components */,
 				2567E0052B6C046300D7EEE5 /* UseCases */,
@@ -185,6 +195,7 @@
 			children = (
 				2567E0062B6C047300D7EEE5 /* CategoriesUseCase.swift */,
 				2567E0082B6C072200D7EEE5 /* MockCategoriesUseCase.swift */,
+				25F30BDC2B83F698007D0CDF /* FoodItemsUseCase.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -293,12 +304,29 @@
 			path = MealsUITests;
 			sourceTree = "<group>";
 		};
+		25CDF2E22B84BB0500288C3B /* ViewModelFactory */ = {
+			isa = PBXGroup;
+			children = (
+				25CDF2E32B84BB1F00288C3B /* CategoryViewModelFactory.swift */,
+			);
+			path = ViewModelFactory;
+			sourceTree = "<group>";
+		};
 		25F30BD42B83E6E8007D0CDF /* ViewModifiers */ = {
 			isa = PBXGroup;
 			children = (
 				25F30BD52B83E703007D0CDF /* ToolbarStyleModifier.swift */,
 			);
 			path = ViewModifiers;
+			sourceTree = "<group>";
+		};
+		25F30BD72B83F427007D0CDF /* FoodItems */ = {
+			isa = PBXGroup;
+			children = (
+				25F30BD82B83F555007D0CDF /* FoodItemsView.swift */,
+				25F30BDA2B83F572007D0CDF /* FoodItemsViewModel.swift */,
+			);
+			path = FoodItems;
 			sourceTree = "<group>";
 		};
 		25F3CA492B6ED22500EDD214 /* NetworkManager */ = {
@@ -453,6 +481,9 @@
 				2567DFFC2B6C01AF00D7EEE5 /* CategoriesData.swift in Sources */,
 				25F3CA4D2B6ED3D800EDD214 /* CategoryCard.swift in Sources */,
 				25FA2C272B7FC63A00B3E40F /* CategoryRouterViewModifier.swift in Sources */,
+				25F30BDD2B83F698007D0CDF /* FoodItemsUseCase.swift in Sources */,
+				25CDF2E42B84BB1F00288C3B /* CategoryViewModelFactory.swift in Sources */,
+				25F30BD92B83F555007D0CDF /* FoodItemsView.swift in Sources */,
 				2515535C2B7697C70000FB17 /* ErrorView.swift in Sources */,
 				2567E0072B6C047300D7EEE5 /* CategoriesUseCase.swift in Sources */,
 				2567E0092B6C072200D7EEE5 /* MockCategoriesUseCase.swift in Sources */,
@@ -461,6 +492,7 @@
 				251553592B7696580000FB17 /* LoadingState.swift in Sources */,
 				25C44FBD2B684433001CE21F /* CategoriesView.swift in Sources */,
 				25F30BD62B83E703007D0CDF /* ToolbarStyleModifier.swift in Sources */,
+				25F30BDB2B83F572007D0CDF /* FoodItemsViewModel.swift in Sources */,
 				25BE52192B7A7B5F00FA9C50 /* NetworkResponse.swift in Sources */,
 				25BE52172B7A709800FA9C50 /* Endpoints.swift in Sources */,
 				2567E0012B6C025500D7EEE5 /* NetworkError.swift in Sources */,

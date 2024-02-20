@@ -27,7 +27,7 @@ struct CategoriesView: View {
       }
     }
     .background(Color.white)
-    .withCategoryRoutes(router: viewModel.router)
+    .withCategoryRoutes(categoryViewModelFactory: viewModel.categoryViewModelFactory)
     .listStyle(.plain)
     .task {
       await viewModel.onAppear()
@@ -66,7 +66,7 @@ struct CategoriesView: View {
     })
   }
 }
-
+/*
 #if DEBUG
 struct CategoriesView_Previews: PreviewProvider {
   enum MockError: Error {
@@ -78,14 +78,18 @@ struct CategoriesView_Previews: PreviewProvider {
     useCase: MockCategoriesUseCase(
       categories: .mock
     ),
-    router: categoryRouter
+    categoryRouter: categoryRouter,
+    categoryViewModelFactory: CategoryViewModelFactory(
+      categoryRepository: Mock
+    ),
+    categoryRouter: categoryRouter
   )
 
   static let failedViewModel = CategoriesViewModel(
     useCase: MockCategoriesUseCase(
       error: MockError.failed
     ),
-    router: categoryRouter
+    categoryRouter: categoryRouter
   )
   
   static var previews: some View {
@@ -110,13 +114,11 @@ struct CategoriesView_Previews: PreviewProvider {
   }
 }
 
-struct MockCategoryRouter: CategoryFlowRouter {
-  func push(destination: CategoryRouter.Route) {}
-  
-  func pop() {}
-  
-  func popToRootView() {}
-  
-  var router: Router
-}
+//struct MockCategoryRouter: CategoryFlowRouter {
+//  func push(destination: CategoryFlowRoutes) {}
+//  func pop() {}
+//  func popToRootView() {}
+//  var router: Router
+//}
 #endif
+*/

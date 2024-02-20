@@ -7,19 +7,17 @@
 
 import SwiftUI
 
-extension CategoryRouter {
-  enum Route: Hashable {
-    case categoryItems(model: CategoryModel)
-  }
+enum CategoryRoutes: Hashable {
+  case foodItems(categoryName: String)
 }
 
-protocol CategoryFlowRouter: FlowRouter {
-  func push(destination: CategoryRouter.Route)
+protocol CategoryRouterProtocol: RouterProtocol {
+  func push(destination: CategoryRoutes)
   func pop()
   func popToRootView()
 }
 
-final class CategoryRouter: CategoryFlowRouter, ObservableObject {
+final class CategoryRouter: CategoryRouterProtocol, ObservableObject {
   var router: Router
 
   init(router: Router) {
@@ -27,7 +25,7 @@ final class CategoryRouter: CategoryFlowRouter, ObservableObject {
   }
   
   @MainActor
-  func push(destination: CategoryRouter.Route) {
+  func push(destination: CategoryRoutes) {
     router.push(destination: destination)
   }
   
