@@ -9,6 +9,7 @@ import SwiftUI
 
 struct CategoriesView: View {
   @StateObject var viewModel: CategoriesViewModel
+
   var body: some View {
     Group {
       switch viewModel.loadingState {
