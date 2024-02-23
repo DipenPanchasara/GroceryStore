@@ -67,7 +67,7 @@ struct CategoriesView: View {
     })
   }
 }
-/*
+
 #if DEBUG
 struct CategoriesView_Previews: PreviewProvider {
   enum MockError: Error {
@@ -80,17 +80,15 @@ struct CategoriesView_Previews: PreviewProvider {
       categories: .mock
     ),
     categoryRouter: categoryRouter,
-    categoryViewModelFactory: CategoryViewModelFactory(
-      categoryRepository: Mock
-    ),
-    categoryRouter: categoryRouter
+    categoryViewModelFactory: MockCategoryViewModelFactory()
   )
 
   static let failedViewModel = CategoriesViewModel(
     useCase: MockCategoriesUseCase(
       error: MockError.failed
     ),
-    categoryRouter: categoryRouter
+    categoryRouter: categoryRouter, 
+    categoryViewModelFactory: MockCategoryViewModelFactory()
   )
   
   static var previews: some View {
@@ -122,4 +120,3 @@ struct CategoriesView_Previews: PreviewProvider {
 //  var router: Router
 //}
 #endif
-*/

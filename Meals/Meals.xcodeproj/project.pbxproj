@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		250D77912B88A8820048F6CF /* RemoteImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250D77902B88A8820048F6CF /* RemoteImageView.swift */; };
+		250D77932B88CE480048F6CF /* MockFoodItemsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250D77922B88CE480048F6CF /* MockFoodItemsUseCase.swift */; };
+		250D77952B88CECB0048F6CF /* MockCategoryViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250D77942B88CECA0048F6CF /* MockCategoryViewModelFactory.swift */; };
+		250D77972B88CFE00048F6CF /* FoodItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250D77962B88CFE00048F6CF /* FoodItemModel.swift */; };
+		250D77992B88FD490048F6CF /* FoodData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250D77982B88FD490048F6CF /* FoodData.swift */; };
 		250F02BA2B72B0BD0044AA7D /* NetworkSessionProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250F02B92B72B0BD0044AA7D /* NetworkSessionProvider.swift */; };
 		251553592B7696580000FB17 /* LoadingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251553582B7696580000FB17 /* LoadingState.swift */; };
 		2515535C2B7697C70000FB17 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2515535B2B7697C70000FB17 /* ErrorView.swift */; };
@@ -67,6 +71,10 @@
 
 /* Begin PBXFileReference section */
 		250D77902B88A8820048F6CF /* RemoteImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteImageView.swift; sourceTree = "<group>"; };
+		250D77922B88CE480048F6CF /* MockFoodItemsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockFoodItemsUseCase.swift; sourceTree = "<group>"; };
+		250D77942B88CECA0048F6CF /* MockCategoryViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCategoryViewModelFactory.swift; sourceTree = "<group>"; };
+		250D77962B88CFE00048F6CF /* FoodItemModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodItemModel.swift; sourceTree = "<group>"; };
+		250D77982B88FD490048F6CF /* FoodData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodData.swift; sourceTree = "<group>"; };
 		250F02B72B72B08D0044AA7D /* MockNetworkSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNetworkSession.swift; sourceTree = "<group>"; };
 		250F02B92B72B0BD0044AA7D /* NetworkSessionProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkSessionProvider.swift; sourceTree = "<group>"; };
 		251553582B7696580000FB17 /* LoadingState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingState.swift; sourceTree = "<group>"; };
@@ -184,6 +192,7 @@
 			isa = PBXGroup;
 			children = (
 				2567DFFB2B6C01AF00D7EEE5 /* CategoriesData.swift */,
+				250D77982B88FD490048F6CF /* FoodData.swift */,
 			);
 			path = DataModel;
 			sourceTree = "<group>";
@@ -192,6 +201,7 @@
 			isa = PBXGroup;
 			children = (
 				2567E0032B6C043400D7EEE5 /* CategoryModel.swift */,
+				250D77962B88CFE00048F6CF /* FoodItemModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -202,6 +212,7 @@
 				2567E0062B6C047300D7EEE5 /* CategoriesUseCase.swift */,
 				2567E0082B6C072200D7EEE5 /* MockCategoriesUseCase.swift */,
 				25F30BDC2B83F698007D0CDF /* FoodItemsUseCase.swift */,
+				250D77922B88CE480048F6CF /* MockFoodItemsUseCase.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -314,6 +325,7 @@
 			isa = PBXGroup;
 			children = (
 				25CDF2E32B84BB1F00288C3B /* CategoryViewModelFactory.swift */,
+				250D77942B88CECA0048F6CF /* MockCategoryViewModelFactory.swift */,
 			);
 			path = ViewModelFactory;
 			sourceTree = "<group>";
@@ -501,13 +513,17 @@
 				250D77912B88A8820048F6CF /* RemoteImageView.swift in Sources */,
 				25F30BDB2B83F572007D0CDF /* FoodItemsViewModel.swift in Sources */,
 				256DAD512B867F79008EE2A4 /* ImageLoader.swift in Sources */,
+				250D77972B88CFE00048F6CF /* FoodItemModel.swift in Sources */,
+				250D77932B88CE480048F6CF /* MockFoodItemsUseCase.swift in Sources */,
 				25BE52192B7A7B5F00FA9C50 /* NetworkResponse.swift in Sources */,
 				25BE52172B7A709800FA9C50 /* Endpoints.swift in Sources */,
 				2567E0012B6C025500D7EEE5 /* NetworkError.swift in Sources */,
+				250D77952B88CECB0048F6CF /* MockCategoryViewModelFactory.swift in Sources */,
 				25FA2C292B7FC67900B3E40F /* CategoryRouter.swift in Sources */,
 				25A417192B702EB000D90813 /* LaunchConfigurationManager.swift in Sources */,
 				2567DFF92B6C018F00D7EEE5 /* CategoriesViewModel.swift in Sources */,
 				25C44FBB2B684433001CE21F /* MealsApp.swift in Sources */,
+				250D77992B88FD490048F6CF /* FoodData.swift in Sources */,
 				25BE52132B7A6EAD00FA9C50 /* CategoryRepository.swift in Sources */,
 				2567E0042B6C043400D7EEE5 /* CategoryModel.swift in Sources */,
 				25A417152B702DBF00D90813 /* ResponseDecoder.swift in Sources */,

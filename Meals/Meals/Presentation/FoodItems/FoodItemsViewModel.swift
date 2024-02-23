@@ -6,14 +6,9 @@
 //
 
 import Foundation
+import Combine
 
-struct FoodItemModel: Identifiable, Equatable, Hashable {
-  let id: String
-  let name: String
-  let thumbURL: URL?
-}
-
-final class FoodItemsViewModel: ObservableObject {  
+final class FoodItemsViewModel: ObservableObject {
   struct ViewModel: Equatable {
     var foodItems: [FoodItemModel]
   }
@@ -22,6 +17,7 @@ final class FoodItemsViewModel: ObservableObject {
   private(set) var categoryRouter: CategoryRouterProtocol
   private let useCase: FoodItemsUseCaseProtocol
   private let categoryName: String
+  private var cancellables = Set<AnyCancellable>()
 
   var navigationTitle: String {
     categoryName
@@ -35,17 +31,28 @@ final class FoodItemsViewModel: ObservableObject {
     self.categoryName = categoryName
     self.useCase = useCase
     self.categoryRouter = categoryRouter
+    self.subscribe()
+  }
+  
+  private func subscribe() {
+    useCase.dataStream
+      .receive(on: DispatchQueue.main)
+      .sink { [weak self] foodItems in
+        self?.loadingState = .loaded(model: ViewModel(foodItems: foodItems))
+      }
+      .store(in: &cancellables)
+    useCase.errorStream
+      .receive(on: DispatchQueue.main)
+      .sink { [weak self] error in
+        self?.loadingState = .failed(model: ErrorModel(message: "Unable to load FoodItems."))
+      }
+      .store(in: &cancellables)
   }
     
   @MainActor
   func onAppear() async {
     loadingState = .loading
-    do {
-      let foodItems = try await useCase.fetchFoodItems(by: categoryName)
-      loadingState = .loaded(model: ViewModel(foodItems: foodItems))
-    } catch {
-      loadingState = .failed(model: ErrorModel(message: "Unable to load FoodItems."))
-    }
+    await useCase.fetchFoodItems(by: categoryName)
   }
   
   func onRetryTap() async {

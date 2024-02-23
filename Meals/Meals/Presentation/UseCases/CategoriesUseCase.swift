@@ -6,24 +6,32 @@
 //
 
 import Foundation
+import Combine
+import SwiftUI
 
 protocol CategoriesUseCaseProtocol {
-  func fetchCategories() async throws -> [CategoryModel]
+  var dataStream: PassthroughSubject<[CategoryModel], Never> { get }
+  var errorStream: PassthroughSubject<Error, Never> { get }
+  func fetchCategories() async
 }
 
 struct CategoriesUseCase: CategoriesUseCaseProtocol {
   private let categoryRepository: CategoryRepositoryProtocol
-  
+  let dataStream: PassthroughSubject<[CategoryModel], Never> = PassthroughSubject()
+  let errorStream: PassthroughSubject<Error, Never> = PassthroughSubject()
+
   init(categoryRepository: CategoryRepositoryProtocol) {
     self.categoryRepository = categoryRepository
   }
-  
-  func fetchCategories() async throws -> [CategoryModel] {
+
+  func fetchCategories() async {
     do {
-      let categories = try await categoryRepository.allCategories()
-      return categories.map({ map(categoryData: $0) }).sorted(by: { $0.name < $1.name })
+      let categoryModels = try await categoryRepository.allCategories()
+        .map({ map(categoryData: $0) })
+        .sorted(by: { $0.name < $1.name })
+      dataStream.send(categoryModels)
     } catch {
-      throw error
+      errorStream.send(error)
     }
   }
 }

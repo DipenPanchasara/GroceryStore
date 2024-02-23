@@ -21,7 +21,8 @@ struct CategoryCard: View {
               .fill(Color.pink)
           }
         }
-        .padding(.vertical, 4)
+        .padding(.top, 16)
+        .padding(.bottom, 4)
         .shadow(color: .black, radius: 4)
         //      .padding(.bottom, 2)
         VStack(spacing: .zero) {

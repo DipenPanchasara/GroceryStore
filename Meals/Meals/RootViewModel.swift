@@ -13,8 +13,7 @@ class RootViewModel: ObservableObject {
   private(set) var scheme: String
   private(set) var baseURLString: String
   private(set) var session: URLSession
-
-  private let categoryVMFactory: CategoryViewModelFactoryProtocol
+  private(set) var categoryVMFactory: CategoryViewModelFactoryProtocol
   private let networkManager: NetworkProvider
 
   @ObservedObject private(set) var router: Router

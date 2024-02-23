@@ -6,46 +6,32 @@
 //
 
 import Foundation
-
-struct FoodData: Decodable, Equatable {
-  struct FoodItemData: Decodable, Equatable {
-    let strMeal: String
-    let strMealThumb: String?
-    let idMeal: String
-  }
-
-  let meals: [FoodItemData]
-}
+import Combine
 
 protocol FoodItemsUseCaseProtocol {
-  func fetchFoodItems(by categoryName: String) async throws -> [FoodItemModel]
+  var dataStream: PassthroughSubject<[FoodItemModel], Never> { get }
+  var errorStream: PassthroughSubject<Error, Never> { get }
+  func fetchFoodItems(by categoryName: String) async
 }
 
 struct FoodItemsUseCase: FoodItemsUseCaseProtocol {
   private let categoryRepository: CategoryRepositoryProtocol
-  
+  let dataStream: PassthroughSubject<[FoodItemModel], Never> = PassthroughSubject()
+  let errorStream: PassthroughSubject<Error, Never> = PassthroughSubject()
+
   init(categoryRepository: CategoryRepositoryProtocol) {
     self.categoryRepository = categoryRepository
   }
   
-  func fetchFoodItems(by categoryName: String) async throws -> [FoodItemModel] {
+  func fetchFoodItems(by categoryName: String) async {
     do {
-      let foodItemsData: [FoodData.FoodItemData] = try await categoryRepository.fetchFoodItems(by: categoryName)
-      return foodItemsData.map({ map(foodData: $0) })
+      let foodItemModels = try await categoryRepository.fetchFoodItems(by: categoryName)
+        .map({ map(foodData: $0) })
+      dataStream.send(foodItemModels)
     } catch {
-      throw error
+      errorStream.send(error)
     }
   }
-}
-
-private extension FoodItemModel {
-  static var mockItems: [FoodItemModel] = [
-    FoodItemModel(id: "1", name: "SeaFood", thumbURL: nil),
-    FoodItemModel(id: "2", name: "Dessert", thumbURL: nil),
-    FoodItemModel(id: "3", name: "Pasta", thumbURL: nil),
-    FoodItemModel(id: "4", name: "Starter", thumbURL: nil),
-    FoodItemModel(id: "5", name: "Breakfast", thumbURL: nil)
-  ]
 }
 
 private extension FoodItemsUseCase {
