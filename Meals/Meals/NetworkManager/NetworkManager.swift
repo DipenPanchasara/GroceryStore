@@ -7,13 +7,6 @@
 
 import Foundation
 import Combine
-/*
- 
- API for Meals
- 
- https://www.themealdb.com/api.php
- 
- */
 
 protocol NetworkProvider {
   func execute(request: NetworkRequest) async throws -> NetworkResponse
