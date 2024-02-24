@@ -13,13 +13,13 @@ class CategoriesViewModel: ObservableObject {
   struct ViewModel: Equatable {
     var categories: [CategoryModel]
   }
-  
+
   private let useCase: CategoriesUseCaseProtocol
   private(set) var categoryRouter: CategoryRouterProtocol
   private(set) var categoryViewModelFactory: CategoryViewModelFactoryProtocol
   @Published var loadingState: LoadingState<ViewModel> = .idle
   private var cancellables = Set<AnyCancellable>()
-  
+
   init(
     useCase: CategoriesUseCaseProtocol,
     categoryRouter: CategoryRouterProtocol,
@@ -44,16 +44,16 @@ class CategoriesViewModel: ObservableObject {
       .sink(receiveValue: { [weak self] error in
         print("error: \(error)")
         self?.loadingState = .failed(model: ErrorModel(message: "Unable to load categories."))
-        
+
       })
       .store(in: &cancellables)
   }
-  
+
   @MainActor
   func onAppear() async {
     await useCase.fetchCategories()
   }
-  
+
   func onRetryTap() async {
     await onAppear()
   }

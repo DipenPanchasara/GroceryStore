@@ -23,17 +23,17 @@ final class CategoryRouter: CategoryRouterProtocol, ObservableObject {
   init(router: Router) {
     self.router = router
   }
-  
+
   @MainActor
   func push(destination: CategoryRoutes) {
     router.push(destination: destination)
   }
-  
+
   @MainActor
   func pop() {
     router.pop()
   }
-  
+
   @MainActor
   func popToRootView() {
     router.popToRootView()

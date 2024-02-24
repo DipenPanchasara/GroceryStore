@@ -10,17 +10,17 @@ import SwiftUI
 struct RemoteImageView: View {
   private let source: URLRequest
   @State private var image: UIImage?
-  
+
   @Environment(\.imageLoader) private var imageLoader
-  
+
   init(source: URL) {
     self.init(source: URLRequest(url: source))
   }
-  
+
   init(source: URLRequest) {
     self.source = source
   }
-  
+
   var body: some View {
     Group {
       if let image = image {
@@ -36,7 +36,7 @@ struct RemoteImageView: View {
       await loadImage(at: source)
     }
   }
-  
+
   func loadImage(at source: URLRequest) async {
     do {
       image = try await imageLoader.fetch(source)

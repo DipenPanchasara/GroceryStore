@@ -20,7 +20,7 @@ extension [FoodItemModel] {
     FoodItemModel(id: UUID().uuidString, name: "Vegetarian", thumbURL: nil),
     FoodItemModel(id: UUID().uuidString, name: "Vegan", thumbURL: nil),
     FoodItemModel(id: UUID().uuidString, name: "Asian", thumbURL: nil),
-    FoodItemModel(id: UUID().uuidString, name: "Chinese", thumbURL: nil),
+    FoodItemModel(id: UUID().uuidString, name: "Chinese", thumbURL: nil)
   ]
 }
 #endif

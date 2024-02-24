@@ -11,7 +11,7 @@ enum NetworkError: Error, Equatable {
   static func == (lhs: NetworkError, rhs: NetworkError) -> Bool {
     lhs.localizedDescription == rhs.localizedDescription
   }
-  
+
   case badURL(request: NetworkRequest)
   case invalidResponse
   case serverError

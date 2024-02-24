@@ -24,15 +24,15 @@ final class Router: ObservableObject, RouterProtocol {
 //      print(path.count)
 //    }
   }
-  
+
   func push(destination: any Hashable) {
     path.append(destination)
   }
-  
+
   func pop() {
     path.removeLast()
   }
-  
+
   func popToRootView() {
     path = NavigationPath()
   }

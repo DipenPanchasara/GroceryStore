@@ -39,8 +39,8 @@ final class NetworkManagerUnitTests: XCTestCase {
           headerFields: nil
         )
       )
-    ) 
-    
+    )
+
     let response: NetworkResponse = try await sut.execute(
       request: NetworkRequest(
         httpMethod: .get,
@@ -50,7 +50,7 @@ final class NetworkManagerUnitTests: XCTestCase {
     XCTAssertEqual(response.urlResponse.statusCode, 200)
     XCTAssertNotNil(response.data)
   }
-  
+
   func testNetworkRequest_whenThrowsBadURL() async throws {
     let sut = try NetworkManager(
       scheme: "https",
@@ -119,52 +119,4 @@ final class NetworkManagerUnitTests: XCTestCase {
     }
     await fulfillment(of: [expectation], timeout: .zero)
   }
-  /*
-  func testNetworkRequestSuccess_whenCache() async throws {
-    var cancellables = Set<AnyCancellable>()
-    let obj = CategoriesData.Category(idCategory: "idCategory-1", strCategory: "strCategory-2", strCategoryThumb: "strCategoryThumb")
-    let data: Data = try JSONEncoder().encode(obj)
-    let sut = try NetworkManager(
-      scheme: "https",
-      baseURLString: baseURLString,
-      session: MockNetworkSession(
-        baseURL: XCTUnwrap(baseURL),
-        data: data,
-        response: HTTPURLResponse(
-          url: XCTUnwrap(baseURL),
-          statusCode: 200,
-          httpVersion: "testVersion",
-          headerFields: nil
-        )
-      )
-    )
-    var count = 0
-    let request = NetworkRequest(
-      httpMethod: .get,
-      endpoint: .allCategories
-    )
-    request.subject.sink(
-      receiveCompletion: { status in
-        switch status {
-          case .finished:
-            print("finished receiving")
-            XCTAssertEqual(count, 3)
-          case .failure(let error):
-            XCTFail("Expected to succeed but failed with \(error)")
-        }
-        
-      }, receiveValue: { optionalResponse in
-        count += 1
-        print("StatusCode: \(String(describing: optionalResponse?.statusCode))")
-        guard let data = optionalResponse?.data else {
-          print("Data is `nil`")
-          return
-        }
-        print("Object: \(String(describing: String(bytes: data, encoding: .utf8)))")
-      })
-    .store(in: &cancellables)
-    await sut.executeRequest(
-      request: request
-    )
-  }*/
 }

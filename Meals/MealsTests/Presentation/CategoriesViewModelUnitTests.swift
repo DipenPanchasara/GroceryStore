@@ -31,7 +31,7 @@ final class CategoriesViewModelUnitTests: XCTestCase {
       )
     )
   }
-  
+
   func testViewModel_whenUseCaseThrows() async throws {
     let vm = CategoriesViewModel(
       useCase: MockCategoriesUseCase(error: MockError.useCasefailed)
@@ -42,7 +42,7 @@ final class CategoriesViewModelUnitTests: XCTestCase {
       .failed(model: ErrorModel(message: "Unable to load categories."))
     )
   }
-  
+
   func testViewModel_whenOnRetryTap() async throws {
     let expectedCategories: [CategoryModel] = .mock
     let vm = CategoriesViewModel(

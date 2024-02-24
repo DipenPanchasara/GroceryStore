@@ -14,7 +14,7 @@ final class FoodItemsViewModel: ObservableObject {
   }
 
   @Published var loadingState: LoadingState<FoodItemsViewModel.ViewModel> = .idle
-  private(set) var categoryRouter: CategoryRouterProtocol
+  private let categoryRouter: CategoryRouterProtocol
   private let useCase: FoodItemsUseCaseProtocol
   private let categoryName: String
   private var cancellables = Set<AnyCancellable>()
@@ -22,7 +22,7 @@ final class FoodItemsViewModel: ObservableObject {
   var navigationTitle: String {
     categoryName
   }
-  
+
   init(
     categoryName: String,
     useCase: FoodItemsUseCaseProtocol,
@@ -33,7 +33,7 @@ final class FoodItemsViewModel: ObservableObject {
     self.categoryRouter = categoryRouter
     self.subscribe()
   }
-  
+
   private func subscribe() {
     useCase.dataStream
       .receive(on: DispatchQueue.main)
@@ -43,22 +43,22 @@ final class FoodItemsViewModel: ObservableObject {
       .store(in: &cancellables)
     useCase.errorStream
       .receive(on: DispatchQueue.main)
-      .sink { [weak self] error in
+      .sink { [weak self] _ in
         self?.loadingState = .failed(model: ErrorModel(message: "Unable to load FoodItems."))
       }
       .store(in: &cancellables)
   }
-    
+
   @MainActor
   func onAppear() async {
     loadingState = .loading
     await useCase.fetchFoodItems(by: categoryName)
   }
-  
+
   func onRetryTap() async {
     await onAppear()
   }
-  
+
   func onBackTap() {
     categoryRouter.pop()
   }

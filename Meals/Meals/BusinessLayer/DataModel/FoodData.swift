@@ -13,6 +13,6 @@ struct FoodData: Decodable, Equatable {
     let strMealThumb: String?
     let idMeal: String
   }
-  
+
   let meals: [FoodItemData]
 }

@@ -17,7 +17,7 @@ final class NetworkManager: NetworkProvider {
   private let scheme: String
   private let baseURLString: String
   private let session: NetworkSessionProvider
-  
+
   init(
     scheme: String,
     baseURLString: String,
@@ -33,7 +33,7 @@ final class NetworkManager: NetworkProvider {
       let request = try prepareURLRequest(networkRequest: request)
       let (data, response) = try await session.data(for: request)
       guard let httpURLResponse = response as? HTTPURLResponse else { throw NetworkError.invalidResponse }
-      
+
       switch httpURLResponse.statusCode {
         case 200...299:
           return NetworkResponse(data: data, urlResponse: httpURLResponse)
@@ -54,7 +54,7 @@ extension NetworkManager {
     components.host = self.baseURLString
     components.path = "/api/json/v1/1/\(endpoint.path)"
     if let queryItems = endpoint.queryItems {
-      components.queryItems = queryItems.map{ queryItem in
+      components.queryItems = queryItems.map { queryItem in
         URLQueryItem(name: queryItem.key, value: queryItem.value)
       }
     }

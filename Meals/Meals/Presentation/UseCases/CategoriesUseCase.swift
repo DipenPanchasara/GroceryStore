@@ -42,7 +42,7 @@ private extension CategoriesUseCase {
     if let urlString = categoryData.strCategoryThumb {
       thumbnailURL = URL(string: urlString)
     }
-    
+
     return CategoryModel(
       id: categoryData.idCategory,
       name: categoryData.strCategory,

@@ -13,9 +13,9 @@ struct MockNetworkSession: NetworkSessionProvider {
   let data: Data?
   let response: HTTPURLResponse?
   let error: Error
-  
+
   struct NoStubError: Error {}
-  
+
   init(
     baseURL: URL?,
     data: Data?,
@@ -26,14 +26,14 @@ struct MockNetworkSession: NetworkSessionProvider {
     self.response = response
     self.error = NoStubError()
   }
-  
+
   init(error: Error) {
     self.error = error
     self.data = nil
     self.baseURL = nil
     self.response = nil
   }
-  
+
   func data(for request: URLRequest) async throws -> (Data, URLResponse) {
     guard let data, let response else { throw error }
     return (data, response)

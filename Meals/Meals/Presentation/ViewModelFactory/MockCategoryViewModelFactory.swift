@@ -18,7 +18,7 @@ struct MockCategoryViewModelFactory: CategoryViewModelFactoryProtocol {
       categoryViewModelFactory: self
     )
   }
-  
+
   func foodItemsViewModel(categoryName: String) -> FoodItemsViewModel {
     FoodItemsViewModel(
       categoryName: "anyCategory",

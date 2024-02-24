@@ -1,0 +1,22 @@
+PODS:
+  - Cuckoo (1.10.3):
+    - Cuckoo/Swift (= 1.10.3)
+  - Cuckoo/Swift (1.10.3)
+  - SwiftLint (0.51.0)
+
+DEPENDENCIES:
+  - Cuckoo
+  - SwiftLint
+
+SPEC REPOS:
+  trunk:
+    - Cuckoo
+    - SwiftLint
+
+SPEC CHECKSUMS:
+  Cuckoo: 930598bd4ae95860c658b3eea30903d946ebef36
+  SwiftLint: 1b7561918a19e23bfed960e40759086e70f4dba5
+
+PODFILE CHECKSUM: d190585ae8c240b6ca01536bf0463a4c2b50ee62
+
+COCOAPODS: 1.15.2

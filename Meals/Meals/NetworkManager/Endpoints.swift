@@ -10,7 +10,7 @@ import Foundation
 enum Endpoints: Equatable {
   case allCategories
   case foodItemsByCategory(categoryName: String)
-  
+
   var path: String {
     switch self {
       case .allCategories:
@@ -19,13 +19,13 @@ enum Endpoints: Equatable {
         "filter.php"
     }
   }
-  
+
   var queryItems: [String: String]? {
     switch self {
       case .allCategories:
         nil
       case .foodItemsByCategory(let categoryName):
-        ["c" : categoryName]
+        ["c": categoryName]
     }
   }
 }

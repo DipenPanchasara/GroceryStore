@@ -21,9 +21,7 @@ struct CategoriesView: View {
           list(categories: viewModel.categories)
         case .failed(let errorModel):
           ErrorView(viewModel: errorModel) {
-            Task {
-              await viewModel.onRetryTap()
-            }
+            await viewModel.onRetryTap()
           }
       }
     }
@@ -45,7 +43,7 @@ struct CategoriesView: View {
     }
     .toolBarStyle()
   }
-  
+
   private func loadingView() -> some View {
     HStack {
       ProgressView()
@@ -75,48 +73,43 @@ struct CategoriesView_Previews: PreviewProvider {
   }
 
   static let categoryRouter = CategoryRouter(router: Router(path: NavigationPath()))
-  static let viewModel = CategoriesViewModel(
-    useCase: MockCategoriesUseCase(
-      categories: .mock
-    ),
-    categoryRouter: categoryRouter,
-    categoryViewModelFactory: MockCategoryViewModelFactory()
-  )
 
-  static let failedViewModel = CategoriesViewModel(
-    useCase: MockCategoriesUseCase(
-      error: MockError.failed
-    ),
-    categoryRouter: categoryRouter, 
-    categoryViewModelFactory: MockCategoryViewModelFactory()
-  )
-  
   static var previews: some View {
     Group {
       NavigationStack {
-        CategoriesView(viewModel: viewModel)
-          .task {
-            await viewModel.onAppear()
-          }
-          .preferredColorScheme(.dark)
-          .previewDisplayName("Categories_Success")
+        CategoriesView(
+          viewModel: CategoriesViewModel(
+            useCase: MockCategoriesUseCase(
+              categories: .mock
+            ),
+            categoryRouter: categoryRouter,
+            categoryViewModelFactory: MockCategoryViewModelFactory()
+          )
+        )
+        .preferredColorScheme(.dark)
+        .previewDisplayName("Success")
       }
       NavigationStack {
-        CategoriesView(viewModel: failedViewModel)
-          .task {
-            await failedViewModel.onAppear()
-          }
-          .preferredColorScheme(.dark)
-          .previewDisplayName("Categories_failed")
+        CategoriesView(
+          viewModel: CategoriesViewModel(
+            useCase: MockCategoriesUseCase(
+              error: MockError.failed
+            ),
+            categoryRouter: categoryRouter,
+            categoryViewModelFactory: MockCategoryViewModelFactory()
+          )
+        )
+        .preferredColorScheme(.dark)
+        .previewDisplayName("Failure")
       }
     }
   }
 }
 
-//struct MockCategoryRouter: CategoryFlowRouter {
+// struct MockCategoryRouter: CategoryFlowRouter {
 //  func push(destination: CategoryFlowRoutes) {}
 //  func pop() {}
 //  func popToRootView() {}
 //  var router: Router
-//}
+// }
 #endif

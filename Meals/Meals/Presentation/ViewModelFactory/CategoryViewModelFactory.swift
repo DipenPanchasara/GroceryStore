@@ -15,7 +15,7 @@ protocol CategoryViewModelFactoryProtocol {
 class CategoryViewModelFactory: CategoryViewModelFactoryProtocol {
   private let categoryRepository: CategoryRepositoryProtocol
   private let categoryRouter: CategoryRouterProtocol
-  
+
   init(
     categoryRepository: CategoryRepositoryProtocol,
     categoryRouter: CategoryRouterProtocol
@@ -23,7 +23,7 @@ class CategoryViewModelFactory: CategoryViewModelFactoryProtocol {
     self.categoryRepository = categoryRepository
     self.categoryRouter = categoryRouter
   }
-  
+
   func categoryListViewModel() -> CategoriesViewModel {
     CategoriesViewModel(
       useCase: CategoriesUseCase(
@@ -33,7 +33,7 @@ class CategoryViewModelFactory: CategoryViewModelFactoryProtocol {
       categoryViewModelFactory: self
     )
   }
-  
+
   func foodItemsViewModel(categoryName: String) -> FoodItemsViewModel {
     FoodItemsViewModel(
       categoryName: categoryName,

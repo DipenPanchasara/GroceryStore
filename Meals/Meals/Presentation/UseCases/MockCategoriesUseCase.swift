@@ -14,12 +14,12 @@ struct MockCategoriesUseCase: CategoriesUseCaseProtocol {
   private let error: Error
   let dataStream: PassthroughSubject<[CategoryModel], Never> = PassthroughSubject()
   let errorStream: PassthroughSubject<Error, Never> = PassthroughSubject()
-  
+
   init(categories: [CategoryModel]) {
     self.categories = categories
     self.error = NoStubError()
   }
-  
+
   init(error: Error) {
     self.error = error
     self.categories = nil

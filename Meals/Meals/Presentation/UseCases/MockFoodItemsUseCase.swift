@@ -20,7 +20,7 @@ struct MockFoodItemsUseCase: FoodItemsUseCaseProtocol {
     self.foodItems = foodItems
     self.error = NoStubError()
   }
-  
+
   init(error: Error) {
     self.error = error
     self.foodItems = nil

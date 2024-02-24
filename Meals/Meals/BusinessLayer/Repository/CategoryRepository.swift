@@ -41,7 +41,7 @@ final class CategoryRepository: CategoryRepositoryProtocol {
       else {
         throw CategoryRepositoryError.noDataFound
       }
-      
+
       // Decode Response
       let categoriesData: CategoriesData = try decoder.decode(CategoriesData.self, from: data)
       return categoriesData.categories
@@ -49,7 +49,7 @@ final class CategoryRepository: CategoryRepositoryProtocol {
       throw error
     }
   }
-  
+
   func fetchFoodItems(by categoryName: String) async throws -> [FoodData.FoodItemData] {
     do {
       let response = try await networkManager.execute(
@@ -63,7 +63,7 @@ final class CategoryRepository: CategoryRepositoryProtocol {
       else {
         throw CategoryRepositoryError.noDataFound
       }
-      
+
       // Decode Response
       let foodData: FoodData = try decoder.decode(FoodData.self, from: data)
       return foodData.meals

@@ -42,7 +42,7 @@ class RootViewModel: ObservableObject {
       categoryRouter: CategoryRouter(router: router)
     )
   }
-  
+
   func categoryViewModel() -> CategoriesViewModel {
     categoryVMFactory.categoryListViewModel()
   }

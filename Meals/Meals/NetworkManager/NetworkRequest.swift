@@ -13,7 +13,7 @@ struct NetworkRequest: Equatable {
     case post
     case put
     case delete
-    
+
     var value: String {
       self.rawValue.capitalized
     }
@@ -23,7 +23,7 @@ struct NetworkRequest: Equatable {
   let endpoint: Endpoints
   let headers: [String: String]?
   let data: Data?
-  
+
   init(
     httpMethod: HTTPType,
     endpoint: Endpoints,

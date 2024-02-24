@@ -9,7 +9,7 @@ import Foundation
 
 struct CategoriesData: Codable {
   let categories: [Category]
-  
+
   struct Category: Codable, Equatable {
     let idCategory: String
     let strCategory: String

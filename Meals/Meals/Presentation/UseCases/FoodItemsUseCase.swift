@@ -22,7 +22,7 @@ struct FoodItemsUseCase: FoodItemsUseCaseProtocol {
   init(categoryRepository: CategoryRepositoryProtocol) {
     self.categoryRepository = categoryRepository
   }
-  
+
   func fetchFoodItems(by categoryName: String) async {
     do {
       let foodItemModels = try await categoryRepository.fetchFoodItems(by: categoryName)
@@ -40,7 +40,7 @@ private extension FoodItemsUseCase {
     if let urlString = foodData.strMealThumb {
       thumbnailURL = URL(string: urlString)
     }
-    
+
     return FoodItemModel(
       id: foodData.idMeal,
       name: foodData.strMeal,

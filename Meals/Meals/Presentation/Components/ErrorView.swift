@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ErrorView: View {
   let viewModel: ErrorModel
-  let retryHandler: (() -> Void)?
+  let retryHandler: (() async -> Void)?
 
   var body: some View {
     VStack {
@@ -24,7 +24,7 @@ struct ErrorView: View {
       }
       Button("Retry", action: {
         Task {
-          retryHandler?()
+          await retryHandler?()
         }
       })
       .bold()
@@ -44,7 +44,7 @@ struct ErrorModel: Equatable {
   static func == (lhs: ErrorModel, rhs: ErrorModel) -> Bool {
     lhs.message == rhs.message
   }
-  
+
   let id: UUID = UUID()
   let message: String
 }

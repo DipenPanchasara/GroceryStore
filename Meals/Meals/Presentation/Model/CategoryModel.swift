@@ -13,7 +13,6 @@ struct CategoryModel: Identifiable, Equatable, Hashable {
   let thumbnailURL: URL?
 }
 
-
 // MARK: - Mock Models for preview
 #if DEBUG
 extension [CategoryModel] {
@@ -21,7 +20,7 @@ extension [CategoryModel] {
     CategoryModel(id: UUID().uuidString, name: "Vegetarian", thumbnailURL: nil),
     CategoryModel(id: UUID().uuidString, name: "Vegan", thumbnailURL: nil),
     CategoryModel(id: UUID().uuidString, name: "Asian", thumbnailURL: nil),
-    CategoryModel(id: UUID().uuidString, name: "Chinese", thumbnailURL: nil),
+    CategoryModel(id: UUID().uuidString, name: "Chinese", thumbnailURL: nil)
   ]
 }
 #endif

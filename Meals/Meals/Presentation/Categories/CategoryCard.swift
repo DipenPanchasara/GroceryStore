@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CategoryCard: View {
   let categoryModel: CategoryModel
-  
+
   var body: some View {
     ZStack {
       VStack(spacing: .zero) {

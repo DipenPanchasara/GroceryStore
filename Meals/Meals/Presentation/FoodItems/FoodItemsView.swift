@@ -21,9 +21,7 @@ struct FoodItemsView: View {
           list(items: viewModel.foodItems)
         case .failed(let errorModel):
           ErrorView(viewModel: errorModel) {
-            Task {
-              await viewModel.onRetryTap()
-            }
+            await viewModel.onRetryTap()
           }
       }
     }
@@ -46,32 +44,18 @@ struct FoodItemsView: View {
       viewModel.onBackTap()
     }
   }
-  
+
   private func loadingView() -> some View {
     HStack {
       ProgressView()
     }
   }
-  
+
   private func list(items: [FoodItemModel]) -> some View {
     List(items) { item in
       Text(item.name)
     }
   }
-}
-/*
-#Preview {
-  FoodItemsView(
-    viewModel: FoodItemsViewModel(
-      categoryName: "any",
-      useCase: FoodItemsUseCase(),
-      categoryRouter: CategoryRouter(
-        router: Router(
-          path: NavigationPath()
-        )
-      )
-    )
-  )
 }
 
 #if DEBUG
@@ -79,34 +63,46 @@ struct FoodItemsView_Previews: PreviewProvider {
   enum MockError: Error {
     case failed
   }
-  
+
   static let categoryRouter = CategoryRouter(router: Router(path: NavigationPath()))
-  static let viewModel = FoodItemsViewModel(
-    categoryName: "any",
-    useCase: FoodItemsUseCase(),
-    categoryRouter: categoryRouter
-  )
-  
+
   static var previews: some View {
     Group {
       NavigationStack {
-        FoodItemsView(viewModel: viewModel)
-          .task {
-            await viewModel.onAppear()
-          }
-          .preferredColorScheme(.dark)
-          .previewDisplayName("Categories_Success")
+        FoodItemsView(
+          viewModel: FoodItemsViewModel(categoryName: "any", useCase: MockFoodItemsUseCase(foodItems: .mock), categoryRouter: categoryRouter)
+        )
+        .preferredColorScheme(.dark)
+        .previewDisplayName("Success")
       }
 //      NavigationStack {
-//        CategoriesView(viewModel: failedViewModel)
-//          .task {
-//            await failedViewModel.onAppear()
-//          }
-//          .preferredColorScheme(.dark)
-//          .previewDisplayName("Categories_failed")
+//        FoodItemsView(
+//          viewModel: FoodItemsViewModel(categoryName: "any", useCase: MockFoodItemsUseCase(error: MockError.failed), categoryRouter: categoryRouter)
+//        )
+//        .preferredColorScheme(.dark)
+//        .previewDisplayName("Success")
 //      }
     }
   }
 }
+// struct FoodItemsView_Previews: PreviewProvider {
+//  enum MockError: Error {
+//    case failed
+//  }
+//  
+//  static let categoryRouter = CategoryRouter(router: Router(path: NavigationPath()))
+//  static var previews: some View {
+//    FoodItemsView(
+//      viewModel: FoodItemsViewModel(
+//        categoryName: "any",
+//        useCase: MockFoodItemsUseCase(
+//          foodItems: .mock
+//        ),
+//        categoryRouter: categoryRouter
+//      )
+//    )
+//    .preferredColorScheme(.dark)
+//    .previewDisplayName("FoodItemsSuccess")
+//  }
+// }
 #endif
-*/
