@@ -89,7 +89,7 @@ struct FoodItemsView_Previews: PreviewProvider {
 //  enum MockError: Error {
 //    case failed
 //  }
-//  
+//
 //  static let categoryRouter = CategoryRouter(router: Router(path: NavigationPath()))
 //  static var previews: some View {
 //    FoodItemsView(

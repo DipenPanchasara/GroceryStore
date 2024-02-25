@@ -1,0 +1,6 @@
+*~
+.DS_Store
+Meals.xcscheme
+Meals/Meals.xcodeproj/xcuserdata/*
+Meals/Meals.xcodeproj/project.xcworkspace/*
+Meals/Meals.xcworkspace/xcuserdata/*
