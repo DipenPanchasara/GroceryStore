@@ -32,7 +32,6 @@ class CategoriesViewModel: ObservableObject {
   }
 
   private func subscribe() {
-    loadingState = .loading
     useCase.dataStream
       .receive(on: DispatchQueue.main)
       .sink(receiveValue: { [weak self] categories in
@@ -51,6 +50,7 @@ class CategoriesViewModel: ObservableObject {
 
   @MainActor
   func onAppear() async {
+    loadingState = .loading
     await useCase.fetchCategories()
   }
 

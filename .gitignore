@@ -1,6 +1,11 @@
 *~
 .DS_Store
 Meals.xcscheme
-Meals/Meals.xcodeproj/xcuserdata/*
-Meals/Meals.xcodeproj/project.xcworkspace/*
-Meals/Meals.xcworkspace/xcuserdata/*
+
+
+# Xcode
+xcuserdata/
+Meals.xcworkspace/
+Meals.xcodeproj/
+DerivedData/
+Meals/Pods/

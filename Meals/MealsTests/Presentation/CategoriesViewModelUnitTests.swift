@@ -6,6 +6,7 @@
 //
 
 @testable import Meals
+import Cuckoo
 import XCTest
 
 final class CategoriesViewModelUnitTests: XCTestCase {
@@ -13,7 +14,9 @@ final class CategoriesViewModelUnitTests: XCTestCase {
     let vm = CategoriesViewModel(
       useCase: MockCategoriesUseCase(
         error: MockError.useCasefailed
-      )
+      ),
+      categoryRouter: MockCategoryRouterProtocol(),
+      categoryViewModelFactory: MockCategoryViewModelFactoryProtocol()
     )
     XCTAssertEqual(vm.loadingState, .idle)
   }
@@ -21,7 +24,9 @@ final class CategoriesViewModelUnitTests: XCTestCase {
   func testViewModel_whenOnAppearCalled() async throws {
     let expectedCategories: [CategoryModel] = .mock
     let vm = CategoriesViewModel(
-      useCase: MockCategoriesUseCase(categories: expectedCategories)
+      useCase: MockCategoriesUseCase(categories: expectedCategories),
+      categoryRouter: MockCategoryRouterProtocol(),
+      categoryViewModelFactory: MockCategoryViewModelFactoryProtocol()
     )
     await vm.onAppear()
     XCTAssertEqual(
@@ -34,7 +39,9 @@ final class CategoriesViewModelUnitTests: XCTestCase {
 
   func testViewModel_whenUseCaseThrows() async throws {
     let vm = CategoriesViewModel(
-      useCase: MockCategoriesUseCase(error: MockError.useCasefailed)
+      useCase: MockCategoriesUseCase(error: MockError.useCasefailed),
+      categoryRouter: MockCategoryRouterProtocol(),
+      categoryViewModelFactory: MockCategoryViewModelFactoryProtocol()
     )
     await vm.onAppear()
     XCTAssertEqual(
@@ -46,7 +53,9 @@ final class CategoriesViewModelUnitTests: XCTestCase {
   func testViewModel_whenOnRetryTap() async throws {
     let expectedCategories: [CategoryModel] = .mock
     let vm = CategoriesViewModel(
-      useCase: MockCategoriesUseCase(categories: expectedCategories)
+      useCase: MockCategoriesUseCase(categories: expectedCategories),
+      categoryRouter: MockCategoryRouterProtocol(),
+      categoryViewModelFactory: MockCategoryViewModelFactoryProtocol()
     )
     await vm.onRetryTap()
     XCTAssertEqual(

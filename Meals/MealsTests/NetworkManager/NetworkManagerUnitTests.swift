@@ -6,8 +6,8 @@
 //
 
 @testable import Meals
-import XCTest
 import Combine
+import XCTest
 
 final class NetworkManagerUnitTests: XCTestCase {
   private let baseURLString = "www.test.com"
