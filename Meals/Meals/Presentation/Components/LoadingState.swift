@@ -12,4 +12,17 @@ enum LoadingState<ViewModel: Equatable>: Equatable {
   case loading
   case loaded(model: ViewModel)
   case failed(model: ErrorModel)
+  
+  var isLoading: Bool {
+    self == .loading
+  }
+  
+  var canLoad: Bool {
+    switch self {
+      case .idle, .failed:
+        return true
+      case .loading, .loaded:
+        return false
+    }
+  }
 }

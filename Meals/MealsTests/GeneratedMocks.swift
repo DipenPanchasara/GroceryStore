@@ -1,4 +1,4 @@
-// MARK: - Mocks generated from file: Meals/Navigation/CategoryRouter.swift at 2024-02-25 20:08:52 +0000
+// MARK: - Mocks generated from file: Meals/Navigation/CategoryRouter.swift at 2024-02-25 20:45:03 +0000
 
 //
 //  CategoryRouter.swift
@@ -234,7 +234,7 @@ import SwiftUI
 
 
 
-// MARK: - Mocks generated from file: Meals/Navigation/Router.swift at 2024-02-25 20:08:52 +0000
+// MARK: - Mocks generated from file: Meals/Navigation/Router.swift at 2024-02-25 20:45:03 +0000
 
 //
 //  Router.swift
@@ -420,7 +420,7 @@ import SwiftUI
 
 
 
-// MARK: - Mocks generated from file: Meals/NetworkManager/NetworkManager.swift at 2024-02-25 20:08:52 +0000
+// MARK: - Mocks generated from file: Meals/NetworkManager/NetworkManager.swift at 2024-02-25 20:45:03 +0000
 
 //
 //  NetworkManager.swift
@@ -555,7 +555,7 @@ import Foundation
 
 
 
-// MARK: - Mocks generated from file: Meals/Presentation/UseCases/CategoriesUseCase.swift at 2024-02-25 20:08:52 +0000
+// MARK: - Mocks generated from file: Meals/Presentation/UseCases/CategoriesUseCase.swift at 2024-02-25 20:45:03 +0000
 
 //
 //  CategoriesUseCase.swift
@@ -773,7 +773,7 @@ import SwiftUI
 
 
 
-// MARK: - Mocks generated from file: Meals/Presentation/UseCases/FoodItemsUseCase.swift at 2024-02-25 20:08:52 +0000
+// MARK: - Mocks generated from file: Meals/Presentation/UseCases/FoodItemsUseCase.swift at 2024-02-25 20:45:03 +0000
 
 //
 //  FoodItemsUseCase.swift
@@ -990,7 +990,7 @@ import Foundation
 
 
 
-// MARK: - Mocks generated from file: Meals/Presentation/ViewModelFactory/CategoryViewModelFactory.swift at 2024-02-25 20:08:52 +0000
+// MARK: - Mocks generated from file: Meals/Presentation/ViewModelFactory/CategoryViewModelFactory.swift at 2024-02-25 20:45:03 +0000
 
 //
 //  CategoryViewModelFactory.swift
