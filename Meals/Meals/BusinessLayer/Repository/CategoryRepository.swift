@@ -5,9 +5,11 @@
 //  Created by Dipen Panchasara on 12/02/2024.
 //
 
+import Combine
 import Foundation
 
 protocol CategoryRepositoryProtocol {
+  func allCategories() -> AnyPublisher<[CategoryEntity], Error>
   func allCategories() async throws -> [CategoriesData.Category]
   func fetchFoodItems(by categoryName: String) async throws -> [FoodData.FoodItemData]
 }
@@ -19,6 +21,7 @@ final class CategoryRepository: CategoryRepositoryProtocol {
 
   private let networkManager: NetworkProvider
   private let decoder: ResponseDecoderProvider
+  private var subscriptions = Set<AnyCancellable>()
 
   init(
     networkManager: NetworkProvider,
@@ -71,5 +74,30 @@ final class CategoryRepository: CategoryRepositoryProtocol {
       throw error
     }
   }
+  
+  func allCategories() -> AnyPublisher<[CategoryEntity], Error> {
+    networkManager.execute(
+      networkRequest: NetworkRequest(
+        httpMethod: .get,
+        endpoint: .allCategories
+      )
+    )
+    .map({
+      (result: CategoriesData) in
+      result.categories.map {
+        CategoryEntity(
+          id: $0.idCategory,
+          name: $0.strCategory,
+          thumbURLString: $0.strCategoryThumb
+        )
+      }
+    })
+    .eraseToAnyPublisher()
+  }
+}
 
+struct CategoryEntity: Equatable {
+  let id: String
+  let name: String
+  let thumbURLString: String?
 }
