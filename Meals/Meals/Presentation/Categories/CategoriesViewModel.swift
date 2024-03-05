@@ -18,7 +18,7 @@ class CategoriesViewModel: ObservableObject {
   private(set) var categoryRouter: CategoryRouterProtocol
   private(set) var categoryViewModelFactory: CategoryViewModelFactoryProtocol
   @Published var loadingState: LoadingState<ViewModel> = .idle
-  private var cancellables = Set<AnyCancellable>()
+  private var subscriptions = Set<AnyCancellable>()
 
   init(
     useCase: CategoriesUseCaseProtocol,
@@ -32,31 +32,37 @@ class CategoriesViewModel: ObservableObject {
   }
 
   private func subscribe() {
-    useCase.dataStream
+    useCase.publisher
       .receive(on: DispatchQueue.main)
-      .sink(receiveValue: { [weak self] categories in
-        self?.loadingState = .loaded(model: ViewModel(categories: categories))
-      })
-      .store(in: &cancellables)
-    useCase.errorStream
-      .receive(on: DispatchQueue.main)
-      .sink(receiveValue: { [weak self] error in
-        print("error: \(error)")
-        self?.loadingState = .failed(model: ErrorModel(message: "Unable to load categories."))
-
-      })
-      .store(in: &cancellables)
+      .sink { completion in
+        print(completion)
+        switch completion {
+          case .finished:
+            print("\(#function) Category stream finished")
+          case .failure(let error):
+            print("Error: \(error)")
+        }
+      } receiveValue: { [weak self] result in
+        guard let self = self else { return }
+        switch result {
+          case .success(let categories):
+            self.loadingState = .loaded(model: ViewModel(categories: categories))
+          case .failure(let error):
+            print("Error: \(error)")
+            self.loadingState = .failed(model: ErrorModel(message: "Unable to load categories."))
+        }
+      }
+      .store(in: &subscriptions)
   }
 
-  @MainActor
-  func onAppear() async {
+  func onAppear() {
     guard loadingState.canLoad else { return }
     loadingState = .loading
-    await useCase.fetchCategories()
+    useCase.fetchCategories()
   }
 
-  func onRetryTap() async {
-    await onAppear()
+  func onRetryTap() {
+    onAppear()
   }
 
   @MainActor
