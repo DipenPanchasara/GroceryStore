@@ -16,20 +16,22 @@ struct CategoriesView: View {
         case .idle:
           EmptyView()
         case .loading:
-          loadingView()
+          list(categories: .mock)
         case .loaded(let viewModel):
           list(categories: viewModel.categories)
         case .failed(let errorModel):
           ErrorView(viewModel: errorModel) {
-            await viewModel.onRetryTap()
+            viewModel.onRetryTap()
           }
       }
     }
+    .redacted(if: viewModel.loadingState.isLoading)
+    .disabled(viewModel.loadingState.isLoading)
     .background(Color.white)
     .withCategoryRoutes(categoryViewModelFactory: viewModel.categoryViewModelFactory)
     .listStyle(.plain)
     .task {
-      await viewModel.onAppear()
+      viewModel.onAppear()
     }
     .navigationBarTitle(
       "Categories",
@@ -37,9 +39,10 @@ struct CategoriesView: View {
     )
     .navigationBarTitleDisplayMode(.inline)
     .refreshable {
-      Task {
-        await viewModel.onRetryTap()
-      }
+      viewModel.onRetryTap()
+//      Task {
+//        await viewModel.onRetryTap()
+//      }
     }
     .toolBarStyle()
   }
@@ -54,8 +57,9 @@ struct CategoriesView: View {
     List(categories,
          rowContent: {
       categoryModel in
-      CategoryCard(
-        categoryModel: categoryModel
+      CardView(
+        name: categoryModel.name,
+        thumbURL: categoryModel.thumbnailURL
       )
       .listRowBackground(Color.clear)
       .listRowSeparator(.hidden)
@@ -113,3 +117,11 @@ struct CategoriesView_Previews: PreviewProvider {
 //  var router: Router
 // }
 #endif
+
+
+extension View {
+  @ViewBuilder
+  func redacted(if condition: @autoclosure () -> Bool) -> some View {
+    redacted(reason: condition() ? .placeholder : [])
+  }
+}
