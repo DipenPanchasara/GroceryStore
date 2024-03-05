@@ -8,29 +8,40 @@
 import Foundation
 import Combine
 
-struct MockCategoriesUseCase: CategoriesUseCaseProtocol {
+final class MockCategoriesUseCase: CategoriesUseCaseProtocol {
   struct NoStubError: Error {}
-  private var categories: [CategoryModel]? = []
+  private var categoriesModel: [CategoryModel]? = []
   private let error: Error
-  let dataStream: PassthroughSubject<[CategoryModel], Never> = PassthroughSubject()
-  let errorStream: PassthroughSubject<Error, Never> = PassthroughSubject()
+
+  @Published
+  private var result: Result<[CategoryModel], Error> = .failure(NoStubError())
+  var publisher: Published<Result<[CategoryModel], Error>>.Publisher {
+    $result
+  }
 
   init(categories: [CategoryModel]) {
-    self.categories = categories
+    self.categoriesModel = categories
     self.error = NoStubError()
   }
 
   init(error: Error) {
     self.error = error
-    self.categories = nil
+    self.categoriesModel = nil
   }
 
-  func fetchCategories() async {
-    guard let categories else {
-      errorStream.send(error)
+  func fetchCategories() {
+    guard let categoriesModel else {
+      self.result = .failure(error)
       return
     }
-    dataStream.send(categories)
+    self.result = .success(categoriesModel)
+  }
+  
+  func fetchCategories() async throws -> [CategoryModel] {
+    guard let categoriesModel else {
+      throw error
+    }
+    return categoriesModel
   }
 }
 #endif
