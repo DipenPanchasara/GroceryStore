@@ -27,11 +27,17 @@ struct RemoteImageView: View {
         Image(uiImage: image)
           .resizable()
           .aspectRatio(contentMode: .fit)
+          .animation(.easeOut, value: image)
       } else {
-        Rectangle()
-          .background(Color.red)
+        ZStack {
+          Rectangle()
+            .fill(Color.white)
+          ProgressView()
+            .foregroundStyle(Color.white)
+        }
       }
     }
+    .background(Color.white)
     .task {
       await loadImage(at: source)
     }

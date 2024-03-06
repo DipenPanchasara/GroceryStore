@@ -27,15 +27,9 @@ actor ImageLoader {
       }
     }
 
-//    if let image = try self.imageFromFileSystem(for: urlRequest) {
-//      images[urlRequest] = .fetched(image)
-//      return image
-//    }
-
     let task: Task<UIImage, Error> = Task {
       let (imageData, _) = try await URLSession.shared.data(for: urlRequest)
       let image = UIImage(data: imageData)!
-//      try self.persistImage(image, for: urlRequest)
       images[urlRequest] = .fetched(image)
       return image
     }
@@ -48,40 +42,10 @@ actor ImageLoader {
 
     return image
   }
+}
 
-  private func persistImage(_ image: UIImage, for urlRequest: URLRequest) throws {
-    guard let url = fileName(for: urlRequest),
-          let data = image.pngData() else {
-      assertionFailure("Unable to generate a local path for \(urlRequest)")
-      return
-    }
-
-    try data.write(to: url, options: .noFileProtection)
-  }
-
-  private func imageFromFileSystem(for urlRequest: URLRequest) throws -> UIImage? {
-    guard let url = fileName(for: urlRequest) else {
-      assertionFailure("Unable to generate a local path for \(urlRequest)")
-      return nil
-    }
-
-    let data = try Data(contentsOf: url)
-    return UIImage(data: data)
-  }
-
-  private func fileName(for urlRequest: URLRequest) -> URL? {
-    guard let fileName: String = urlRequest.url?.lastPathComponent,
-//      .addingPercentEncoding(withAllowedCharacters: .urlPathAllowed),
-          let applicationSupport = FileManager.default.urls(
-            for: .cachesDirectory,
-            in: .userDomainMask
-          ).first else {
-      return nil
-    }
-    return applicationSupport.appendingPathComponent(fileName)
-  }
-
-  private enum LoaderStatus {
+private extension ImageLoader {
+  enum LoaderStatus {
     case inProgress(Task<UIImage, Error>)
     case fetched(UIImage)
   }
@@ -95,44 +59,5 @@ extension EnvironmentValues {
   var imageLoader: ImageLoader {
     get { self[ImageLoaderKey.self] }
     set { self[ImageLoaderKey.self ] = newValue}
-  }
-}
-
-struct RemoteImage: View {
-  private let source: URLRequest
-  @State private var image: UIImage?
-
-  @Environment(\.imageLoader) private var imageLoader
-
-  init(source: URL) {
-    self.init(source: URLRequest(url: source))
-  }
-
-  init(source: URLRequest) {
-    self.source = source
-  }
-
-  var body: some View {
-    Group {
-      if let image = image {
-        Image(uiImage: image)
-          .resizable()
-          .aspectRatio(contentMode: .fit)
-      } else {
-        Rectangle()
-          .background(Color.red)
-      }
-    }
-    .task {
-      await loadImage(at: source)
-    }
-  }
-
-  func loadImage(at source: URLRequest) async {
-    do {
-      image = try await imageLoader.fetch(source)
-    } catch {
-      print(error)
-    }
   }
 }
