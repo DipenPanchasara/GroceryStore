@@ -13,7 +13,7 @@
 		250D77972B88CFE00048F6CF /* FoodItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250D77962B88CFE00048F6CF /* FoodItemModel.swift */; };
 		250D77992B88FD490048F6CF /* FoodData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250D77982B88FD490048F6CF /* FoodData.swift */; };
 		250F02BA2B72B0BD0044AA7D /* NetworkSessionProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250F02B92B72B0BD0044AA7D /* NetworkSessionProvider.swift */; };
-		251553592B7696580000FB17 /* LoadingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251553582B7696580000FB17 /* LoadingState.swift */; };
+		251553592B7696580000FB17 /* ViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251553582B7696580000FB17 /* ViewState.swift */; };
 		2515535C2B7697C70000FB17 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2515535B2B7697C70000FB17 /* ErrorView.swift */; };
 		25169C8F2B8BC9A10039A818 /* GeneratedMocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25169C8E2B8BC9A10039A818 /* GeneratedMocks.swift */; };
 		25169C912B8BCCD80039A818 /* MockFiles.xcfilelist in Resources */ = {isa = PBXBuildFile; fileRef = 25169C902B8BCCD80039A818 /* MockFiles.xcfilelist */; };
@@ -29,6 +29,8 @@
 		2576F85A2B7B9CE80088635F /* MockNetworkSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250F02B72B72B08D0044AA7D /* MockNetworkSession.swift */; };
 		257B8CD42B6FD4B300F40246 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257B8CD32B6FD4B300F40246 /* RootView.swift */; };
 		257B8CD62B6FD5E900F40246 /* RootViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257B8CD52B6FD5E900F40246 /* RootViewModel.swift */; };
+		2596E5C92B8D056E0016B4D8 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2596E5C82B8D056E0016B4D8 /* CardView.swift */; };
+		259A66DE2B98F08400391537 /* RedactedModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259A66DD2B98F08400391537 /* RedactedModifier.swift */; };
 		25A417152B702DBF00D90813 /* ResponseDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A417142B702DBF00D90813 /* ResponseDecoder.swift */; };
 		25A417192B702EB000D90813 /* LaunchConfigurationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A417182B702EB000D90813 /* LaunchConfigurationManager.swift */; };
 		25BE52132B7A6EAD00FA9C50 /* CategoryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25BE52122B7A6EAD00FA9C50 /* CategoryRepository.swift */; };
@@ -72,7 +74,7 @@
 		250D77982B88FD490048F6CF /* FoodData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodData.swift; sourceTree = "<group>"; };
 		250F02B72B72B08D0044AA7D /* MockNetworkSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNetworkSession.swift; sourceTree = "<group>"; };
 		250F02B92B72B0BD0044AA7D /* NetworkSessionProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkSessionProvider.swift; sourceTree = "<group>"; };
-		251553582B7696580000FB17 /* LoadingState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingState.swift; sourceTree = "<group>"; };
+		251553582B7696580000FB17 /* ViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewState.swift; sourceTree = "<group>"; };
 		2515535B2B7697C70000FB17 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		25169C8E2B8BC9A10039A818 /* GeneratedMocks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneratedMocks.swift; sourceTree = "<group>"; };
 		25169C902B8BCCD80039A818 /* MockFiles.xcfilelist */ = {isa = PBXFileReference; lastKnownFileType = text.xcfilelist; path = MockFiles.xcfilelist; sourceTree = "<group>"; };
@@ -86,6 +88,9 @@
 		257478252B6AC92F004A4861 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		257B8CD32B6FD4B300F40246 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		257B8CD52B6FD5E900F40246 /* RootViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewModel.swift; sourceTree = "<group>"; };
+		258F6C5D2B92474A001A86A9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		2596E5C82B8D056E0016B4D8 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		259A66DD2B98F08400391537 /* RedactedModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedactedModifier.swift; sourceTree = "<group>"; };
 		25A417142B702DBF00D90813 /* ResponseDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseDecoder.swift; sourceTree = "<group>"; };
 		25A417162B702E2000D90813 /* MockNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNetworkManager.swift; sourceTree = "<group>"; };
 		25A417182B702EB000D90813 /* LaunchConfigurationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchConfigurationManager.swift; sourceTree = "<group>"; };
@@ -151,10 +156,11 @@
 		2515535A2B7697B30000FB17 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				251553582B7696580000FB17 /* LoadingState.swift */,
+				251553582B7696580000FB17 /* ViewState.swift */,
 				2515535B2B7697C70000FB17 /* ErrorView.swift */,
 				256DAD502B867F79008EE2A4 /* ImageLoader.swift */,
 				250D77902B88A8820048F6CF /* RemoteImageView.swift */,
+				2596E5C82B8D056E0016B4D8 /* CardView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -283,6 +289,7 @@
 		25C44FB92B684433001CE21F /* Meals */ = {
 			isa = PBXGroup;
 			children = (
+				258F6C5D2B92474A001A86A9 /* Info.plist */,
 				25FA2C232B7FC4E100B3E40F /* Navigation */,
 				25C44FC02B684436001CE21F /* Meals.entitlements */,
 				25A417182B702EB000D90813 /* LaunchConfigurationManager.swift */,
@@ -331,6 +338,7 @@
 			isa = PBXGroup;
 			children = (
 				25F30BD52B83E703007D0CDF /* ToolbarStyleModifier.swift */,
+				259A66DD2B98F08400391537 /* RedactedModifier.swift */,
 			);
 			path = ViewModifiers;
 			sourceTree = "<group>";
@@ -571,9 +579,10 @@
 				2515535C2B7697C70000FB17 /* ErrorView.swift in Sources */,
 				2567E0072B6C047300D7EEE5 /* CategoriesUseCase.swift in Sources */,
 				2567E0092B6C072200D7EEE5 /* MockCategoriesUseCase.swift in Sources */,
+				2596E5C92B8D056E0016B4D8 /* CardView.swift in Sources */,
 				257478262B6AC92F004A4861 /* NetworkManager.swift in Sources */,
 				25BE52152B7A706E00FA9C50 /* NetworkRequest.swift in Sources */,
-				251553592B7696580000FB17 /* LoadingState.swift in Sources */,
+				251553592B7696580000FB17 /* ViewState.swift in Sources */,
 				25C44FBD2B684433001CE21F /* CategoriesView.swift in Sources */,
 				25F30BD62B83E703007D0CDF /* ToolbarStyleModifier.swift in Sources */,
 				250D77912B88A8820048F6CF /* RemoteImageView.swift in Sources */,
@@ -593,6 +602,7 @@
 				25BE52132B7A6EAD00FA9C50 /* CategoryRepository.swift in Sources */,
 				2567E0042B6C043400D7EEE5 /* CategoryModel.swift in Sources */,
 				25A417152B702DBF00D90813 /* ResponseDecoder.swift in Sources */,
+				259A66DE2B98F08400391537 /* RedactedModifier.swift in Sources */,
 				257B8CD62B6FD5E900F40246 /* RootViewModel.swift in Sources */,
 				257B8CD42B6FD4B300F40246 /* RootView.swift in Sources */,
 				250F02BA2B72B0BD0044AA7D /* NetworkSessionProvider.swift in Sources */,
@@ -674,7 +684,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -730,7 +740,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -751,6 +761,7 @@
 				ENABLE_PREVIEWS = YES;
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Meals/Info.plist;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -790,6 +801,7 @@
 				ENABLE_PREVIEWS = YES;
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Meals/Info.plist;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
