@@ -16,7 +16,7 @@ struct FoodItemsView: View {
         case .idle:
           EmptyView()
         case .loading:
-          loadingView()
+          list(items: .mock)
         case .loaded(let viewModel):
           list(items: viewModel.foodItems)
         case .failed(let errorModel):
@@ -25,6 +25,7 @@ struct FoodItemsView: View {
           }
       }
     }
+    .redacted(if: viewModel.loadingState.isLoading)
     .background(Color.white)
     .listStyle(.plain)
     .task {
@@ -40,9 +41,7 @@ struct FoodItemsView: View {
         await viewModel.onRetryTap()
       }
     }
-    .toolBarStyle(showBackButton: true) {
-      viewModel.onBackTap()
-    }
+    .toolBarStyle(showBackButton: true)
   }
 
   private func loadingView() -> some View {
@@ -53,7 +52,12 @@ struct FoodItemsView: View {
 
   private func list(items: [FoodItemModel]) -> some View {
     List(items) { item in
-      Text(item.name)
+      CardView(name: item.name, thumbURL: item.thumbURL)
+        .listRowBackground(Color.clear)
+        .listRowSeparator(.hidden)
+        .onTapGesture {
+          viewModel.onFoodItemTap(item: item)
+        }
     }
   }
 }

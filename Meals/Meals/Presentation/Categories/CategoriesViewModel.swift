@@ -17,7 +17,7 @@ class CategoriesViewModel: ObservableObject {
   private let useCase: CategoriesUseCaseProtocol
   private(set) var categoryRouter: CategoryRouterProtocol
   private(set) var categoryViewModelFactory: CategoryViewModelFactoryProtocol
-  @Published var loadingState: LoadingState<ViewModel> = .idle
+  @Published var loadingState: ViewState<ViewModel> = .idle
   private var subscriptions = Set<AnyCancellable>()
 
   init(

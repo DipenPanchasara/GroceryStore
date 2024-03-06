@@ -13,7 +13,7 @@ final class FoodItemsViewModel: ObservableObject {
     var foodItems: [FoodItemModel]
   }
 
-  @Published var loadingState: LoadingState<FoodItemsViewModel.ViewModel> = .idle
+  @Published var loadingState: ViewState<FoodItemsViewModel.ViewModel> = .idle
   private let categoryRouter: CategoryRouterProtocol
   private let useCase: FoodItemsUseCaseProtocol
   private let categoryName: String
@@ -59,8 +59,8 @@ final class FoodItemsViewModel: ObservableObject {
   func onRetryTap() async {
     await onAppear()
   }
-
-  func onBackTap() {
-    categoryRouter.pop()
+  
+  func onFoodItemTap(item: FoodItemModel) {
+    print(item)
   }
 }

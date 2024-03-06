@@ -40,9 +40,6 @@ struct CategoriesView: View {
     .navigationBarTitleDisplayMode(.inline)
     .refreshable {
       viewModel.onRetryTap()
-//      Task {
-//        await viewModel.onRetryTap()
-//      }
     }
     .toolBarStyle()
   }
@@ -117,11 +114,3 @@ struct CategoriesView_Previews: PreviewProvider {
 //  var router: Router
 // }
 #endif
-
-
-extension View {
-  @ViewBuilder
-  func redacted(if condition: @autoclosure () -> Bool) -> some View {
-    redacted(reason: condition() ? .placeholder : [])
-  }
-}
