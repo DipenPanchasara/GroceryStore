@@ -51,8 +51,8 @@ final class FoodItemsViewModel: ObservableObject {
 
   @MainActor
   func onAppear() async {
-    guard loadingState.canLoad else { return }
-    loadingState = .loading
+    guard loadingState.canReload else { return }
+    loadingState = .loading(model: ViewModel(foodItems: .mock))
     await useCase.fetchFoodItems(by: categoryName)
   }
 

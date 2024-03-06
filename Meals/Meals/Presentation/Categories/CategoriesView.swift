@@ -106,11 +106,4 @@ struct CategoriesView_Previews: PreviewProvider {
     }
   }
 }
-
-// struct MockCategoryRouter: CategoryFlowRouter {
-//  func push(destination: CategoryFlowRoutes) {}
-//  func pop() {}
-//  func popToRootView() {}
-//  var router: Router
-// }
 #endif

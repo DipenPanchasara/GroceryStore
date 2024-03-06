@@ -56,8 +56,8 @@ class CategoriesViewModel: ObservableObject {
   }
 
   func onAppear() {
-    guard loadingState.canLoad else { return }
-    loadingState = .loading
+    guard loadingState.canReload else { return }
+    loadingState = .loading(model: ViewModel(categories: .mock))
     useCase.fetchCategories()
   }
 

@@ -9,15 +9,20 @@ import Foundation
 
 enum ViewState<ViewModel: Equatable>: Equatable {
   case idle
-  case loading
+  case loading(model: ViewModel)
   case loaded(model: ViewModel)
   case failed(model: ErrorModel)
   
   var isLoading: Bool {
-    self == .loading
+    switch self {
+      case .loading:
+        return true
+      case .idle, .loaded, .failed:
+        return false
+    }
   }
   
-  var canLoad: Bool {
+  var canReload: Bool {
     switch self {
       case .loading:
         return false
