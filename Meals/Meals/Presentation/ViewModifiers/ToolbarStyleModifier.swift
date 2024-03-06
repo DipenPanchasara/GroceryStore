@@ -8,9 +8,10 @@
 import SwiftUI
 
 struct ToolbarStyleModifier: ViewModifier {
+  @Environment(\.dismiss) private var dismiss
+  
   let color: Color
   let showBackButton: Bool
-  var onTap: (() -> Void)?
 
   func body(content: Content) -> some View {
     content
@@ -31,7 +32,7 @@ struct ToolbarStyleModifier: ViewModifier {
         if showBackButton {
           ToolbarItem(placement: .topBarLeading) {
             Button("", systemImage: "arrow.left.circle") {
-              onTap?()
+              dismiss()
             }
           }
         }
@@ -40,12 +41,14 @@ struct ToolbarStyleModifier: ViewModifier {
 }
 
 extension View {
-  func toolBarStyle(color: Color = .pink, showBackButton: Bool = false, onTap: (() -> Void)? = nil) -> some View {
+  func toolBarStyle(
+    color: Color = .pink,
+    showBackButton: Bool = false
+  ) -> some View {
     modifier(
       ToolbarStyleModifier(
         color: color,
-        showBackButton: showBackButton,
-        onTap: onTap
+        showBackButton: showBackButton
       )
     )
   }

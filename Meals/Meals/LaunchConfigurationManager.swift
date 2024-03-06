@@ -14,7 +14,9 @@ class LaunchConfigurationManager {
   var scheme: String {
     guard
       let scheme = processInfo.environment["scheme"]
-    else { preconditionFailure("\"scheme\" not defined") }
+    else {
+      return "https"
+    }
     return scheme
   }
 
@@ -22,7 +24,9 @@ class LaunchConfigurationManager {
   var baseURLString: String {
     guard
       let urlString = processInfo.environment["baseURL"]
-    else { preconditionFailure("\"baseURL\" not defined") }
+    else {
+      return "www.themealdb.com"
+    }
     return urlString
   }
 }
