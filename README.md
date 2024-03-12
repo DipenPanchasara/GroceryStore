@@ -15,5 +15,4 @@ Coming soon
 
 | Home |
 | ---- |
-| [<img src="https://github.com/DipenPanchasara/Meals/assets/1386724/d14c3e8c-28cd-40e6-83ea-e45aa5de0808" width="350"/>](https://github.com/DipenPanchasara/Meals/assets/1386724/d14c3e8c-28cd-40e6-83ea-e45aa5de0808) |
-
+| [<img src="https://github.com/DipenPanchasara/Meals/assets/1386724/0a938fb0-ef44-49ce-babf-5c1de4ad3b96" width="350"/>](https://github.com/DipenPanchasara/Meals/assets/1386724/0a938fb0-ef44-49ce-babf-5c1de4ad3b96) |
