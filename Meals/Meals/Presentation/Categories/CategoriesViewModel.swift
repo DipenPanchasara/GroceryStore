@@ -56,14 +56,14 @@ class CategoriesViewModel: ObservableObject {
       .store(in: &subscriptions)
   }
 
-  func onAppear() {
+  func loadData() {
     guard loadingState.canReload else { return }
     loadingState = .loading(model: ViewModel(categories: .mock))
     useCase.fetchCategories()
   }
 
   func onRetryTap() {
-    onAppear()
+    loadData()
   }
 
   @MainActor
@@ -94,7 +94,6 @@ extension CategoriesViewModel {
   }
   
   func gridColumns() -> [GridItem] {
-    print("\(UIScreen.main.bounds.width) width: \(availableWidth) \(itemWidth)")
     return [
       GridItem(.fixed(itemWidth)),
       GridItem(.fixed(itemWidth))

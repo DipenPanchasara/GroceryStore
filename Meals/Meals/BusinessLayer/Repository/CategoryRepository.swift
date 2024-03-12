@@ -10,8 +10,8 @@ import Foundation
 
 protocol CategoryRepositoryProtocol {
   func allCategories() -> AnyPublisher<[CategoryEntity], Error>
-  func allCategories() async throws -> [CategoriesData.Category]
-  func fetchFoodItems(by categoryName: String) async throws -> [FoodData.FoodItemData]
+//  func allCategories() async throws -> [CategoriesData.Category]
+//  func fetchFoodItems(by categoryName: String) async throws -> [FoodData.FoodItemData]
 }
 
 final class CategoryRepository: CategoryRepositoryProtocol {
@@ -20,17 +20,13 @@ final class CategoryRepository: CategoryRepositoryProtocol {
   }
 
   private let networkManager: NetworkProvider
-  private let decoder: ResponseDecoderProvider
   private var subscriptions = Set<AnyCancellable>()
 
-  init(
-    networkManager: NetworkProvider,
-    decoder: ResponseDecoderProvider
-  ) {
+  init(networkManager: NetworkProvider) {
     self.networkManager = networkManager
-    self.decoder = decoder
   }
 
+  /*
   func allCategories() async throws -> [CategoriesData.Category] {
     do {
       let response = try await networkManager.execute(
@@ -73,7 +69,7 @@ final class CategoryRepository: CategoryRepositoryProtocol {
     } catch {
       throw error
     }
-  }
+  }*/
   
   func allCategories() -> AnyPublisher<[CategoryEntity], Error> {
     networkManager.execute(

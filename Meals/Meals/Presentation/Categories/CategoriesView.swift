@@ -29,7 +29,7 @@ struct CategoriesView: View {
     .withCategoryRoutes(categoryViewModelFactory: viewModel.categoryViewModelFactory)
     .listStyle(.plain)
     .task {
-      viewModel.onAppear()
+      viewModel.loadData()
     }
     .navigationBarTitle(
       "Categories",

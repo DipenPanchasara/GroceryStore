@@ -17,7 +17,7 @@ final class FoodItemsViewModel: ObservableObject {
   private let categoryRouter: CategoryRouterProtocol
   private let useCase: FoodItemsUseCaseProtocol
   private let categoryName: String
-  private var cancellables = Set<AnyCancellable>()
+  private var subscriptions = Set<AnyCancellable>()
 
   var navigationTitle: String {
     categoryName
@@ -35,30 +35,37 @@ final class FoodItemsViewModel: ObservableObject {
   }
 
   private func subscribe() {
-    useCase.dataStream
+    useCase.publisher
       .receive(on: DispatchQueue.main)
-      .sink { [weak self] foodItems in
-        self?.loadingState = .loaded(model: ViewModel(foodItems: foodItems))
+      .sink { completion in
+        print(completion)
+        switch completion {
+          case .finished:
+            print("\(#function) FoodItem stream finished")
+          case .failure(let error):
+            print("Error: \(error)")
+        }
+      } receiveValue: { [weak self] result in
+        guard let self = self else { return }
+        switch result {
+          case .success(let foodItems):
+            self.loadingState = .loaded(model: ViewModel(foodItems: foodItems))
+          case .failure(let error):
+            print("Error: \(error)")
+            self.loadingState = .failed(model: ErrorModel(message: "Unable to load FoodItems."))
+        }
       }
-      .store(in: &cancellables)
-    useCase.errorStream
-      .receive(on: DispatchQueue.main)
-      .sink { [weak self] error in
-        print(error)
-        self?.loadingState = .failed(model: ErrorModel(message: "Unable to load FoodItems."))
-      }
-      .store(in: &cancellables)
+      .store(in: &subscriptions)
   }
 
-  @MainActor
-  func onAppear() async {
+  func loadData() {
     guard loadingState.canReload else { return }
     loadingState = .loading(model: ViewModel(foodItems: .mock))
-    await useCase.fetchFoodItems(by: categoryName)
+    useCase.fetchFoodItems(by: categoryName)
   }
 
-  func onRetryTap() async {
-    await onAppear()
+  func onRetryTap() {
+    loadData()
   }
   
   func onFoodItemTap(item: FoodItemModel) {

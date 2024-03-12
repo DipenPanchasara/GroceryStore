@@ -19,7 +19,7 @@ struct FoodItemsView: View {
           list(items: viewModel.foodItems)
         case .failed(let errorModel):
           ErrorView(viewModel: errorModel) {
-            await viewModel.onRetryTap()
+            viewModel.onRetryTap()
           }
       }
     }
@@ -31,12 +31,10 @@ struct FoodItemsView: View {
     .navigationBarTitleDisplayMode(.inline)
 //    .redacted(if: viewModel.loadingState.isLoading)
     .task {
-      await viewModel.onAppear()
+      viewModel.loadData()
     }
     .refreshable {
-      Task {
-        await viewModel.onRetryTap()
-      }
+        viewModel.onRetryTap()
     }
     .toolBarStyle(showBackButton: true)
   }

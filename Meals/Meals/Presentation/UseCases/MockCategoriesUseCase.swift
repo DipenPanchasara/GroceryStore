@@ -36,12 +36,5 @@ final class MockCategoriesUseCase: CategoriesUseCaseProtocol {
     }
     self.result = .success(categoriesModel)
   }
-  
-  func fetchCategories() async throws -> [CategoryModel] {
-    guard let categoriesModel else {
-      throw error
-    }
-    return categoriesModel
-  }
 }
 #endif

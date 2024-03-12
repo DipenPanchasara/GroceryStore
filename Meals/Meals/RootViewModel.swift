@@ -13,6 +13,7 @@ class RootViewModel: ObservableObject {
   private(set) var scheme: String
   private(set) var baseURLString: String
   private(set) var session: URLSession
+  private(set) var decoder: ResponseDecoderProvider
   private(set) var categoryVMFactory: CategoryViewModelFactoryProtocol
   private let networkManager: NetworkProvider
 
@@ -28,16 +29,20 @@ class RootViewModel: ObservableObject {
     self.sessionConfiguration.timeoutIntervalForRequest = 60
     self.sessionConfiguration.requestCachePolicy = .reloadIgnoringLocalAndRemoteCacheData
     self.session = URLSession(configuration: sessionConfiguration)
+    self.decoder = ResponseDecoder()
     self.router = router
     self.networkManager = NetworkManager(
       scheme: scheme,
       baseURLString: baseURLString,
-      session: session
+      session: session, 
+      decoder: ResponseDecoder()
     )
     self.categoryVMFactory = CategoryViewModelFactory(
       categoryRepository: CategoryRepository(
-        networkManager: networkManager,
-        decoder: ResponseDecoder()
+        networkManager: networkManager
+      ),
+      foodItemRepository: FoodItemRepository(
+        networkManager: networkManager
       ),
       categoryRouter: CategoryRouter(router: router)
     )

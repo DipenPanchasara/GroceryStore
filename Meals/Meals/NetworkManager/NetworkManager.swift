@@ -9,41 +9,27 @@ import Foundation
 import Combine
 
 protocol NetworkProvider {
-  func execute(request: NetworkRequest) async throws -> NetworkResponse
   func execute<T>(networkRequest: NetworkRequest) -> AnyPublisher<T, Error> where T: Decodable
+  func execute(networkRequest: NetworkRequest) -> AnyPublisher<(Data, URLResponse), Error>
 }
 
 final class NetworkManager: NetworkProvider {
-  private let sessionConfiguration = URLSessionConfiguration.default
   private let scheme: String
   private let baseURLString: String
   private let session: NetworkSessionProvider
+  private let decoder: ResponseDecoderProvider
+  private var cache: URLCache?
 
   init(
     scheme: String,
     baseURLString: String,
-    session: NetworkSessionProvider
+    session: NetworkSessionProvider,
+    decoder: ResponseDecoderProvider
   ) {
     self.scheme = scheme
     self.baseURLString = baseURLString
     self.session = session
-  }
-
-  func execute(request: NetworkRequest) async throws -> NetworkResponse {
-    do {
-      let request = try prepareURLRequest(networkRequest: request)
-      let (data, response) = try await session.data(for: request)
-      guard let httpURLResponse = response as? HTTPURLResponse else { throw NetworkError.invalidResponse }
-
-      switch httpURLResponse.statusCode {
-        case 200...299:
-          return NetworkResponse(data: data, urlResponse: httpURLResponse)
-        default:
-          throw NetworkError.serverError
-      }
-    } catch {
-      throw error
-    }
+    self.decoder = decoder
   }
 
   func execute<T>(networkRequest: NetworkRequest) -> AnyPublisher<T, Error> where T: Decodable  {
@@ -54,11 +40,28 @@ final class NetworkManager: NetworkProvider {
       return Fail(error: URLError(.badURL)).eraseToAnyPublisher()
     }
     
-    return dataTaskPublisher(urlRequest: urlRequest)
-      .tryMap { result in
-        try self.handleResponse(result: result)
+    return session.dataTaskPublisher(for: urlRequest)
+      .tryMap {
+        try self.handleResponse(result: $0)
       }
-      .decode(type: T.self, decoder: JSONDecoder())
+      .tryMap {
+        try self.decoder.decode(T.self, from: $0)
+      }
+      .eraseToAnyPublisher()
+  }
+  
+  func execute(networkRequest: NetworkRequest) -> AnyPublisher<(Data, URLResponse), Error> {
+    var urlRequest: URLRequest
+    do {
+      urlRequest = try prepareURLRequest(networkRequest: networkRequest)
+    } catch {
+      return Fail(error: URLError(.badURL)).eraseToAnyPublisher()
+    }
+    
+    return session.dataTaskPublisher(for: urlRequest)
+      .tryMap {
+        ($0.data, $0.response)
+      }
       .eraseToAnyPublisher()
   }
 }

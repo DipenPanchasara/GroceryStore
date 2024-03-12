@@ -6,15 +6,19 @@
 //
 
 #if DEBUG
-import Foundation
 import Combine
+import SwiftUI
 
-struct MockFoodItemsUseCase: FoodItemsUseCaseProtocol {
+final class MockFoodItemsUseCase: FoodItemsUseCaseProtocol {
   struct NoStubError: Error {}
   private var foodItems: [FoodItemModel]? = []
   private let error: Error
-  let dataStream: PassthroughSubject<[FoodItemModel], Never> = PassthroughSubject()
-  let errorStream: PassthroughSubject<Error, Never> = PassthroughSubject()
+
+  @Published
+  private var result: Result<[FoodItemModel], Error> = .failure(NoStubError())
+  var publisher: Published<Result<[FoodItemModel], Error>>.Publisher {
+    return $result
+  }
 
   init(foodItems: [FoodItemModel]) {
     self.foodItems = foodItems
@@ -26,12 +30,12 @@ struct MockFoodItemsUseCase: FoodItemsUseCaseProtocol {
     self.foodItems = nil
   }
 
-  func fetchFoodItems(by categoryName: String) async {
+  func fetchFoodItems(by categoryName: String) {
     guard let foodItems else {
-      errorStream.send(error)
+      self.result = .failure(error)
       return
     }
-    dataStream.send(foodItems)
+    self.result = .success(foodItems)
   }
 }
 #endif

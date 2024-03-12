@@ -14,13 +14,16 @@ protocol CategoryViewModelFactoryProtocol {
 
 class CategoryViewModelFactory: CategoryViewModelFactoryProtocol {
   private let categoryRepository: CategoryRepositoryProtocol
+  private let foodItemRepository: FoodItemRepositoryProtocol
   private let categoryRouter: CategoryRouterProtocol
 
   init(
     categoryRepository: CategoryRepositoryProtocol,
+    foodItemRepository: FoodItemRepositoryProtocol,
     categoryRouter: CategoryRouterProtocol
   ) {
     self.categoryRepository = categoryRepository
+    self.foodItemRepository = foodItemRepository
     self.categoryRouter = categoryRouter
   }
 
@@ -37,7 +40,7 @@ class CategoryViewModelFactory: CategoryViewModelFactoryProtocol {
   func foodItemsViewModel(categoryName: String) -> FoodItemsViewModel {
     FoodItemsViewModel(
       categoryName: categoryName,
-      useCase: FoodItemsUseCase(categoryRepository: categoryRepository),
+      useCase: FoodItemsUseCase(foodItemRepository: foodItemRepository),
       categoryRouter: categoryRouter
     )
   }
