@@ -19,7 +19,7 @@ class CategoriesViewModel: ObservableObject {
   private(set) var categoryViewModelFactory: CategoryViewModelFactoryProtocol
   @Published var loadingState: ViewState<ViewModel> = .idle
   private var subscriptions = Set<AnyCancellable>()
-
+  
   init(
     useCase: CategoriesUseCaseProtocol,
     categoryRouter: CategoryRouterProtocol,
@@ -46,6 +46,7 @@ class CategoriesViewModel: ObservableObject {
         guard let self = self else { return }
         switch result {
           case .success(let categories):
+//            print(categories)
             self.loadingState = .loaded(model: ViewModel(categories: categories))
           case .failure(let error):
             print("Error: \(error)")
@@ -70,5 +71,33 @@ class CategoriesViewModel: ObservableObject {
     categoryRouter.push(
       destination: .foodItems(categoryName: category.name)
     )
+  }
+}
+
+extension CategoriesViewModel {
+  var padding: CGFloat { 8 }
+  var noOfColumns: CGFloat  { 2 }
+  var totalPadding: CGFloat {
+    if noOfColumns == 1 {
+      return padding * 2
+    } else {
+      return padding * (noOfColumns + 1)
+    }
+  }
+  
+  var availableWidth: CGFloat {
+    (UIScreen.main.bounds.width - totalPadding)
+  }
+  
+  var itemWidth: CGFloat {
+    availableWidth/noOfColumns
+  }
+  
+  func gridColumns() -> [GridItem] {
+    print("\(UIScreen.main.bounds.width) width: \(availableWidth) \(itemWidth)")
+    return [
+      GridItem(.fixed(itemWidth)),
+      GridItem(.fixed(itemWidth))
+    ]
   }
 }

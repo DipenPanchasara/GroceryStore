@@ -43,7 +43,8 @@ final class FoodItemsViewModel: ObservableObject {
       .store(in: &cancellables)
     useCase.errorStream
       .receive(on: DispatchQueue.main)
-      .sink { [weak self] _ in
+      .sink { [weak self] error in
+        print(error)
         self?.loadingState = .failed(model: ErrorModel(message: "Unable to load FoodItems."))
       }
       .store(in: &cancellables)

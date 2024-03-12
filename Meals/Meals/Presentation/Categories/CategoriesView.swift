@@ -13,19 +13,17 @@ struct CategoriesView: View {
   var body: some View {
     Group {
       switch viewModel.loadingState {
-        case .idle:
-          EmptyView()
-        case .loading:
-          list(categories: .mock)
+        case .idle, .loading:
+          LoadingView()
         case .loaded(let viewModel):
-          list(categories: viewModel.categories)
+          gridView(categories: viewModel.categories)
+//          list(categories: viewModel.categories)
         case .failed(let errorModel):
           ErrorView(viewModel: errorModel) {
             viewModel.onRetryTap()
           }
       }
     }
-    .redacted(if: viewModel.loadingState.isLoading)
     .disabled(viewModel.loadingState.isLoading)
     .background(Color.white)
     .withCategoryRoutes(categoryViewModelFactory: viewModel.categoryViewModelFactory)
@@ -44,12 +42,6 @@ struct CategoriesView: View {
     .toolBarStyle()
   }
 
-  private func loadingView() -> some View {
-    HStack {
-      ProgressView()
-    }
-  }
-
   private func list(categories: [CategoryModel]) -> some View {
     List(categories,
          rowContent: {
@@ -65,45 +57,45 @@ struct CategoriesView: View {
       }
     })
   }
+  
+  private func gridView(categories: [CategoryModel]) -> some View {
+    ScrollView{
+      LazyVGrid(columns: viewModel.gridColumns(), spacing: viewModel.padding) {
+        ForEach(categories, id: \.self) { category in
+          ZStack(alignment: .top) {
+            Rectangle()
+              .fill(.white)
+            VStack(spacing: .zero) {
+              if let thumbnailURL = category.thumbnailURL {
+                RemoteImageView(source: thumbnailURL)
+              }
+              Text(category.name)
+                .font(.title3)
+                .bold()
+                .multilineTextAlignment(.center)
+                .foregroundStyle(Color.pink)
+                .padding(.top, 8)
+                .padding(.horizontal, 4)
+            }
+            .frame(width: viewModel.itemWidth, height: viewModel.itemWidth)
+          }
+          .background(.white)
+          .cornerRadius(10)
+          .onTapGesture {
+            viewModel.onSelect(category: category)
+          }
+        }
+      }
+      .padding(.vertical, viewModel.padding)
+    }
+    .background(.gray.opacity(0.2))
+  }
 }
 
 #if DEBUG
 struct CategoriesView_Previews: PreviewProvider {
-  enum MockError: Error {
-    case failed
-  }
-
-  static let categoryRouter = CategoryRouter(router: Router(path: NavigationPath()))
-
   static var previews: some View {
-    Group {
-      NavigationStack {
-        CategoriesView(
-          viewModel: CategoriesViewModel(
-            useCase: MockCategoriesUseCase(
-              categories: .mock
-            ),
-            categoryRouter: categoryRouter,
-            categoryViewModelFactory: MockCategoryViewModelFactory()
-          )
-        )
-        .preferredColorScheme(.dark)
-        .previewDisplayName("Success")
-      }
-      NavigationStack {
-        CategoriesView(
-          viewModel: CategoriesViewModel(
-            useCase: MockCategoriesUseCase(
-              error: MockError.failed
-            ),
-            categoryRouter: categoryRouter,
-            categoryViewModelFactory: MockCategoryViewModelFactory()
-          )
-        )
-        .preferredColorScheme(.dark)
-        .previewDisplayName("Failure")
-      }
-    }
+    previewViews
   }
 }
 #endif
