@@ -25,8 +25,6 @@
 		2567E0092B6C072200D7EEE5 /* MockCategoriesUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2567E0082B6C072200D7EEE5 /* MockCategoriesUseCase.swift */; };
 		256DAD512B867F79008EE2A4 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256DAD502B867F79008EE2A4 /* ImageLoader.swift */; };
 		257478262B6AC92F004A4861 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257478252B6AC92F004A4861 /* NetworkManager.swift */; };
-		2576F8592B7B9CE40088635F /* MockNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A417162B702E2000D90813 /* MockNetworkManager.swift */; };
-		2576F85A2B7B9CE80088635F /* MockNetworkSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250F02B72B72B08D0044AA7D /* MockNetworkSession.swift */; };
 		257B8CD42B6FD4B300F40246 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257B8CD32B6FD4B300F40246 /* RootView.swift */; };
 		257B8CD62B6FD5E900F40246 /* RootViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257B8CD52B6FD5E900F40246 /* RootViewModel.swift */; };
 		2596E5C92B8D056E0016B4D8 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2596E5C82B8D056E0016B4D8 /* CardView.swift */; };
@@ -76,7 +74,6 @@
 		250D77942B88CECA0048F6CF /* MockCategoryViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCategoryViewModelFactory.swift; sourceTree = "<group>"; };
 		250D77962B88CFE00048F6CF /* FoodItemModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodItemModel.swift; sourceTree = "<group>"; };
 		250D77982B88FD490048F6CF /* FoodData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodData.swift; sourceTree = "<group>"; };
-		250F02B72B72B08D0044AA7D /* MockNetworkSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNetworkSession.swift; sourceTree = "<group>"; };
 		250F02B92B72B0BD0044AA7D /* NetworkSessionProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkSessionProvider.swift; sourceTree = "<group>"; };
 		251553582B7696580000FB17 /* ViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewState.swift; sourceTree = "<group>"; };
 		2515535B2B7697C70000FB17 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
@@ -100,7 +97,6 @@
 		259A66E52B98FBDA00391537 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		259AB66B2BA0C2C0003B7150 /* FoodItemRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodItemRepository.swift; sourceTree = "<group>"; };
 		25A417142B702DBF00D90813 /* ResponseDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseDecoder.swift; sourceTree = "<group>"; };
-		25A417162B702E2000D90813 /* MockNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNetworkManager.swift; sourceTree = "<group>"; };
 		25A417182B702EB000D90813 /* LaunchConfigurationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchConfigurationManager.swift; sourceTree = "<group>"; };
 		25BE52122B7A6EAD00FA9C50 /* CategoryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryRepository.swift; sourceTree = "<group>"; };
 		25BE52142B7A706E00FA9C50 /* NetworkRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRequest.swift; sourceTree = "<group>"; };
@@ -254,8 +250,6 @@
 		2576F8582B7B9CD50088635F /* Mocks */ = {
 			isa = PBXGroup;
 			children = (
-				25A417162B702E2000D90813 /* MockNetworkManager.swift */,
-				250F02B72B72B08D0044AA7D /* MockNetworkSession.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -419,10 +413,10 @@
 			buildConfigurationList = 25C44FDF2B684436001CE21F /* Build configuration list for PBXNativeTarget "MealsTests" */;
 			buildPhases = (
 				F55356F1EE2A0668934C1B5F /* [CP] Check Pods Manifest.lock */,
+				25169C8D2B8BC77E0039A818 /* Cuckoo Mock Generator */,
 				25C44FC42B684436001CE21F /* Sources */,
 				25C44FC52B684436001CE21F /* Frameworks */,
 				25C44FC62B684436001CE21F /* Resources */,
-				25169C8D2B8BC77E0039A818 /* Cuckoo Mock Generator */,
 				DB8922C37062F5B16480D8AE /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
@@ -533,7 +527,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ $ACTION == \"indexbuild\" ]; then\n  echo \"Not running Cuckoo generator during indexing.\"\n  exit 0\nfi\n\n# Skip for preview builds\nif [ \"${ENABLE_PREVIEWS}\" = \"YES\" ]; then\n  echo \"Not running Cuckoo generator during preview builds.\"\n  exit 0\nfi\n\n# Define output file. Change \"${PROJECT_DIR}/${PROJECT_NAME}Tests\" to your test's root source folder, if it's not the default name.\nOUTPUT_FILE=\"${PROJECT_DIR}/${PROJECT_NAME}Tests/GeneratedMocks.swift\"\necho \"Generated Mocks File = ${OUTPUT_FILE}\"\n\n# Define input directory. Change \"${PROJECT_DIR}/${PROJECT_NAME}\" to your project's root source folder, if it's not the default name.\nINPUT_DIR=\"${PROJECT_DIR}/${PROJECT_NAME}Tests\"\necho \"Mocks Input Directory = ${INPUT_DIR}\"\necho \"Source ${SRCROOT}\"\n# Generate mock files, include as many input files as you'd like to create mocks for.\n\"${PODS_ROOT}/Cuckoo/run\" generate --testable \"${PROJECT_NAME}\" \\\n--output \"${OUTPUT_FILE}\" \\\n\"${SRCROOT}/${PROJECT_NAME}/Presentation/ViewModelFactory/CategoryViewModelFactory.swift\" \\\n\"${SRCROOT}/${PROJECT_NAME}/Presentation/UseCases/CategoriesUseCase.swift\" \\\n\"${SRCROOT}/${PROJECT_NAME}/Presentation/UseCases/FoodItemsUseCase.swift\" \\\n\"${SRCROOT}/${PROJECT_NAME}/NetworkManager/NetworkManager.swift\" \\\n\"${SRCROOT}/${PROJECT_NAME}/Navigation/Router.swift\" \\\n\"${SRCROOT}/${PROJECT_NAME}/Navigation/CategoryRouter.swift\" \\\n# ... and so forth, the last line should never end with a backslash\n\n# After running once, locate `GeneratedMocks.swift` and drag it into your Xcode test target group.\n";
+			shellScript = "if [ $ACTION == \"indexbuild\" ]; then\n  echo \"Not running Cuckoo generator during indexing.\"\n  exit 0\nfi\n\n# Skip for preview builds\nif [ \"${ENABLE_PREVIEWS}\" = \"YES\" ]; then\n  echo \"Not running Cuckoo generator during preview builds.\"\n  exit 0\nfi\n\n# Define output file. Change \"${PROJECT_DIR}/${PROJECT_NAME}Tests\" to your test's root source folder, if it's not the default name.\nOUTPUT_FILE=\"${PROJECT_DIR}/${PROJECT_NAME}Tests/GeneratedMocks.swift\"\necho \"Generated Mocks File = ${OUTPUT_FILE}\"\n\n# Define input directory. Change \"${PROJECT_DIR}/${PROJECT_NAME}\" to your project's root source folder, if it's not the default name.\nINPUT_DIR=\"${PROJECT_DIR}/${PROJECT_NAME}Tests\"\necho \"Mocks Input Directory = ${INPUT_DIR}\"\necho \"Source ${SRCROOT}\"\n# Generate mock files, include as many input files as you'd like to create mocks for.\n\"${PODS_ROOT}/Cuckoo/run\" generate --testable \"${PROJECT_NAME}\" \\\n--output \"${OUTPUT_FILE}\" \\\n\"${SRCROOT}/${PROJECT_NAME}/Presentation/ViewModelFactory/CategoryViewModelFactory.swift\" \\\n\"${SRCROOT}/${PROJECT_NAME}/Presentation/UseCases/CategoriesUseCase.swift\" \\\n\"${SRCROOT}/${PROJECT_NAME}/Presentation/UseCases/FoodItemsUseCase.swift\" \\\n\"${SRCROOT}/${PROJECT_NAME}/NetworkManager/NetworkManager.swift\" \\\n\"${SRCROOT}/${PROJECT_NAME}/Navigation/Router.swift\" \\\n\"${SRCROOT}/${PROJECT_NAME}/Navigation/CategoryRouter.swift\" \\\n\"${SRCROOT}/${PROJECT_NAME}/NetworkManager/NetworkSessionProvider.swift\" \\\n\"${SRCROOT}/${PROJECT_NAME}/NetworkManager/ResponseDecoder.swift\" \\\n\n# ... and so forth, the last line should never end with a backslash\n\n# After running once, locate `GeneratedMocks.swift` and drag it into your Xcode test target group.\n";
 		};
 		DB8922C37062F5B16480D8AE /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -629,10 +623,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2576F8592B7B9CE40088635F /* MockNetworkManager.swift in Sources */,
 				25F3CA4B2B6ED25600EDD214 /* NetworkManagerUnitTests.swift in Sources */,
 				25C44FCD2B684436001CE21F /* CategoriesViewModelUnitTests.swift in Sources */,
-				2576F85A2B7B9CE80088635F /* MockNetworkSession.swift in Sources */,
 				25169C8F2B8BC9A10039A818 /* GeneratedMocks.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

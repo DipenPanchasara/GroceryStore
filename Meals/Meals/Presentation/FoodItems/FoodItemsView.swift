@@ -16,7 +16,8 @@ struct FoodItemsView: View {
         case .idle, .loading:
           LoadingView()
         case .loaded(let viewModel):
-          list(items: viewModel.foodItems)
+          gridView(items: viewModel.foodItems)
+//          list(items: viewModel.foodItems)
         case .failed(let errorModel):
           ErrorView(viewModel: errorModel) {
             viewModel.onRetryTap()
@@ -49,6 +50,39 @@ struct FoodItemsView: View {
         }
     }
     .listStyle(.plain)
+  }
+  
+  private func gridView(items: [FoodItemModel]) -> some View {
+    ScrollView {
+      LazyVGrid(columns: viewModel.gridColumns(), spacing: viewModel.padding) {
+        ForEach(items) { item in
+          ZStack(alignment: .top) {
+            Rectangle()
+              .fill(.white)
+            VStack(spacing: .zero) {
+              if let thumbnailURL = item.thumbURL {
+                RemoteImageView(source: thumbnailURL)
+                  .aspectRatio(contentMode: .fill)
+              }
+              Text(item.name)
+                .font(.title3)
+                .bold()
+                .multilineTextAlignment(.center)
+                .foregroundStyle(Color.pink)
+                .padding(8)
+            }
+          }
+          .background(.white)
+          .cornerRadius(10)
+          .padding(viewModel.padding)
+          .shadow(color: .gray, radius: viewModel.padding)
+          .onTapGesture {
+            viewModel.onFoodItemTap(item: item)
+          }
+        }
+      }
+    }
+    .background(.gray.opacity(0.2))
   }
 }
 

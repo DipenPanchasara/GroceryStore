@@ -5,6 +5,7 @@
 //  Created by Dipen Panchasara on 12/03/2024.
 //
 
+import Foundation
 import Combine
 
 protocol FoodItemRepositoryProtocol {
@@ -20,7 +21,8 @@ final class FoodItemRepository: FoodItemRepositoryProtocol {
   
   private let networkManager: NetworkProvider
   private var subscriptions = Set<AnyCancellable>()
-  
+  private let decoder: ResponseDecoderProvider = ResponseDecoder()
+
   init(networkManager: NetworkProvider) {
     self.networkManager = networkManager
   }
@@ -34,6 +36,9 @@ final class FoodItemRepository: FoodItemRepositoryProtocol {
         endpoint: .foodItemsByCategory(categoryName: categoryName)
       )
     )
+    .tryMap {
+      try $0.decode()
+    }
     .map { (result: FoodData) in
       result.meals.map {
         FoodItemEntity(
@@ -44,28 +49,10 @@ final class FoodItemRepository: FoodItemRepositoryProtocol {
       }
     }
     .eraseToAnyPublisher()
-
-//    do {
-//      let response = try await networkManager.execute(
-//        request: NetworkRequest(
-//          httpMethod: .get,
-//          endpoint: .foodItemsByCategory(categoryName: categoryName)
-//        )
-//      )
-//      guard
-//        let data = response.data
-//      else {
-//        throw CategoryRepositoryError.noDataFound
-//      }
-      
-      // Decode Response
-//      let foodData: FoodData = try decoder.decode(FoodData.self, from: data)
-//      return foodData.meals
-//    } catch {
-//      throw error
-//    }
   }
 }
+
+// MARK : - FoodItemEntity
 
 struct FoodItemEntity: Equatable {
   let id: String

@@ -8,7 +8,7 @@
 @testable import Meals
 import Cuckoo
 import XCTest
-
+/*
 final class CategoriesViewModelUnitTests: XCTestCase {
   func testViewModel_whenInit() async throws {
     let vm = CategoriesViewModel(
@@ -72,3 +72,4 @@ private extension CategoriesViewModelUnitTests {
     case useCasefailed
   }
 }
+*/

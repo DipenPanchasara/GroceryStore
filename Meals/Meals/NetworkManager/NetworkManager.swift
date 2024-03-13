@@ -9,8 +9,8 @@ import Foundation
 import Combine
 
 protocol NetworkProvider {
-  func execute<T>(networkRequest: NetworkRequest) -> AnyPublisher<T, Error> where T: Decodable
-  func execute(networkRequest: NetworkRequest) -> AnyPublisher<(Data, URLResponse), Error>
+//  func execute<T>(networkRequest: NetworkRequest) -> AnyPublisher<T, Error> where T: Decodable
+  func execute(networkRequest: NetworkRequest) -> AnyPublisher<NetworkResponse, Error>
 }
 
 final class NetworkManager: NetworkProvider {
@@ -31,7 +31,7 @@ final class NetworkManager: NetworkProvider {
     self.session = session
     self.decoder = decoder
   }
-
+/*
   func execute<T>(networkRequest: NetworkRequest) -> AnyPublisher<T, Error> where T: Decodable  {
     var urlRequest: URLRequest
     do {
@@ -48,9 +48,9 @@ final class NetworkManager: NetworkProvider {
         try self.decoder.decode(T.self, from: $0)
       }
       .eraseToAnyPublisher()
-  }
+  }*/
   
-  func execute(networkRequest: NetworkRequest) -> AnyPublisher<(Data, URLResponse), Error> {
+  func execute(networkRequest: NetworkRequest) -> AnyPublisher<NetworkResponse, Error> {
     var urlRequest: URLRequest
     do {
       urlRequest = try prepareURLRequest(networkRequest: networkRequest)
@@ -60,24 +60,19 @@ final class NetworkManager: NetworkProvider {
     
     return session.dataTaskPublisher(for: urlRequest)
       .tryMap {
-        ($0.data, $0.response)
+        try self.handleResponse(result: $0)
       }
       .eraseToAnyPublisher()
   }
 }
 
-private extension NetworkManager {
-  func dataTaskPublisher(urlRequest: URLRequest) -> URLSession.DataTaskPublisher {
-    let publisher = session.dataTaskPublisher(for: urlRequest)
-    return publisher
-  }
-  
-  func handleResponse(result: (data: Data, response: URLResponse)) throws -> Data {
+private extension NetworkManager {  
+  func handleResponse(result: (data: Data, response: URLResponse)) throws -> NetworkResponse {
     print("Response data: \(result.data.count)")
     guard let httpURLResponse = result.response as? HTTPURLResponse else { throw NetworkError.invalidResponse }
     switch httpURLResponse.statusCode {
       case 200...299:
-        return result.data
+        return NetworkResponse(data: result.data, urlResponse: httpURLResponse)
       default:
         throw URLError(.badServerResponse)
     }

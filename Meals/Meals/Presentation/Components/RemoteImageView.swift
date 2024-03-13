@@ -29,12 +29,12 @@ struct RemoteImageView: View {
           .aspectRatio(contentMode: .fit)
           .animation(.easeOut, value: image)
       } else {
-        ZStack {
-          Rectangle()
-            .fill(Color.white)
-          ProgressView()
-            .foregroundStyle(Color.white)
-        }
+        Rectangle()
+          .fill(Color.white)
+          .overlay {
+            ProgressView()
+              .foregroundStyle(Color.pink)
+          }
       }
     }
     .background(Color.white)

@@ -10,8 +10,6 @@ import Foundation
 
 protocol CategoryRepositoryProtocol {
   func allCategories() -> AnyPublisher<[CategoryEntity], Error>
-//  func allCategories() async throws -> [CategoriesData.Category]
-//  func fetchFoodItems(by categoryName: String) async throws -> [FoodData.FoodItemData]
 }
 
 final class CategoryRepository: CategoryRepositoryProtocol {
@@ -21,56 +19,12 @@ final class CategoryRepository: CategoryRepositoryProtocol {
 
   private let networkManager: NetworkProvider
   private var subscriptions = Set<AnyCancellable>()
+  private let decoder: ResponseDecoderProvider = ResponseDecoder()
 
   init(networkManager: NetworkProvider) {
     self.networkManager = networkManager
   }
 
-  /*
-  func allCategories() async throws -> [CategoriesData.Category] {
-    do {
-      let response = try await networkManager.execute(
-        request: NetworkRequest(
-          httpMethod: .get,
-          endpoint: .allCategories
-        )
-      )
-      guard
-        let data = response.data
-      else {
-        throw CategoryRepositoryError.noDataFound
-      }
-
-      // Decode Response
-      let categoriesData: CategoriesData = try decoder.decode(CategoriesData.self, from: data)
-      return categoriesData.categories
-    } catch {
-      throw error
-    }
-  }
-
-  func fetchFoodItems(by categoryName: String) async throws -> [FoodData.FoodItemData] {
-    do {
-      let response = try await networkManager.execute(
-        request: NetworkRequest(
-          httpMethod: .get,
-          endpoint: .foodItemsByCategory(categoryName: categoryName)
-        )
-      )
-      guard
-        let data = response.data
-      else {
-        throw CategoryRepositoryError.noDataFound
-      }
-
-      // Decode Response
-      let foodData: FoodData = try decoder.decode(FoodData.self, from: data)
-      return foodData.meals
-    } catch {
-      throw error
-    }
-  }*/
-  
   func allCategories() -> AnyPublisher<[CategoryEntity], Error> {
     networkManager.execute(
       networkRequest: NetworkRequest(
@@ -78,6 +32,9 @@ final class CategoryRepository: CategoryRepositoryProtocol {
         endpoint: .allCategories
       )
     )
+    .tryMap {
+      try $0.decode()
+    }
     .map({
       (result: CategoriesData) in
       result.categories.map {
@@ -92,6 +49,8 @@ final class CategoryRepository: CategoryRepositoryProtocol {
   }
 }
 
+
+// MARK : - CategoryEntity
 struct CategoryEntity: Equatable {
   let id: String
   let name: String

@@ -1,4 +1,4 @@
-// MARK: - Mocks generated from file: Meals/Navigation/CategoryRouter.swift at 2024-02-25 20:45:03 +0000
+// MARK: - Mocks generated from file: Meals/Navigation/CategoryRouter.swift at 2024-03-13 19:47:03 +0000
 
 //
 //  CategoryRouter.swift
@@ -234,7 +234,7 @@ import SwiftUI
 
 
 
-// MARK: - Mocks generated from file: Meals/Navigation/Router.swift at 2024-02-25 20:45:03 +0000
+// MARK: - Mocks generated from file: Meals/Navigation/Router.swift at 2024-03-13 19:47:03 +0000
 
 //
 //  Router.swift
@@ -420,7 +420,7 @@ import SwiftUI
 
 
 
-// MARK: - Mocks generated from file: Meals/NetworkManager/NetworkManager.swift at 2024-02-25 20:45:03 +0000
+// MARK: - Mocks generated from file: Meals/NetworkManager/NetworkManager.swift at 2024-03-13 19:47:03 +0000
 
 //
 //  NetworkManager.swift
@@ -466,19 +466,19 @@ import Foundation
     
     
     
-     func execute(request: NetworkRequest) async throws -> NetworkResponse {
+     func execute(networkRequest: NetworkRequest) -> AnyPublisher<NetworkResponse, Error> {
         
-    return try await cuckoo_manager.callThrows(
+    return cuckoo_manager.call(
     """
-    execute(request: NetworkRequest) async throws -> NetworkResponse
+    execute(networkRequest: NetworkRequest) -> AnyPublisher<NetworkResponse, Error>
     """,
-            parameters: (request),
-            escapingParameters: (request),
+            parameters: (networkRequest),
+            escapingParameters: (networkRequest),
             superclassCall:
                 
                 Cuckoo.MockManager.crashOnProtocolSuperclassCall()
                 ,
-            defaultCall: await __defaultImplStub!.execute(request: request))
+            defaultCall: __defaultImplStub!.execute(networkRequest: networkRequest))
         
     }
     
@@ -494,11 +494,11 @@ import Foundation
         
         
         
-        func execute<M1: Cuckoo.Matchable>(request: M1) -> Cuckoo.ProtocolStubThrowingFunction<(NetworkRequest), NetworkResponse> where M1.MatchedType == NetworkRequest {
-            let matchers: [Cuckoo.ParameterMatcher<(NetworkRequest)>] = [wrap(matchable: request) { $0 }]
+        func execute<M1: Cuckoo.Matchable>(networkRequest: M1) -> Cuckoo.ProtocolStubFunction<(NetworkRequest), AnyPublisher<NetworkResponse, Error>> where M1.MatchedType == NetworkRequest {
+            let matchers: [Cuckoo.ParameterMatcher<(NetworkRequest)>] = [wrap(matchable: networkRequest) { $0 }]
             return .init(stub: cuckoo_manager.createStub(for: MockNetworkProvider.self, method:
     """
-    execute(request: NetworkRequest) async throws -> NetworkResponse
+    execute(networkRequest: NetworkRequest) -> AnyPublisher<NetworkResponse, Error>
     """, parameterMatchers: matchers))
         }
         
@@ -522,11 +522,11 @@ import Foundation
         
         
         @discardableResult
-        func execute<M1: Cuckoo.Matchable>(request: M1) -> Cuckoo.__DoNotUse<(NetworkRequest), NetworkResponse> where M1.MatchedType == NetworkRequest {
-            let matchers: [Cuckoo.ParameterMatcher<(NetworkRequest)>] = [wrap(matchable: request) { $0 }]
+        func execute<M1: Cuckoo.Matchable>(networkRequest: M1) -> Cuckoo.__DoNotUse<(NetworkRequest), AnyPublisher<NetworkResponse, Error>> where M1.MatchedType == NetworkRequest {
+            let matchers: [Cuckoo.ParameterMatcher<(NetworkRequest)>] = [wrap(matchable: networkRequest) { $0 }]
             return cuckoo_manager.verify(
     """
-    execute(request: NetworkRequest) async throws -> NetworkResponse
+    execute(networkRequest: NetworkRequest) -> AnyPublisher<NetworkResponse, Error>
     """, callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
         }
         
@@ -544,8 +544,8 @@ import Foundation
     
     
     
-     func execute(request: NetworkRequest) async throws -> NetworkResponse  {
-        return DefaultValueRegistry.defaultValue(for: (NetworkResponse).self)
+     func execute(networkRequest: NetworkRequest) -> AnyPublisher<NetworkResponse, Error>  {
+        return DefaultValueRegistry.defaultValue(for: (AnyPublisher<NetworkResponse, Error>).self)
     }
     
     
@@ -555,7 +555,276 @@ import Foundation
 
 
 
-// MARK: - Mocks generated from file: Meals/Presentation/UseCases/CategoriesUseCase.swift at 2024-02-25 20:45:03 +0000
+// MARK: - Mocks generated from file: Meals/NetworkManager/NetworkSessionProvider.swift at 2024-03-13 19:47:03 +0000
+
+//
+//  NetworkSessionProvider.swift
+//  Meals
+//
+//  Created by Dipen Panchasara on 06/02/2024.
+//
+
+import Cuckoo
+@testable import Meals
+
+import Combine
+import Foundation
+
+
+
+
+
+
+ class MockNetworkSessionProvider: NetworkSessionProvider, Cuckoo.ProtocolMock {
+    
+     typealias MocksType = NetworkSessionProvider
+    
+     typealias Stubbing = __StubbingProxy_NetworkSessionProvider
+     typealias Verification = __VerificationProxy_NetworkSessionProvider
+
+     let cuckoo_manager = Cuckoo.MockManager.preconfiguredManager ?? Cuckoo.MockManager(hasParent: false)
+
+    
+    private var __defaultImplStub: NetworkSessionProvider?
+
+     func enableDefaultImplementation(_ stub: NetworkSessionProvider) {
+        __defaultImplStub = stub
+        cuckoo_manager.enableDefaultStubImplementation()
+    }
+    
+
+    
+
+    
+
+    
+    
+    
+    
+     func dataTaskPublisher(for urlRequest: URLRequest) -> AnyPublisher<(data: Data, response: URLResponse), any Error> {
+        
+    return cuckoo_manager.call(
+    """
+    dataTaskPublisher(for: URLRequest) -> AnyPublisher<(data: Data, response: URLResponse), any Error>
+    """,
+            parameters: (urlRequest),
+            escapingParameters: (urlRequest),
+            superclassCall:
+                
+                Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                ,
+            defaultCall: __defaultImplStub!.dataTaskPublisher(for: urlRequest))
+        
+    }
+    
+    
+
+     struct __StubbingProxy_NetworkSessionProvider: Cuckoo.StubbingProxy {
+        private let cuckoo_manager: Cuckoo.MockManager
+    
+         init(manager: Cuckoo.MockManager) {
+            self.cuckoo_manager = manager
+        }
+        
+        
+        
+        
+        func dataTaskPublisher<M1: Cuckoo.Matchable>(for urlRequest: M1) -> Cuckoo.ProtocolStubFunction<(URLRequest), AnyPublisher<(data: Data, response: URLResponse), any Error>> where M1.MatchedType == URLRequest {
+            let matchers: [Cuckoo.ParameterMatcher<(URLRequest)>] = [wrap(matchable: urlRequest) { $0 }]
+            return .init(stub: cuckoo_manager.createStub(for: MockNetworkSessionProvider.self, method:
+    """
+    dataTaskPublisher(for: URLRequest) -> AnyPublisher<(data: Data, response: URLResponse), any Error>
+    """, parameterMatchers: matchers))
+        }
+        
+        
+    }
+
+     struct __VerificationProxy_NetworkSessionProvider: Cuckoo.VerificationProxy {
+        private let cuckoo_manager: Cuckoo.MockManager
+        private let callMatcher: Cuckoo.CallMatcher
+        private let sourceLocation: Cuckoo.SourceLocation
+    
+         init(manager: Cuckoo.MockManager, callMatcher: Cuckoo.CallMatcher, sourceLocation: Cuckoo.SourceLocation) {
+            self.cuckoo_manager = manager
+            self.callMatcher = callMatcher
+            self.sourceLocation = sourceLocation
+        }
+    
+        
+    
+        
+        
+        
+        @discardableResult
+        func dataTaskPublisher<M1: Cuckoo.Matchable>(for urlRequest: M1) -> Cuckoo.__DoNotUse<(URLRequest), AnyPublisher<(data: Data, response: URLResponse), any Error>> where M1.MatchedType == URLRequest {
+            let matchers: [Cuckoo.ParameterMatcher<(URLRequest)>] = [wrap(matchable: urlRequest) { $0 }]
+            return cuckoo_manager.verify(
+    """
+    dataTaskPublisher(for: URLRequest) -> AnyPublisher<(data: Data, response: URLResponse), any Error>
+    """, callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+        }
+        
+        
+    }
+}
+
+
+ class NetworkSessionProviderStub: NetworkSessionProvider {
+    
+
+    
+
+    
+    
+    
+    
+     func dataTaskPublisher(for urlRequest: URLRequest) -> AnyPublisher<(data: Data, response: URLResponse), any Error>  {
+        return DefaultValueRegistry.defaultValue(for: (AnyPublisher<(data: Data, response: URLResponse), any Error>).self)
+    }
+    
+    
+}
+
+
+
+
+
+// MARK: - Mocks generated from file: Meals/NetworkManager/ResponseDecoder.swift at 2024-03-13 19:47:03 +0000
+
+//
+//  ResponseDecoder.swift
+//  Meals
+//
+//  Created by Dipen Panchasara on 04/02/2024.
+//
+
+import Cuckoo
+@testable import Meals
+
+import Foundation
+
+
+
+
+
+
+ class MockResponseDecoderProvider: ResponseDecoderProvider, Cuckoo.ProtocolMock {
+    
+     typealias MocksType = ResponseDecoderProvider
+    
+     typealias Stubbing = __StubbingProxy_ResponseDecoderProvider
+     typealias Verification = __VerificationProxy_ResponseDecoderProvider
+
+     let cuckoo_manager = Cuckoo.MockManager.preconfiguredManager ?? Cuckoo.MockManager(hasParent: false)
+
+    
+    private var __defaultImplStub: ResponseDecoderProvider?
+
+     func enableDefaultImplementation(_ stub: ResponseDecoderProvider) {
+        __defaultImplStub = stub
+        cuckoo_manager.enableDefaultStubImplementation()
+    }
+    
+
+    
+
+    
+
+    
+    
+    
+    
+     func decode<T>(_ type: T.Type, from data: Data) throws -> T where T: Decodable {
+        
+    return try cuckoo_manager.callThrows(
+    """
+    decode(_: T.Type, from: Data) throws -> T where T: Decodable
+    """,
+            parameters: (type, data),
+            escapingParameters: (type, data),
+            superclassCall:
+                
+                Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                ,
+            defaultCall: __defaultImplStub!.decode(type, from: data))
+        
+    }
+    
+    
+
+     struct __StubbingProxy_ResponseDecoderProvider: Cuckoo.StubbingProxy {
+        private let cuckoo_manager: Cuckoo.MockManager
+    
+         init(manager: Cuckoo.MockManager) {
+            self.cuckoo_manager = manager
+        }
+        
+        
+        
+        
+        func decode<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable, T>(_ type: M1, from data: M2) -> Cuckoo.ProtocolStubThrowingFunction<(T.Type, Data), T> where M1.MatchedType == T.Type, M2.MatchedType == Data, T: Decodable {
+            let matchers: [Cuckoo.ParameterMatcher<(T.Type, Data)>] = [wrap(matchable: type) { $0.0 }, wrap(matchable: data) { $0.1 }]
+            return .init(stub: cuckoo_manager.createStub(for: MockResponseDecoderProvider.self, method:
+    """
+    decode(_: T.Type, from: Data) throws -> T where T: Decodable
+    """, parameterMatchers: matchers))
+        }
+        
+        
+    }
+
+     struct __VerificationProxy_ResponseDecoderProvider: Cuckoo.VerificationProxy {
+        private let cuckoo_manager: Cuckoo.MockManager
+        private let callMatcher: Cuckoo.CallMatcher
+        private let sourceLocation: Cuckoo.SourceLocation
+    
+         init(manager: Cuckoo.MockManager, callMatcher: Cuckoo.CallMatcher, sourceLocation: Cuckoo.SourceLocation) {
+            self.cuckoo_manager = manager
+            self.callMatcher = callMatcher
+            self.sourceLocation = sourceLocation
+        }
+    
+        
+    
+        
+        
+        
+        @discardableResult
+        func decode<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable, T>(_ type: M1, from data: M2) -> Cuckoo.__DoNotUse<(T.Type, Data), T> where M1.MatchedType == T.Type, M2.MatchedType == Data, T: Decodable {
+            let matchers: [Cuckoo.ParameterMatcher<(T.Type, Data)>] = [wrap(matchable: type) { $0.0 }, wrap(matchable: data) { $0.1 }]
+            return cuckoo_manager.verify(
+    """
+    decode(_: T.Type, from: Data) throws -> T where T: Decodable
+    """, callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+        }
+        
+        
+    }
+}
+
+
+ class ResponseDecoderProviderStub: ResponseDecoderProvider {
+    
+
+    
+
+    
+    
+    
+    
+     func decode<T>(_ type: T.Type, from data: Data) throws -> T where T: Decodable  {
+        return DefaultValueRegistry.defaultValue(for: (T).self)
+    }
+    
+    
+}
+
+
+
+
+
+// MARK: - Mocks generated from file: Meals/Presentation/UseCases/CategoriesUseCase.swift at 2024-03-13 19:47:03 +0000
 
 //
 //  CategoriesUseCase.swift
@@ -568,7 +837,6 @@ import Cuckoo
 @testable import Meals
 
 import Combine
-import Foundation
 import SwiftUI
 
 
@@ -598,30 +866,14 @@ import SwiftUI
     
     
     
-     var dataStream: PassthroughSubject<[CategoryModel], Never> {
+     var publisher: Published<Result<[CategoryModel], Error>>.Publisher {
         get {
-            return cuckoo_manager.getter("dataStream",
+            return cuckoo_manager.getter("publisher",
                 superclassCall:
                     
                     Cuckoo.MockManager.crashOnProtocolSuperclassCall()
                     ,
-                defaultCall:  __defaultImplStub!.dataStream)
-        }
-        
-    }
-    
-    
-    
-    
-    
-     var errorStream: PassthroughSubject<Error, Never> {
-        get {
-            return cuckoo_manager.getter("errorStream",
-                superclassCall:
-                    
-                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
-                    ,
-                defaultCall:  __defaultImplStub!.errorStream)
+                defaultCall:  __defaultImplStub!.publisher)
         }
         
     }
@@ -634,11 +886,11 @@ import SwiftUI
     
     
     
-     func fetchCategories() async {
+     func fetchCategories()  {
         
-    return await cuckoo_manager.call(
+    return cuckoo_manager.call(
     """
-    fetchCategories() async
+    fetchCategories()
     """,
             parameters: (),
             escapingParameters: (),
@@ -646,7 +898,7 @@ import SwiftUI
                 
                 Cuckoo.MockManager.crashOnProtocolSuperclassCall()
                 ,
-            defaultCall: await __defaultImplStub!.fetchCategories())
+            defaultCall: __defaultImplStub!.fetchCategories())
         
     }
     
@@ -661,15 +913,8 @@ import SwiftUI
         
         
         
-        var dataStream: Cuckoo.ProtocolToBeStubbedReadOnlyProperty<MockCategoriesUseCaseProtocol, PassthroughSubject<[CategoryModel], Never>> {
-            return .init(manager: cuckoo_manager, name: "dataStream")
-        }
-        
-        
-        
-        
-        var errorStream: Cuckoo.ProtocolToBeStubbedReadOnlyProperty<MockCategoriesUseCaseProtocol, PassthroughSubject<Error, Never>> {
-            return .init(manager: cuckoo_manager, name: "errorStream")
+        var publisher: Cuckoo.ProtocolToBeStubbedReadOnlyProperty<MockCategoriesUseCaseProtocol, Published<Result<[CategoryModel], Error>>.Publisher> {
+            return .init(manager: cuckoo_manager, name: "publisher")
         }
         
         
@@ -680,7 +925,7 @@ import SwiftUI
             let matchers: [Cuckoo.ParameterMatcher<Void>] = []
             return .init(stub: cuckoo_manager.createStub(for: MockCategoriesUseCaseProtocol.self, method:
     """
-    fetchCategories() async
+    fetchCategories()
     """, parameterMatchers: matchers))
         }
         
@@ -701,15 +946,8 @@ import SwiftUI
         
         
         
-        var dataStream: Cuckoo.VerifyReadOnlyProperty<PassthroughSubject<[CategoryModel], Never>> {
-            return .init(manager: cuckoo_manager, name: "dataStream", callMatcher: callMatcher, sourceLocation: sourceLocation)
-        }
-        
-        
-        
-        
-        var errorStream: Cuckoo.VerifyReadOnlyProperty<PassthroughSubject<Error, Never>> {
-            return .init(manager: cuckoo_manager, name: "errorStream", callMatcher: callMatcher, sourceLocation: sourceLocation)
+        var publisher: Cuckoo.VerifyReadOnlyProperty<Published<Result<[CategoryModel], Error>>.Publisher> {
+            return .init(manager: cuckoo_manager, name: "publisher", callMatcher: callMatcher, sourceLocation: sourceLocation)
         }
         
         
@@ -722,7 +960,7 @@ import SwiftUI
             let matchers: [Cuckoo.ParameterMatcher<Void>] = []
             return cuckoo_manager.verify(
     """
-    fetchCategories() async
+    fetchCategories()
     """, callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
         }
         
@@ -736,20 +974,9 @@ import SwiftUI
     
     
     
-     var dataStream: PassthroughSubject<[CategoryModel], Never> {
+     var publisher: Published<Result<[CategoryModel], Error>>.Publisher {
         get {
-            return DefaultValueRegistry.defaultValue(for: (PassthroughSubject<[CategoryModel], Never>).self)
-        }
-        
-    }
-    
-    
-    
-    
-    
-     var errorStream: PassthroughSubject<Error, Never> {
-        get {
-            return DefaultValueRegistry.defaultValue(for: (PassthroughSubject<Error, Never>).self)
+            return DefaultValueRegistry.defaultValue(for: (Published<Result<[CategoryModel], Error>>.Publisher).self)
         }
         
     }
@@ -762,7 +989,7 @@ import SwiftUI
     
     
     
-     func fetchCategories() async  {
+     func fetchCategories()   {
         return DefaultValueRegistry.defaultValue(for: (Void).self)
     }
     
@@ -773,7 +1000,7 @@ import SwiftUI
 
 
 
-// MARK: - Mocks generated from file: Meals/Presentation/UseCases/FoodItemsUseCase.swift at 2024-02-25 20:45:03 +0000
+// MARK: - Mocks generated from file: Meals/Presentation/UseCases/FoodItemsUseCase.swift at 2024-03-13 19:47:03 +0000
 
 //
 //  FoodItemsUseCase.swift
@@ -786,7 +1013,7 @@ import Cuckoo
 @testable import Meals
 
 import Combine
-import Foundation
+import SwiftUI
 
 
 
@@ -815,30 +1042,14 @@ import Foundation
     
     
     
-     var dataStream: PassthroughSubject<[FoodItemModel], Never> {
+     var publisher: Published<Result<[FoodItemModel], Error>>.Publisher {
         get {
-            return cuckoo_manager.getter("dataStream",
+            return cuckoo_manager.getter("publisher",
                 superclassCall:
                     
                     Cuckoo.MockManager.crashOnProtocolSuperclassCall()
                     ,
-                defaultCall:  __defaultImplStub!.dataStream)
-        }
-        
-    }
-    
-    
-    
-    
-    
-     var errorStream: PassthroughSubject<Error, Never> {
-        get {
-            return cuckoo_manager.getter("errorStream",
-                superclassCall:
-                    
-                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
-                    ,
-                defaultCall:  __defaultImplStub!.errorStream)
+                defaultCall:  __defaultImplStub!.publisher)
         }
         
     }
@@ -851,11 +1062,11 @@ import Foundation
     
     
     
-     func fetchFoodItems(by categoryName: String) async {
+     func fetchFoodItems(by categoryName: String)  {
         
-    return await cuckoo_manager.call(
+    return cuckoo_manager.call(
     """
-    fetchFoodItems(by: String) async
+    fetchFoodItems(by: String)
     """,
             parameters: (categoryName),
             escapingParameters: (categoryName),
@@ -863,7 +1074,7 @@ import Foundation
                 
                 Cuckoo.MockManager.crashOnProtocolSuperclassCall()
                 ,
-            defaultCall: await __defaultImplStub!.fetchFoodItems(by: categoryName))
+            defaultCall: __defaultImplStub!.fetchFoodItems(by: categoryName))
         
     }
     
@@ -878,15 +1089,8 @@ import Foundation
         
         
         
-        var dataStream: Cuckoo.ProtocolToBeStubbedReadOnlyProperty<MockFoodItemsUseCaseProtocol, PassthroughSubject<[FoodItemModel], Never>> {
-            return .init(manager: cuckoo_manager, name: "dataStream")
-        }
-        
-        
-        
-        
-        var errorStream: Cuckoo.ProtocolToBeStubbedReadOnlyProperty<MockFoodItemsUseCaseProtocol, PassthroughSubject<Error, Never>> {
-            return .init(manager: cuckoo_manager, name: "errorStream")
+        var publisher: Cuckoo.ProtocolToBeStubbedReadOnlyProperty<MockFoodItemsUseCaseProtocol, Published<Result<[FoodItemModel], Error>>.Publisher> {
+            return .init(manager: cuckoo_manager, name: "publisher")
         }
         
         
@@ -897,7 +1101,7 @@ import Foundation
             let matchers: [Cuckoo.ParameterMatcher<(String)>] = [wrap(matchable: categoryName) { $0 }]
             return .init(stub: cuckoo_manager.createStub(for: MockFoodItemsUseCaseProtocol.self, method:
     """
-    fetchFoodItems(by: String) async
+    fetchFoodItems(by: String)
     """, parameterMatchers: matchers))
         }
         
@@ -918,15 +1122,8 @@ import Foundation
         
         
         
-        var dataStream: Cuckoo.VerifyReadOnlyProperty<PassthroughSubject<[FoodItemModel], Never>> {
-            return .init(manager: cuckoo_manager, name: "dataStream", callMatcher: callMatcher, sourceLocation: sourceLocation)
-        }
-        
-        
-        
-        
-        var errorStream: Cuckoo.VerifyReadOnlyProperty<PassthroughSubject<Error, Never>> {
-            return .init(manager: cuckoo_manager, name: "errorStream", callMatcher: callMatcher, sourceLocation: sourceLocation)
+        var publisher: Cuckoo.VerifyReadOnlyProperty<Published<Result<[FoodItemModel], Error>>.Publisher> {
+            return .init(manager: cuckoo_manager, name: "publisher", callMatcher: callMatcher, sourceLocation: sourceLocation)
         }
         
         
@@ -939,7 +1136,7 @@ import Foundation
             let matchers: [Cuckoo.ParameterMatcher<(String)>] = [wrap(matchable: categoryName) { $0 }]
             return cuckoo_manager.verify(
     """
-    fetchFoodItems(by: String) async
+    fetchFoodItems(by: String)
     """, callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
         }
         
@@ -953,20 +1150,9 @@ import Foundation
     
     
     
-     var dataStream: PassthroughSubject<[FoodItemModel], Never> {
+     var publisher: Published<Result<[FoodItemModel], Error>>.Publisher {
         get {
-            return DefaultValueRegistry.defaultValue(for: (PassthroughSubject<[FoodItemModel], Never>).self)
-        }
-        
-    }
-    
-    
-    
-    
-    
-     var errorStream: PassthroughSubject<Error, Never> {
-        get {
-            return DefaultValueRegistry.defaultValue(for: (PassthroughSubject<Error, Never>).self)
+            return DefaultValueRegistry.defaultValue(for: (Published<Result<[FoodItemModel], Error>>.Publisher).self)
         }
         
     }
@@ -979,7 +1165,7 @@ import Foundation
     
     
     
-     func fetchFoodItems(by categoryName: String) async  {
+     func fetchFoodItems(by categoryName: String)   {
         return DefaultValueRegistry.defaultValue(for: (Void).self)
     }
     
@@ -990,7 +1176,7 @@ import Foundation
 
 
 
-// MARK: - Mocks generated from file: Meals/Presentation/ViewModelFactory/CategoryViewModelFactory.swift at 2024-02-25 20:45:03 +0000
+// MARK: - Mocks generated from file: Meals/Presentation/ViewModelFactory/CategoryViewModelFactory.swift at 2024-03-13 19:47:03 +0000
 
 //
 //  CategoryViewModelFactory.swift

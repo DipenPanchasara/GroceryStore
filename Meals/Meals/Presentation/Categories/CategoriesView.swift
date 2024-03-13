@@ -59,7 +59,7 @@ struct CategoriesView: View {
   }
   
   private func gridView(categories: [CategoryModel]) -> some View {
-    ScrollView{
+    ScrollView {
       LazyVGrid(columns: viewModel.gridColumns(), spacing: viewModel.padding) {
         ForEach(categories, id: \.self) { category in
           ZStack(alignment: .top) {
@@ -68,16 +68,15 @@ struct CategoriesView: View {
             VStack(spacing: .zero) {
               if let thumbnailURL = category.thumbnailURL {
                 RemoteImageView(source: thumbnailURL)
+                  .aspectRatio(contentMode: .fill)
               }
               Text(category.name)
                 .font(.title3)
                 .bold()
                 .multilineTextAlignment(.center)
                 .foregroundStyle(Color.pink)
-                .padding(.top, 8)
-                .padding(.horizontal, 4)
+                .padding(8)
             }
-            .frame(width: viewModel.itemWidth, height: viewModel.itemWidth)
           }
           .background(.white)
           .cornerRadius(10)
@@ -86,7 +85,7 @@ struct CategoriesView: View {
           }
         }
       }
-      .padding(.vertical, viewModel.padding)
+      .padding(viewModel.padding)
     }
     .background(.gray.opacity(0.2))
   }

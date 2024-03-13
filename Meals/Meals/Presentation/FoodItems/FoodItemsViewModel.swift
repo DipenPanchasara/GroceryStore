@@ -5,7 +5,7 @@
 //  Created by Dipen Panchasara on 19/02/2024.
 //
 
-import Foundation
+import SwiftUI
 import Combine
 
 final class FoodItemsViewModel: ObservableObject {
@@ -70,5 +70,29 @@ final class FoodItemsViewModel: ObservableObject {
   
   func onFoodItemTap(item: FoodItemModel) {
     print(item)
+  }
+}
+
+extension FoodItemsViewModel {
+  var padding: CGFloat { 8 }
+  var noOfColumns: Int  { 1 }
+  var totalPadding: CGFloat {
+    if noOfColumns == 1 {
+      return padding * 2
+    } else {
+      return padding * (CGFloat(noOfColumns) + 1)
+    }
+  }
+  
+  var availableWidth: CGFloat {
+    (UIScreen.main.bounds.width - totalPadding)
+  }
+  
+  var itemWidth: CGFloat {
+    availableWidth/CGFloat(noOfColumns)
+  }
+  
+  func gridColumns() -> [GridItem] {
+    [GridItem].init(repeating: GridItem(.fixed(itemWidth)), count: noOfColumns)
   }
 }

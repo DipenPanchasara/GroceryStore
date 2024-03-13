@@ -12,5 +12,7 @@
 "${SRCROOT}/${PROJECT_NAME}/Presentation/UseCases/CategoriesUseCase.swift"
 "${SRCROOT}/${PROJECT_NAME}/Presentation/UseCases/FoodItemsUseCase.swift"
 "${SRCROOT}/${PROJECT_NAME}/NetworkManager/NetworkManager.swift"
+"${SRCROOT}/${PROJECT_NAME}/NetworkManager/NetworkSessionProvider.swift"
+"${SRCROOT}/${PROJECT_NAME}/NetworkManager/ResponseDecoder.swift"
 "${SRCROOT}/${PROJECT_NAME}/Navigation/Router.swift"
 "${SRCROOT}/${PROJECT_NAME}/Navigation/CategoryRouter.swift"
