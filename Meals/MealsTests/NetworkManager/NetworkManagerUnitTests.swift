@@ -100,7 +100,7 @@ final class NetworkManagerUnitTests: XCTestCase {
     XCTAssertEqual(result.url?.query(), "c=anyCategory")
   }
 
-  func testNetworkRequest_whenPreparingURLRequestThrows() async throws {
+  func testNetworkRequest_whenThrowsBadURL() async throws {
     let sut = NetworkManager(
       scheme: "https",
       baseURLString: "https://www.test.com",

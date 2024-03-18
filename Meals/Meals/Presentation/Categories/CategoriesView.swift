@@ -60,7 +60,7 @@ struct CategoriesView: View {
   
   private func gridView(categories: [CategoryModel]) -> some View {
     ScrollView {
-      LazyVGrid(columns: viewModel.gridColumns(), spacing: viewModel.padding) {
+      LazyVGrid(columns: viewModel.gridColumns(), spacing: .spacing.standard) {
         ForEach(categories, id: \.self) { category in
           ZStack(alignment: .top) {
             Rectangle()
@@ -75,17 +75,17 @@ struct CategoriesView: View {
                 .bold()
                 .multilineTextAlignment(.center)
                 .foregroundStyle(Color.pink)
-                .padding(8)
+                .padding(.padding.standard)
             }
           }
           .background(.white)
-          .cornerRadius(10)
+          .cornerRadius(.radius.view)
           .onTapGesture {
             viewModel.onSelect(category: category)
           }
         }
       }
-      .padding(viewModel.padding)
+      .padding(.padding.standard)
     }
     .background(.gray.opacity(0.2))
   }

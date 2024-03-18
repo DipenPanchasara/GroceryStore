@@ -7,6 +7,21 @@
 
 import SwiftUI
 
+extension CGFloat {
+  enum spacing {
+    static let standard: CGFloat = 8
+  }
+
+  
+  enum padding {
+    static let standard: CGFloat = 8
+  }
+
+  enum radius {
+    static let view: CGFloat = 10
+  }
+}
+
 struct FoodItemsView: View {
   @ObservedObject var viewModel: FoodItemsViewModel
 
@@ -16,8 +31,8 @@ struct FoodItemsView: View {
         case .idle, .loading:
           LoadingView()
         case .loaded(let viewModel):
-          gridView(items: viewModel.foodItems)
-//          list(items: viewModel.foodItems)
+//          gridView(items: viewModel.foodItems)
+          list(items: viewModel.foodItems)
         case .failed(let errorModel):
           ErrorView(viewModel: errorModel) {
             viewModel.onRetryTap()
@@ -29,6 +44,7 @@ struct FoodItemsView: View {
       viewModel.navigationTitle,
       displayMode: .inline
     )
+    .toolbar(.hidden, for: .tabBar)
     .navigationBarTitleDisplayMode(.inline)
 //    .redacted(if: viewModel.loadingState.isLoading)
     .task {
@@ -42,19 +58,45 @@ struct FoodItemsView: View {
 
   private func list(items: [FoodItemModel]) -> some View {
     List(items) { item in
-      CardView(name: item.name, thumbURL: item.thumbURL)
-        .listRowBackground(Color.clear)
-        .listRowSeparator(.hidden)
-        .onTapGesture {
-          viewModel.onFoodItemTap(item: item)
+      ZStack(alignment: .top) {
+        Rectangle()
+          .fill(.white)
+        VStack(spacing: .zero) {
+          if let thumbnailURL = item.thumbURL {
+            RemoteImageView(source: thumbnailURL)
+              .aspectRatio(contentMode: .fill)
+          }
+          Text(item.name)
+            .font(.title3)
+            .bold()
+            .multilineTextAlignment(.center)
+            .foregroundStyle(Color.pink)
+            .padding(.padding.standard)
         }
+      }
+      .background(.white)
+      .cornerRadius(.radius.view)
+      .padding(.padding.standard)
+      .shadow(color: .gray, radius: .padding.standard)
+      .onTapGesture {
+        viewModel.onFoodItemTap(item: item)
+      }
+      .listRowBackground(Color.clear)
+      .listRowSeparator(.hidden)
+
+//      CardView(name: item.name, thumbURL: item.thumbURL)
+//        .listRowBackground(Color.clear)
+//        .listRowSeparator(.hidden)
+//        .onTapGesture {
+//          viewModel.onFoodItemTap(item: item)
+//        }
     }
     .listStyle(.plain)
   }
   
   private func gridView(items: [FoodItemModel]) -> some View {
     ScrollView {
-      LazyVGrid(columns: viewModel.gridColumns(), spacing: viewModel.padding) {
+      LazyVGrid(columns: viewModel.gridColumns(), spacing: .spacing.standard) {
         ForEach(items) { item in
           ZStack(alignment: .top) {
             Rectangle()
@@ -69,13 +111,13 @@ struct FoodItemsView: View {
                 .bold()
                 .multilineTextAlignment(.center)
                 .foregroundStyle(Color.pink)
-                .padding(8)
+                .padding(.padding.standard)
             }
           }
           .background(.white)
-          .cornerRadius(10)
-          .padding(viewModel.padding)
-          .shadow(color: .gray, radius: viewModel.padding)
+          .cornerRadius(.radius.view)
+          .padding(.padding.standard)
+          .shadow(color: .gray, radius: .padding.standard)
           .onTapGesture {
             viewModel.onFoodItemTap(item: item)
           }

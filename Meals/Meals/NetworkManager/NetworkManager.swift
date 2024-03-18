@@ -45,6 +45,7 @@ final class NetworkManager: NetworkProvider {
         try self.handleResponse(result: $0)
       }
       .tryMap {
+        guard let data = $0.data else { return nil }
         try self.decoder.decode(T.self, from: $0)
       }
       .eraseToAnyPublisher()

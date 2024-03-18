@@ -11,10 +11,30 @@ struct RootView: View {
   @ObservedObject var viewModel: RootViewModel
 
   var body: some View {
-    NavigationStack(path: viewModel.$router.path) {
-      CategoriesView(
-        viewModel: viewModel.categoryViewModel()
-      )
+    TabView {
+      NavigationStack(path: viewModel.$router.path) {
+        CategoriesView(
+          viewModel: viewModel.categoryViewModel()
+        )
+      }
+      .tabItem {
+        VStack {
+          Image(systemName: "list.bullet.clipboard")
+          Text("Categories") }
+      }
+      NavigationStack(path: viewModel.$router.path) {
+        List(0...4, id: \.self) {
+          Text("\($0)")
+        }
+        .navigationTitle("Favourite")
+        .toolBarStyle()
+      }
+      .tabItem {
+        VStack {
+          Image(systemName: "star")
+          Text("Favourite")
+        }
+      }
     }
   }
 }

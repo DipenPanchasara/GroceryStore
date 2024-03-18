@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum Endpoints: Equatable {
+enum Endpoints: Equatable, Hashable {
   case allCategories
   case foodItemsByCategory(categoryName: String)
 
