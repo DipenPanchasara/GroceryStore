@@ -13,6 +13,6 @@ Coming soon
 
 # Screens Preview
 
-| Home |
-| ---- |
-| [<img src="https://github.com/DipenPanchasara/Meals/assets/1386724/0a938fb0-ef44-49ce-babf-5c1de4ad3b96" width="350"/>](https://github.com/DipenPanchasara/Meals/assets/1386724/0a938fb0-ef44-49ce-babf-5c1de4ad3b96) |
+| Food Categories | Food Items |
+| ---- | ---- |
+| [<img src="https://github.com/DipenPanchasara/Meals/assets/1386724/0a938fb0-ef44-49ce-babf-5c1de4ad3b96" width="350"/>](https://github.com/DipenPanchasara/Meals/assets/1386724/0a938fb0-ef44-49ce-babf-5c1de4ad3b96) | [<img src="https://github.com/DipenPanchasara/Meals/assets/1386724/6fc36a7e-07f1-4043-9709-463af7916e10" width="350"/>](https://github.com/DipenPanchasara/Meals/assets/1386724/6fc36a7e-07f1-4043-9709-463af7916e10) |
