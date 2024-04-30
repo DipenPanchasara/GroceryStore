@@ -87,7 +87,7 @@ struct CategoriesView: View {
       }
       .padding(.padding.standard)
     }
-    .background(.gray.opacity(0.2))
+    .backgroundColor()
   }
 }
 
