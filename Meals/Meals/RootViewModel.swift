@@ -16,18 +16,22 @@ class RootViewModel: ObservableObject {
   private(set) var decoder: ResponseDecoderProvider
   private(set) var categoryVMFactory: CategoryViewModelFactoryProtocol
   private let networkManager: NetworkProvider
+  private var requestCache: CacheManager
 
   @ObservedObject private(set) var router: Router
 
   init(
     scheme: String,
     baseURLString: String,
-    router: Router
+    router: Router,
+    requestCache: CacheManager = CacheManager()
   ) {
     self.scheme = scheme
     self.baseURLString = baseURLString
+    self.requestCache = requestCache
     self.sessionConfiguration.timeoutIntervalForRequest = 60
-    self.sessionConfiguration.requestCachePolicy = .reloadIgnoringLocalAndRemoteCacheData
+    self.sessionConfiguration.requestCachePolicy = .reloadIgnoringCacheData
+    self.sessionConfiguration.urlCache = requestCache.cache
     self.session = URLSession(configuration: sessionConfiguration)
     self.decoder = ResponseDecoder()
     self.router = router

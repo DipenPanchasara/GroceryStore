@@ -57,6 +57,8 @@
 		25FA2C252B7FC4FF00B3E40F /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25FA2C242B7FC4FF00B3E40F /* Router.swift */; };
 		25FA2C272B7FC63A00B3E40F /* CategoryRouterViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25FA2C262B7FC63A00B3E40F /* CategoryRouterViewModifier.swift */; };
 		25FA2C292B7FC67900B3E40F /* CategoryRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25FA2C282B7FC67900B3E40F /* CategoryRouter.swift */; };
+		25FBAB862BAA089100C663ED /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25FBAB852BAA089100C663ED /* Constants.swift */; };
+		25FBAB882BAA08B500C663ED /* BackgroundColorModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25FBAB872BAA08B500C663ED /* BackgroundColorModifier.swift */; };
 		595DDFB8DD5C52220C962E3F /* Pods_Meals.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7266833926D5D9C3CEAF5B5 /* Pods_Meals.framework */; };
 		6EB686F60B33F81EEB7C9011 /* Pods_MealsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BE1CCE0B8A82BF8038BAB44 /* Pods_MealsTests.framework */; };
 /* End PBXBuildFile section */
@@ -125,6 +127,8 @@
 		25FA2C242B7FC4FF00B3E40F /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		25FA2C262B7FC63A00B3E40F /* CategoryRouterViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryRouterViewModifier.swift; sourceTree = "<group>"; };
 		25FA2C282B7FC67900B3E40F /* CategoryRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryRouter.swift; sourceTree = "<group>"; };
+		25FBAB852BAA089100C663ED /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		25FBAB872BAA08B500C663ED /* BackgroundColorModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundColorModifier.swift; sourceTree = "<group>"; };
 		767983C0DC5250121D569D28 /* Pods-MealsTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MealsTests.debug.xcconfig"; path = "Target Support Files/Pods-MealsTests/Pods-MealsTests.debug.xcconfig"; sourceTree = "<group>"; };
 		9BE1CCE0B8A82BF8038BAB44 /* Pods_MealsTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MealsTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B7266833926D5D9C3CEAF5B5 /* Pods_Meals.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Meals.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -205,6 +209,7 @@
 				2567E0052B6C046300D7EEE5 /* UseCases */,
 				2567E0022B6C042600D7EEE5 /* Model */,
 				2567DFFD2B6C01DA00D7EEE5 /* Categories */,
+				25FBAB852BAA089100C663ED /* Constants.swift */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -348,6 +353,7 @@
 			children = (
 				25F30BD52B83E703007D0CDF /* ToolbarStyleModifier.swift */,
 				259A66DD2B98F08400391537 /* RedactedModifier.swift */,
+				25FBAB872BAA08B500C663ED /* BackgroundColorModifier.swift */,
 			);
 			path = ViewModifiers;
 			sourceTree = "<group>";
@@ -593,6 +599,8 @@
 				2567E0072B6C047300D7EEE5 /* CategoriesUseCase.swift in Sources */,
 				2567E0092B6C072200D7EEE5 /* MockCategoriesUseCase.swift in Sources */,
 				2596E5C92B8D056E0016B4D8 /* CardView.swift in Sources */,
+				25FBAB862BAA089100C663ED /* Constants.swift in Sources */,
+				25FBAB882BAA08B500C663ED /* BackgroundColorModifier.swift in Sources */,
 				257478262B6AC92F004A4861 /* NetworkManager.swift in Sources */,
 				259AB66C2BA0C2C0003B7150 /* FoodItemRepository.swift in Sources */,
 				25BE52152B7A706E00FA9C50 /* NetworkRequest.swift in Sources */,

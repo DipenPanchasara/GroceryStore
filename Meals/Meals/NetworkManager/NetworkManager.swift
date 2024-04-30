@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 protocol NetworkProvider {
-//  func execute<T>(networkRequest: NetworkRequest) -> AnyPublisher<T, Error> where T: Decodable
+  func execute<T>(networkRequest: NetworkRequest) -> AnyPublisher<T, Error> where T: Decodable
   func execute(networkRequest: NetworkRequest) -> AnyPublisher<NetworkResponse, Error>
 }
 
@@ -18,7 +18,6 @@ final class NetworkManager: NetworkProvider {
   private let baseURLString: String
   private let session: NetworkSessionProvider
   private let decoder: ResponseDecoderProvider
-  private var cache: URLCache?
 
   init(
     scheme: String,
@@ -31,25 +30,29 @@ final class NetworkManager: NetworkProvider {
     self.session = session
     self.decoder = decoder
   }
-/*
+
   func execute<T>(networkRequest: NetworkRequest) -> AnyPublisher<T, Error> where T: Decodable  {
     var urlRequest: URLRequest
     do {
       urlRequest = try prepareURLRequest(networkRequest: networkRequest)
     } catch {
-      return Fail(error: URLError(.badURL)).eraseToAnyPublisher()
+      return Fail(error: URLError(.badURL))
+        .eraseToAnyPublisher()
     }
     
     return session.dataTaskPublisher(for: urlRequest)
       .tryMap {
         try self.handleResponse(result: $0)
       }
-      .tryMap {
-        guard let data = $0.data else { return nil }
-        try self.decoder.decode(T.self, from: $0)
+      .tryMap { response in
+        guard let data = response.data else {
+          throw URLError(.zeroByteResource)
+        }
+        return data
       }
+      .decode(type: T.self, decoder: JSONDecoder())
       .eraseToAnyPublisher()
-  }*/
+  }
   
   func execute(networkRequest: NetworkRequest) -> AnyPublisher<NetworkResponse, Error> {
     var urlRequest: URLRequest
@@ -59,11 +62,36 @@ final class NetworkManager: NetworkProvider {
       return Fail(error: URLError(.badURL)).eraseToAnyPublisher()
     }
     
-    return session.dataTaskPublisher(for: urlRequest)
+    let cachedPublisher = cached(urlRequest: urlRequest)
+      .filter { $0.data != nil }
+
+    let networkPublisher = session.dataTaskPublisher(for: urlRequest)
       .tryMap {
         try self.handleResponse(result: $0)
       }
       .eraseToAnyPublisher()
+    
+    return Publishers.Merge(cachedPublisher, networkPublisher)
+      .eraseToAnyPublisher()
+  }
+  
+  private func cached(urlRequest: URLRequest) -> AnyPublisher<NetworkResponse, Error> {
+    if let cachedResponse = session.session.configuration.urlCache?.cachedResponse(for: urlRequest) {
+      return Just(cachedResponse)
+        .tryMap {
+          try self.handleResponse(result: ($0.data, $0.response))
+        }
+        .eraseToAnyPublisher()
+    }
+    let httpResponse = HTTPURLResponse(url: urlRequest.url!, statusCode: 400, httpVersion: nil, headerFields: nil)!
+    return Just(
+      NetworkResponse(
+        data: nil,
+        urlResponse: httpResponse
+      )
+    )
+    .setFailureType(to: Error.self)
+    .eraseToAnyPublisher()
   }
 }
 

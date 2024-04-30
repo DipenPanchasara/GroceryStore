@@ -7,21 +7,6 @@
 
 import SwiftUI
 
-extension CGFloat {
-  enum spacing {
-    static let standard: CGFloat = 8
-  }
-
-  
-  enum padding {
-    static let standard: CGFloat = 8
-  }
-
-  enum radius {
-    static let view: CGFloat = 10
-  }
-}
-
 struct FoodItemsView: View {
   @ObservedObject var viewModel: FoodItemsViewModel
 
@@ -31,7 +16,6 @@ struct FoodItemsView: View {
         case .idle, .loading:
           LoadingView()
         case .loaded(let viewModel):
-//          gridView(items: viewModel.foodItems)
           list(items: viewModel.foodItems)
         case .failed(let errorModel):
           ErrorView(viewModel: errorModel) {
@@ -46,7 +30,6 @@ struct FoodItemsView: View {
     )
     .toolbar(.hidden, for: .tabBar)
     .navigationBarTitleDisplayMode(.inline)
-//    .redacted(if: viewModel.loadingState.isLoading)
     .task {
       viewModel.loadData()
     }
@@ -83,13 +66,6 @@ struct FoodItemsView: View {
       }
       .listRowBackground(Color.clear)
       .listRowSeparator(.hidden)
-
-//      CardView(name: item.name, thumbURL: item.thumbURL)
-//        .listRowBackground(Color.clear)
-//        .listRowSeparator(.hidden)
-//        .onTapGesture {
-//          viewModel.onFoodItemTap(item: item)
-//        }
     }
     .listStyle(.plain)
   }
@@ -124,7 +100,7 @@ struct FoodItemsView: View {
         }
       }
     }
-    .background(.gray.opacity(0.2))
+    .backgroundColor()
   }
 }
 

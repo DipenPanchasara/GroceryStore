@@ -17,4 +17,5 @@ enum NetworkError: Error, Equatable {
   case serverError
   case failed(Error)
   case decodingFailed(String)
+  case noData
 }

@@ -9,47 +9,76 @@ import Foundation
 import UIKit
 import SwiftUI
 
-actor ImageLoader {
-  private var images: [URLRequest: LoaderStatus] = [:]
+struct CacheManager {
+  private static let maxCacheCapacity = 1024 * 1024 * 5
+  private static let tempDirectoryURL = URL(string: NSTemporaryDirectory())
+  let cache: URLCache
 
+  init(
+    cacheCapacity: Int = maxCacheCapacity,
+    cacheDirectoryURL: URL? = tempDirectoryURL
+  ) {
+    cache = URLCache(
+      memoryCapacity: cacheCapacity,
+      diskCapacity: cacheCapacity,
+      directory: cacheDirectoryURL
+    )
+  }
+
+  func cachedImage(for urlRequest: URLRequest) -> UIImage? {
+    if 
+      let response = cachedResponse(for: urlRequest),
+      let cachedImage = UIImage(data: response.data) 
+    {
+      return cachedImage
+    }
+    return nil
+  }
+
+  func cachedResponse(for urlRequest: URLRequest) -> CachedURLResponse? {
+    cache.cachedResponse(for: urlRequest)
+  }
+  
+  func clearCache() {
+    cache.removeAllCachedResponses()
+  }
+}
+
+actor ImageLoader {
+  private var session: URLSession
+  private let imageCache: CacheManager
+//  private var images: [URLRequest: LoaderStatus] = [:]
+
+  init(cache: CacheManager = CacheManager()) {
+    self.imageCache = cache
+    imageCache.clearCache()
+    let configuration = URLSessionConfiguration.default
+    configuration.urlCache = imageCache.cache
+    configuration.requestCachePolicy = .returnCacheDataElseLoad
+    session = URLSession(configuration: configuration)
+  }
+  
   public func fetch(_ url: URL) async throws -> UIImage {
     let request = URLRequest(url: url)
     return try await fetch(request)
   }
 
   public func fetch(_ urlRequest: URLRequest) async throws -> UIImage {
-    if let status = images[urlRequest] {
-      switch status {
-        case .fetched(let image):
-          return image
-        case .inProgress(let task):
-          return try await task.value
-      }
+    if let cachedImage = imageCache.cachedImage(for: urlRequest) {
+      return cachedImage
     }
-
-    let task: Task<UIImage, Error> = Task {
-      let (imageData, _) = try await URLSession.shared.data(for: urlRequest)
-      let image = UIImage(data: imageData)!
-      images[urlRequest] = .fetched(image)
-      return image
-    }
-
-    images[urlRequest] = .inProgress(task)
-
-    let image = try await task.value
-
-    images[urlRequest] = .fetched(image)
-
+    let (imageData, _) = try await session.data(for: urlRequest)
+    let image = UIImage(data: imageData)!
     return image
   }
 }
 
-private extension ImageLoader {
-  enum LoaderStatus {
-    case inProgress(Task<UIImage, Error>)
-    case fetched(UIImage)
-  }
-}
+//private extension ImageLoader {
+//  enum LoaderStatus {
+//    case inProgress(Task<UIImage, Error>)
+//    case fetched(UIImage)
+//  }
+//}
 
 struct ImageLoaderKey: EnvironmentKey {
   static let defaultValue = ImageLoader()
