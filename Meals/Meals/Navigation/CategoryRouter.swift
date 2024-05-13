@@ -7,20 +7,21 @@
 
 import SwiftUI
 
-enum CategoryRoutes: Hashable {
+enum CategoryRoutes: Hashable, Equatable {
   case foodItems(categoryName: String)
+  case foodDetail(item: FoodItemModel)
 }
 
-protocol CategoryRouterProtocol: RouterProtocol {
+protocol CategoryRouterProtocol: ModuleRouter {
   func push(destination: CategoryRoutes)
   func pop()
   func popToRootView()
 }
 
 final class CategoryRouter: CategoryRouterProtocol, ObservableObject {
-  var router: Router
+  var router: RouterProtocol
 
-  init(router: Router) {
+  init(router: RouterProtocol) {
     self.router = router
   }
 

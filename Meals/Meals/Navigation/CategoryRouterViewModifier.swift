@@ -17,14 +17,23 @@ extension View {
             categoryName: categoryName
           )
         )
+        case .foodDetail(let model):
+          TestView(model: model)
+          .backgroundColor()
       }
     }
   }
 }
 
 struct TestView: View {
-  let categoryModel: CategoryModel
+  let model: FoodItemModel
   var body: some View {
-    Text("This is \(categoryModel.name)")
+    VStack {
+      Text("This is \(model.id)")
+      Text("This is \(model.name)")
+      Text("This is \(model.thumbURL)")
+      Spacer()
+    }
+    .frame(maxWidth: .infinity)
   }
 }

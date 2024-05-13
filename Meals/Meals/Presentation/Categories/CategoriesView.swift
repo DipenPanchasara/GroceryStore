@@ -17,7 +17,6 @@ struct CategoriesView: View {
           LoadingView()
         case .loaded(let viewModel):
           gridView(categories: viewModel.categories)
-//          list(categories: viewModel.categories)
         case .failed(let errorModel):
           ErrorView(viewModel: errorModel) {
             viewModel.onRetryTap()
@@ -42,42 +41,23 @@ struct CategoriesView: View {
     .toolBarStyle()
   }
 
-  private func list(categories: [CategoryModel]) -> some View {
-    List(categories,
-         rowContent: {
-      categoryModel in
-      CardView(
-        name: categoryModel.name,
-        thumbURL: categoryModel.thumbnailURL
-      )
-      .listRowBackground(Color.clear)
-      .listRowSeparator(.hidden)
-      .onTapGesture {
-        viewModel.onSelect(category: categoryModel)
-      }
-    })
-  }
-  
   private func gridView(categories: [CategoryModel]) -> some View {
     ScrollView {
       LazyVGrid(columns: viewModel.gridColumns(), spacing: .spacing.standard) {
         ForEach(categories, id: \.self) { category in
-          ZStack(alignment: .top) {
-            Rectangle()
-              .fill(.white)
-            VStack(spacing: .zero) {
-              if let thumbnailURL = category.thumbnailURL {
-                RemoteImageView(source: thumbnailURL)
-                  .aspectRatio(contentMode: .fill)
-              }
-              Text(category.name)
-                .font(.title3)
-                .bold()
-                .multilineTextAlignment(.center)
-                .foregroundStyle(Color.pink)
-                .padding(.padding.standard)
+          VStack(spacing: .zero) {
+            if let thumbnailURL = category.thumbnailURL {
+              RemoteImageView(source: thumbnailURL)
+                .aspectRatio(contentMode: .fill)
             }
+            Text(category.name)
+              .font(.title3)
+              .bold()
+              .multilineTextAlignment(.center)
+              .foregroundStyle(Color.pink)
+              .padding(.padding.standard)
           }
+          .frame(maxHeight: viewModel.itemWidth)
           .background(.white)
           .cornerRadius(.radius.view)
           .onTapGesture {

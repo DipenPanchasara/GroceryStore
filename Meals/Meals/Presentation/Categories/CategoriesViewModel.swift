@@ -45,7 +45,6 @@ class CategoriesViewModel: ObservableObject {
         guard let self = self else { return }
         switch result {
           case .success(let categories):
-//            print(categories)
             self.loadingState = .loaded(model: ViewModel(categories: categories))
           case .failure(let error):
             print("Error: \(error)")

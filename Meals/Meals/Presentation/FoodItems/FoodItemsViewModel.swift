@@ -69,7 +69,7 @@ final class FoodItemsViewModel: ObservableObject {
   }
   
   func onFoodItemTap(item: FoodItemModel) {
-    print(item)
+    categoryRouter.push(destination: .foodDetail(item: item))
   }
 }
 

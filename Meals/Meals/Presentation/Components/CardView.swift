@@ -36,7 +36,7 @@ struct CardView: View {
     }
     .background(Color.white)
     .cornerRadius(16)
-    .frame(height: 200)
+    .frame(maxHeight: 200)
     .shadow(color: .gray, radius: 4)
   }
 }

@@ -9,20 +9,16 @@ import SwiftUI
 import Combine
 
 protocol RouterProtocol {
+  func push(destination: any Hashable)
   func pop()
   func popToRootView()
 }
 
 final class Router: ObservableObject, RouterProtocol {
   @Published var path: NavigationPath
-//  var anycancellable: AnyCancellable?
 
   init(path: NavigationPath) {
     self.path = path
-//    anycancellable = $path.sink { path in
-//      print(path)
-//      print(path.count)
-//    }
   }
 
   func push(destination: any Hashable) {
@@ -30,10 +26,14 @@ final class Router: ObservableObject, RouterProtocol {
   }
 
   func pop() {
-    path.removeLast()
+    path.removeLast(path.count)
   }
 
   func popToRootView() {
     path = NavigationPath()
   }
+}
+
+protocol ModuleRouter {
+  var router: RouterProtocol { get }
 }
