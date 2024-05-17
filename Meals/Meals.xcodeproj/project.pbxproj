@@ -22,6 +22,7 @@
 		251A8DA32BF6A828004E1CA8 /* MockNetworkCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251A8DA22BF6A828004E1CA8 /* MockNetworkCacheManager.swift */; };
 		251A8DA62BF6A869004E1CA8 /* NetworkPublisherSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251A8DA52BF6A869004E1CA8 /* NetworkPublisherSpy.swift */; };
 		25273D8E2BA8DD16008DC7EB /* EndpointsUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25273D8D2BA8DD16008DC7EB /* EndpointsUnitTests.swift */; };
+		25380E502BF76D9F002457B7 /* CategoriesUseCaseUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25380E4F2BF76D9F002457B7 /* CategoriesUseCaseUnitTests.swift */; };
 		255357452BA87EEE00258521 /* NetworkRequestUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255357442BA87EEE00258521 /* NetworkRequestUnitTests.swift */; };
 		255357472BA8801900258521 /* NetworkResponseUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255357462BA8801900258521 /* NetworkResponseUnitTests.swift */; };
 		2567DFF92B6C018F00D7EEE5 /* CategoriesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2567DFF82B6C018F00D7EEE5 /* CategoriesViewModel.swift */; };
@@ -93,6 +94,7 @@
 		251A8DA22BF6A828004E1CA8 /* MockNetworkCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNetworkCacheManager.swift; sourceTree = "<group>"; };
 		251A8DA52BF6A869004E1CA8 /* NetworkPublisherSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkPublisherSpy.swift; sourceTree = "<group>"; };
 		25273D8D2BA8DD16008DC7EB /* EndpointsUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndpointsUnitTests.swift; sourceTree = "<group>"; };
+		25380E4F2BF76D9F002457B7 /* CategoriesUseCaseUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesUseCaseUnitTests.swift; sourceTree = "<group>"; };
 		255357442BA87EEE00258521 /* NetworkRequestUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRequestUnitTests.swift; sourceTree = "<group>"; };
 		255357462BA8801900258521 /* NetworkResponseUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResponseUnitTests.swift; sourceTree = "<group>"; };
 		2567DFF82B6C018F00D7EEE5 /* CategoriesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesViewModel.swift; sourceTree = "<group>"; };
@@ -196,6 +198,14 @@
 			path = Spies;
 			sourceTree = "<group>";
 		};
+		25380E4E2BF76CCB002457B7 /* UseCase */ = {
+			isa = PBXGroup;
+			children = (
+				25380E4F2BF76D9F002457B7 /* CategoriesUseCaseUnitTests.swift */,
+			);
+			path = UseCase;
+			sourceTree = "<group>";
+		};
 		2567DFFA2B6C01A500D7EEE5 /* BusinessLayer */ = {
 			isa = PBXGroup;
 			children = (
@@ -219,12 +229,9 @@
 		2567DFFE2B6C022A00D7EEE5 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
-				25CDF2E22B84BB0500288C3B /* ViewModelFactory */,
 				25F30BD72B83F427007D0CDF /* FoodItems */,
 				25F30BD42B83E6E8007D0CDF /* ViewModifiers */,
 				2515535A2B7697B30000FB17 /* Components */,
-				2567E0052B6C046300D7EEE5 /* UseCases */,
-				2567E0022B6C042600D7EEE5 /* Model */,
 				2567DFFD2B6C01DA00D7EEE5 /* Categories */,
 				25FBAB852BAA089100C663ED /* Constants.swift */,
 			);
@@ -331,6 +338,9 @@
 				257B8CD52B6FD5E900F40246 /* RootViewModel.swift */,
 				25C44FBE2B684436001CE21F /* Assets.xcassets */,
 				2567DFFA2B6C01A500D7EEE5 /* BusinessLayer */,
+				2567E0052B6C046300D7EEE5 /* UseCases */,
+				25CDF2E22B84BB0500288C3B /* ViewModelFactory */,
+				2567E0022B6C042600D7EEE5 /* Model */,
 				2567DFFE2B6C022A00D7EEE5 /* Presentation */,
 				257478242B6AC913004A4861 /* NetworkManager */,
 				25C44FC12B684436001CE21F /* Preview Content */,
@@ -350,6 +360,7 @@
 			isa = PBXGroup;
 			children = (
 				25169C8E2B8BC9A10039A818 /* GeneratedMocks.swift */,
+				25380E4E2BF76CCB002457B7 /* UseCase */,
 				251A8DA42BF6A85B004E1CA8 /* Spies */,
 				2576F85B2B7B9E600088635F /* Presentation */,
 				2576F8582B7B9CD50088635F /* Mocks */,
@@ -560,7 +571,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ $ACTION == \"indexbuild\" ]; then\n  echo \"Not running Cuckoo generator during indexing.\"\n  exit 0\nfi\n\n# Skip for preview builds\nif [ \"${ENABLE_PREVIEWS}\" = \"YES\" ]; then\n  echo \"Not running Cuckoo generator during preview builds.\"\n  exit 0\nfi\n\n# Define output file. Change \"${PROJECT_DIR}/${PROJECT_NAME}Tests\" to your test's root source folder, if it's not the default name.\nOUTPUT_FILE=\"${PROJECT_DIR}/${PROJECT_NAME}Tests/GeneratedMocks.swift\"\necho \"Generated Mocks File = ${OUTPUT_FILE}\"\n\n# Define input directory. Change \"${PROJECT_DIR}/${PROJECT_NAME}\" to your project's root source folder, if it's not the default name.\nINPUT_DIR=\"${PROJECT_DIR}/${PROJECT_NAME}Tests\"\necho \"Mocks Input Directory = ${INPUT_DIR}\"\necho \"Source ${SRCROOT}\"\n# Generate mock files, include as many input files as you'd like to create mocks for.\n\"${PODS_ROOT}/Cuckoo/run\" generate --testable \"${PROJECT_NAME}\" \\\n--output \"${OUTPUT_FILE}\" \\\n\"${SRCROOT}/${PROJECT_NAME}/Presentation/ViewModelFactory/CategoryViewModelFactory.swift\" \\\n\"${SRCROOT}/${PROJECT_NAME}/Presentation/UseCases/CategoriesUseCase.swift\" \\\n\"${SRCROOT}/${PROJECT_NAME}/Presentation/UseCases/FoodItemsUseCase.swift\" \\\n\"${SRCROOT}/${PROJECT_NAME}/NetworkManager/NetworkManager.swift\" \\\n\"${SRCROOT}/${PROJECT_NAME}/Navigation/Router.swift\" \\\n\"${SRCROOT}/${PROJECT_NAME}/Navigation/CategoryRouter.swift\" \\\n\"${SRCROOT}/${PROJECT_NAME}/NetworkManager/NetworkSessionProvider.swift\" \\\n\"${SRCROOT}/${PROJECT_NAME}/NetworkManager/ResponseDecoder.swift\" \\\n\n# ... and so forth, the last line should never end with a backslash\n\n# After running once, locate `GeneratedMocks.swift` and drag it into your Xcode test target group.\n";
+			shellScript = "if [ $ACTION == \"indexbuild\" ]; then\n  echo \"Not running Cuckoo generator during indexing.\"\n  exit 0\nfi\n\n# Skip for preview builds\nif [ \"${ENABLE_PREVIEWS}\" = \"YES\" ]; then\n  echo \"Not running Cuckoo generator during preview builds.\"\n  exit 0\nfi\n\n# Define output file. Change \"${PROJECT_DIR}/${PROJECT_NAME}Tests\" to your test's root source folder, if it's not the default name.\nOUTPUT_FILE=\"${PROJECT_DIR}/${PROJECT_NAME}Tests/GeneratedMocks.swift\"\necho \"Generated Mocks File = ${OUTPUT_FILE}\"\n\n# Define input directory. Change \"${PROJECT_DIR}/${PROJECT_NAME}\" to your project's root source folder, if it's not the default name.\nINPUT_DIR=\"${PROJECT_DIR}/${PROJECT_NAME}Tests\"\necho \"Mocks Input Directory = ${INPUT_DIR}\"\necho \"Source ${SRCROOT}\"\n# Generate mock files, include as many input files as you'd like to create mocks for.\n\"${PODS_ROOT}/Cuckoo/run\" generate --testable \"${PROJECT_NAME}\" \\\n--output \"${OUTPUT_FILE}\" \\\n\"${SRCROOT}/${PROJECT_NAME}/ViewModelFactory/CategoryViewModelFactory.swift\" \\\n\"${SRCROOT}/${PROJECT_NAME}/UseCases/CategoriesUseCase.swift\" \\\n\"${SRCROOT}/${PROJECT_NAME}/UseCases/FoodItemsUseCase.swift\" \\\n\"${SRCROOT}/${PROJECT_NAME}/NetworkManager/NetworkManager.swift\" \\\n\"${SRCROOT}/${PROJECT_NAME}/Navigation/Router.swift\" \\\n\"${SRCROOT}/${PROJECT_NAME}/Navigation/CategoryRouter.swift\" \\\n\"${SRCROOT}/${PROJECT_NAME}/NetworkManager/NetworkSessionProvider.swift\" \\\n\"${SRCROOT}/${PROJECT_NAME}/NetworkManager/ResponseDecoder.swift\" \\\n\"${SRCROOT}/${PROJECT_NAME}/BusinessLayer/Repository/CategoryRepository.swift\" \\\n\"${SRCROOT}/${PROJECT_NAME}/BusinessLayer/Repository/FoodItemRepository.swift\" \\\n# ... and so forth, the last line should never end with a backslash\n\n# After running once, locate `GeneratedMocks.swift` and drag it into your Xcode test target group.\n";
 		};
 		DB8922C37062F5B16480D8AE /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -668,6 +679,7 @@
 				251A8DA32BF6A828004E1CA8 /* MockNetworkCacheManager.swift in Sources */,
 				25169C8F2B8BC9A10039A818 /* GeneratedMocks.swift in Sources */,
 				251A8DA12BF68DAA004E1CA8 /* PublisherSpy.swift in Sources */,
+				25380E502BF76D9F002457B7 /* CategoriesUseCaseUnitTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -12,6 +12,7 @@ protocol FoodItemsUseCaseProtocol {
   var publisher: AnyPublisher<Result<[FoodItemModel], Error>, Never> { get }
 
   func fetchFoodItems(by categoryName: String)
+  func fetchFoodItems(by categoryName: String) async -> Result<[FoodItemModel], Error>
 }
 
 final class FoodItemsUseCase: FoodItemsUseCaseProtocol {
@@ -52,6 +53,20 @@ final class FoodItemsUseCase: FoodItemsUseCaseProtocol {
       .store(in: &subscriptions)
   }
 
+  func fetchFoodItems(by categoryName: String) async -> Result<[FoodItemModel], Error> {
+    let result = foodItemRepository.fetchFoodItems(by: categoryName).values
+    do {
+      for try await foodItemsEntities in result {
+        let models = foodItemsEntities.map {
+          self.map(foodItemEntity: $0)
+        }
+        return .success(models)
+      }
+    } catch {
+      return .failure(error)
+    }
+    return .failure(UseCaseError.noData)
+  }
 }
 
 private extension FoodItemsUseCase {

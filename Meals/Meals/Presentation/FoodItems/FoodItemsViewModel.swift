@@ -18,6 +18,7 @@ final class FoodItemsViewModel: ObservableObject {
   private let useCase: FoodItemsUseCaseProtocol
   private let categoryName: String
   private var subscriptions = Set<AnyCancellable>()
+  private var foodItems: [FoodItemModel] = []
 
   var navigationTitle: String {
     categoryName
@@ -70,29 +71,5 @@ final class FoodItemsViewModel: ObservableObject {
   
   func onFoodItemTap(item: FoodItemModel) {
     categoryRouter.push(destination: .foodDetail(item: item))
-  }
-}
-
-extension FoodItemsViewModel {
-  var padding: CGFloat { 8 }
-  var noOfColumns: Int  { 1 }
-  var totalPadding: CGFloat {
-    if noOfColumns == 1 {
-      return padding * 2
-    } else {
-      return padding * (CGFloat(noOfColumns) + 1)
-    }
-  }
-  
-  var availableWidth: CGFloat {
-    (UIScreen.main.bounds.width - totalPadding)
-  }
-  
-  var itemWidth: CGFloat {
-    availableWidth/CGFloat(noOfColumns)
-  }
-  
-  func gridColumns() -> [GridItem] {
-    [GridItem].init(repeating: GridItem(.fixed(itemWidth)), count: noOfColumns)
   }
 }

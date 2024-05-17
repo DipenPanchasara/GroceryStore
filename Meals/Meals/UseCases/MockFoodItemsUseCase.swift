@@ -16,7 +16,6 @@ final class MockFoodItemsUseCase: FoodItemsUseCaseProtocol {
 
   private var result: CurrentValueSubject<Result<[FoodItemModel], Error>, Never> = .init(.failure(NoStubError()))
 
-//  private var result: Result<[FoodItemModel], Error> = .failure(NoStubError())
   var publisher: AnyPublisher<Result<[FoodItemModel], Error>, Never> {
     return result.eraseToAnyPublisher()
   }
@@ -33,13 +32,18 @@ final class MockFoodItemsUseCase: FoodItemsUseCaseProtocol {
 
   func fetchFoodItems(by categoryName: String) {
     guard let foodItems else {
-//      self.result = .failure(error)
       self.result.send(.failure(error))
       return
     }
-//    self.result = .success(foodItems)
     self.result.send(.success(foodItems))
     self.result.send(completion: .finished)
+  }
+  
+  func fetchFoodItems(by categoryName: String) async -> Result<[FoodItemModel], any Error> {
+    guard let foodItems else {
+      return .failure(error)
+    }
+    return .success(foodItems)
   }
 }
 #endif

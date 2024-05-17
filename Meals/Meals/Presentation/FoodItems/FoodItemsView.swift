@@ -72,7 +72,7 @@ struct FoodItemsView: View {
   
   private func gridView(items: [FoodItemModel]) -> some View {
     ScrollView {
-      LazyVGrid(columns: viewModel.gridColumns(), spacing: .spacing.standard) {
+      LazyVGrid(columns: gridColumns(), spacing: .spacing.standard) {
         ForEach(items) { item in
           ZStack(alignment: .top) {
             Rectangle()
@@ -103,6 +103,31 @@ struct FoodItemsView: View {
     .backgroundColor()
   }
 }
+
+extension FoodItemsView {
+  var padding: CGFloat { 8 }
+  var noOfColumns: Int  { 1 }
+  var totalPadding: CGFloat {
+    if noOfColumns == 1 {
+      return padding * 2
+    } else {
+      return padding * (CGFloat(noOfColumns) + 1)
+    }
+  }
+  
+  var availableWidth: CGFloat {
+    (UIScreen.main.bounds.width - totalPadding)
+  }
+  
+  var itemWidth: CGFloat {
+    availableWidth/CGFloat(noOfColumns)
+  }
+  
+  func gridColumns() -> [GridItem] {
+    [GridItem].init(repeating: GridItem(.fixed(itemWidth)), count: noOfColumns)
+  }
+}
+
 
 #if DEBUG
 struct FoodItemsView_Previews: PreviewProvider {
