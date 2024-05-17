@@ -17,6 +17,10 @@
 		2515535C2B7697C70000FB17 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2515535B2B7697C70000FB17 /* ErrorView.swift */; };
 		25169C8F2B8BC9A10039A818 /* GeneratedMocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25169C8E2B8BC9A10039A818 /* GeneratedMocks.swift */; };
 		25169C912B8BCCD80039A818 /* MockFiles.xcfilelist in Resources */ = {isa = PBXBuildFile; fileRef = 25169C902B8BCCD80039A818 /* MockFiles.xcfilelist */; };
+		251A8D9F2BF64B5D004E1CA8 /* FoodItemsViewModelUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251A8D9E2BF64B5D004E1CA8 /* FoodItemsViewModelUnitTests.swift */; };
+		251A8DA12BF68DAA004E1CA8 /* PublisherSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251A8DA02BF68DAA004E1CA8 /* PublisherSpy.swift */; };
+		251A8DA32BF6A828004E1CA8 /* MockNetworkCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251A8DA22BF6A828004E1CA8 /* MockNetworkCacheManager.swift */; };
+		251A8DA62BF6A869004E1CA8 /* NetworkPublisherSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251A8DA52BF6A869004E1CA8 /* NetworkPublisherSpy.swift */; };
 		25273D8E2BA8DD16008DC7EB /* EndpointsUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25273D8D2BA8DD16008DC7EB /* EndpointsUnitTests.swift */; };
 		255357452BA87EEE00258521 /* NetworkRequestUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255357442BA87EEE00258521 /* NetworkRequestUnitTests.swift */; };
 		255357472BA8801900258521 /* NetworkResponseUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255357462BA8801900258521 /* NetworkResponseUnitTests.swift */; };
@@ -84,6 +88,10 @@
 		2515535B2B7697C70000FB17 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		25169C8E2B8BC9A10039A818 /* GeneratedMocks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneratedMocks.swift; sourceTree = "<group>"; };
 		25169C902B8BCCD80039A818 /* MockFiles.xcfilelist */ = {isa = PBXFileReference; lastKnownFileType = text.xcfilelist; path = MockFiles.xcfilelist; sourceTree = "<group>"; };
+		251A8D9E2BF64B5D004E1CA8 /* FoodItemsViewModelUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodItemsViewModelUnitTests.swift; sourceTree = "<group>"; };
+		251A8DA02BF68DAA004E1CA8 /* PublisherSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublisherSpy.swift; sourceTree = "<group>"; };
+		251A8DA22BF6A828004E1CA8 /* MockNetworkCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNetworkCacheManager.swift; sourceTree = "<group>"; };
+		251A8DA52BF6A869004E1CA8 /* NetworkPublisherSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkPublisherSpy.swift; sourceTree = "<group>"; };
 		25273D8D2BA8DD16008DC7EB /* EndpointsUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndpointsUnitTests.swift; sourceTree = "<group>"; };
 		255357442BA87EEE00258521 /* NetworkRequestUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRequestUnitTests.swift; sourceTree = "<group>"; };
 		255357462BA8801900258521 /* NetworkResponseUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResponseUnitTests.swift; sourceTree = "<group>"; };
@@ -179,6 +187,15 @@
 			path = Components;
 			sourceTree = "<group>";
 		};
+		251A8DA42BF6A85B004E1CA8 /* Spies */ = {
+			isa = PBXGroup;
+			children = (
+				251A8DA02BF68DAA004E1CA8 /* PublisherSpy.swift */,
+				251A8DA52BF6A869004E1CA8 /* NetworkPublisherSpy.swift */,
+			);
+			path = Spies;
+			sourceTree = "<group>";
+		};
 		2567DFFA2B6C01A500D7EEE5 /* BusinessLayer */ = {
 			isa = PBXGroup;
 			children = (
@@ -260,6 +277,7 @@
 		2576F8582B7B9CD50088635F /* Mocks */ = {
 			isa = PBXGroup;
 			children = (
+				251A8DA22BF6A828004E1CA8 /* MockNetworkCacheManager.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -268,6 +286,7 @@
 			isa = PBXGroup;
 			children = (
 				25C44FCC2B684436001CE21F /* CategoriesViewModelUnitTests.swift */,
+				251A8D9E2BF64B5D004E1CA8 /* FoodItemsViewModelUnitTests.swift */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -331,6 +350,7 @@
 			isa = PBXGroup;
 			children = (
 				25169C8E2B8BC9A10039A818 /* GeneratedMocks.swift */,
+				251A8DA42BF6A85B004E1CA8 /* Spies */,
 				2576F85B2B7B9E600088635F /* Presentation */,
 				2576F8582B7B9CD50088635F /* Mocks */,
 				25F3CA492B6ED22500EDD214 /* NetworkManager */,
@@ -638,12 +658,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				251A8DA62BF6A869004E1CA8 /* NetworkPublisherSpy.swift in Sources */,
+				251A8D9F2BF64B5D004E1CA8 /* FoodItemsViewModelUnitTests.swift in Sources */,
 				25273D8E2BA8DD16008DC7EB /* EndpointsUnitTests.swift in Sources */,
 				25F3CA4B2B6ED25600EDD214 /* NetworkManagerUnitTests.swift in Sources */,
 				255357472BA8801900258521 /* NetworkResponseUnitTests.swift in Sources */,
 				25C44FCD2B684436001CE21F /* CategoriesViewModelUnitTests.swift in Sources */,
 				255357452BA87EEE00258521 /* NetworkRequestUnitTests.swift in Sources */,
+				251A8DA32BF6A828004E1CA8 /* MockNetworkCacheManager.swift in Sources */,
 				25169C8F2B8BC9A10039A818 /* GeneratedMocks.swift in Sources */,
+				251A8DA12BF68DAA004E1CA8 /* PublisherSpy.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -864,7 +888,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MACOSX_DEPLOYMENT_TARGET = 14.1;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.poc.MealsTests;
@@ -889,7 +913,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MACOSX_DEPLOYMENT_TARGET = 14.1;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.poc.MealsTests;

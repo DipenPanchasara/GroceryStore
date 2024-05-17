@@ -9,9 +9,10 @@ import Combine
 import SwiftUI
 
 protocol CategoriesUseCaseProtocol {
-  var publisher: Published<Result<[CategoryModel], Error>>.Publisher { get }
+  var publisher: AnyPublisher<Result<[CategoryModel], Error>, Never> { get }
 
   func fetchCategories()
+  func fetchCategories() async -> Result<[CategoryModel], Error>
 }
 
 final class CategoriesUseCase: CategoriesUseCaseProtocol {
@@ -23,32 +24,46 @@ final class CategoriesUseCase: CategoriesUseCaseProtocol {
   private let categoryRepository: CategoryRepositoryProtocol
   private var subscriptions = Set<AnyCancellable>()
   
-  @Published
-  private var result: Result<[CategoryModel], Error> = .failure(UseCaseError.initialState)
-  var publisher: Published<Result<[CategoryModel], Error>>.Publisher {
-    return $result
+  private var result: CurrentValueSubject<Result<[CategoryModel], Error>, Never> = .init(.failure(UseCaseError.initialState))
+  var publisher: AnyPublisher<Result<[CategoryModel], Error>, Never> {
+    return result.eraseToAnyPublisher()
   }
 
   init(categoryRepository: CategoryRepositoryProtocol) {
     self.categoryRepository = categoryRepository
   }
-    
+
   func fetchCategories() {
     categoryRepository.allCategories()
       .map { categoryEntities in
         categoryEntities.map { self.map(categoryEntity: $0) }
       }
-      .sink { completion in
+      .sink { [weak self] completion in
         switch completion {
           case .finished:
             print("\(#function) Category stream finished")
           case .failure(let error):
-            self.result = .failure(error)
+            self?.result.send(.failure(error))
         }
-      } receiveValue: { categories in
-        self.result = .success(categories)
+      } receiveValue: { [weak self] categories in
+        self?.result.send(.success(categories))
       }
       .store(in: &subscriptions)
+  }
+  
+  func fetchCategories() async -> Result<[CategoryModel], Error> {
+    let result = categoryRepository.allCategories().values
+    do {
+      for try await catetoryEntities in result {
+        let models = catetoryEntities.map {
+          self.map(categoryEntity: $0)
+        }
+        return .success(models)
+      }
+    } catch {
+      return .failure(error)
+    }
+    return .failure(UseCaseError.noData)
   }
 }
 

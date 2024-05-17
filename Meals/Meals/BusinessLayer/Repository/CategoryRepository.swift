@@ -26,7 +26,7 @@ final class CategoryRepository: CategoryRepositoryProtocol {
   }
 
   func allCategories() -> AnyPublisher<[CategoryEntity], Error> {
-    networkManager.execute(
+    networkManager.executeWithCache(
       networkRequest: NetworkRequest(
         httpMethod: .get,
         endpoint: .allCategories

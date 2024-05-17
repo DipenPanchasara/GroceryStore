@@ -38,7 +38,8 @@ class RootViewModel: ObservableObject {
     self.networkManager = NetworkManager(
       scheme: scheme,
       baseURLString: baseURLString,
-      session: session, 
+      session: session,
+      cache: NetworkCacheManager(session: session),
       decoder: ResponseDecoder()
     )
     self.categoryVMFactory = CategoryViewModelFactory(

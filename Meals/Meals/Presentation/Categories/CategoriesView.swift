@@ -19,7 +19,7 @@ struct CategoriesView: View {
           gridView(categories: viewModel.categories)
         case .failed(let errorModel):
           ErrorView(viewModel: errorModel) {
-            viewModel.onRetryTap()
+            await viewModel.onRetryTap()
           }
       }
     }
@@ -28,7 +28,7 @@ struct CategoriesView: View {
     .withCategoryRoutes(categoryViewModelFactory: viewModel.categoryViewModelFactory)
     .listStyle(.plain)
     .task {
-      viewModel.loadData()
+      await viewModel.fetchData()
     }
     .navigationBarTitle(
       "Categories",
@@ -36,7 +36,7 @@ struct CategoriesView: View {
     )
     .navigationBarTitleDisplayMode(.inline)
     .refreshable {
-      viewModel.onRetryTap()
+      await viewModel.onRetryTap()
     }
     .toolBarStyle()
   }

@@ -9,7 +9,7 @@ import Combine
 import SwiftUI
 
 protocol FoodItemsUseCaseProtocol {
-  var publisher: Published<Result<[FoodItemModel], Error>>.Publisher { get }
+  var publisher: AnyPublisher<Result<[FoodItemModel], Error>, Never> { get }
 
   func fetchFoodItems(by categoryName: String)
 }
@@ -24,9 +24,9 @@ final class FoodItemsUseCase: FoodItemsUseCaseProtocol {
   private var subscriptions = Set<AnyCancellable>()
 
   @Published
-  private var result: Result<[FoodItemModel], Error> = .failure(UseCaseError.initialState)
-  var publisher: Published<Result<[FoodItemModel], Error>>.Publisher {
-    return $result
+  private var result: CurrentValueSubject<Result<[FoodItemModel], Error>, Never> = .init(.failure(UseCaseError.initialState))
+  var publisher: AnyPublisher<Result<[FoodItemModel], Error>, Never> {
+    return result.eraseToAnyPublisher()
   }
 
   init(foodItemRepository: FoodItemRepositoryProtocol) {
@@ -38,15 +38,16 @@ final class FoodItemsUseCase: FoodItemsUseCaseProtocol {
       .map { categoryEntities in
         categoryEntities.map { self.map(foodItemEntity: $0) }
       }
-      .sink { completion in
+      .sink { [weak self] completion in
         switch completion {
           case .finished:
             print("\(#function) FoodItem stream finished")
           case .failure(let error):
-            self.result = .failure(error)
+            self?.result.send(.failure(error))
         }
-      } receiveValue: { categories in
-        self.result = .success(categories)
+      } receiveValue: { [weak self] categories in
+        self?.result.send(.success(categories))
+        self?.result.send(completion: .finished)
       }
       .store(in: &subscriptions)
   }

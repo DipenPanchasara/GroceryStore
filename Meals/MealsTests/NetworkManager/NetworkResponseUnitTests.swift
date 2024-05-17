@@ -18,9 +18,9 @@ final class NetworkResponseUnitTests: XCTestCase {
       httpVersion: "testVersion",
       headerFields: nil
     ))
-    let sut = NetworkResponse(data: mockData, urlResponse: mockHTTPResponse)
+    let sut = NetworkResponse(data: mockData, response: mockHTTPResponse)
     XCTAssertEqual(sut.data, mockData)
-    XCTAssertEqual(sut.urlResponse, mockHTTPResponse)
+    XCTAssertEqual(sut.response, mockHTTPResponse)
   }
   
   func testInit_whenDataNotAvailable() throws {
@@ -31,9 +31,9 @@ final class NetworkResponseUnitTests: XCTestCase {
       httpVersion: "testVersion",
       headerFields: nil
     ))
-    let sut = NetworkResponse(data: nil, urlResponse: mockHTTPResponse)
+    let sut = NetworkResponse(data: nil, response: mockHTTPResponse)
     XCTAssertNil(sut.data)
-    XCTAssertEqual(sut.urlResponse, mockHTTPResponse)
+    XCTAssertEqual(sut.response, mockHTTPResponse)
   }
   
   func testNetworkResponse_whenDecodingSuccess() throws {
@@ -49,9 +49,9 @@ final class NetworkResponseUnitTests: XCTestCase {
       "name": "anyName"
     ]
     let data = try JSONSerialization.data(withJSONObject: object, options: .prettyPrinted)
-    let sut = NetworkResponse(data: data, urlResponse: mockHTTPResponse)
+    let sut = NetworkResponse(data: data, response: mockHTTPResponse)
     XCTAssertNotNil(sut.data)
-    XCTAssertEqual(sut.urlResponse, mockHTTPResponse)
+    XCTAssertEqual(sut.response, mockHTTPResponse)
     let result: MockDecodable = try sut.decode()
     XCTAssertEqual(result.id, "anyId")
     XCTAssertEqual(result.name, "anyName")
@@ -70,9 +70,9 @@ final class NetworkResponseUnitTests: XCTestCase {
       "wrong_key": "anyName"
     ]
     let data = try JSONSerialization.data(withJSONObject: object, options: .prettyPrinted)
-    let sut = NetworkResponse(data: data, urlResponse: mockHTTPResponse)
+    let sut = NetworkResponse(data: data, response: mockHTTPResponse)
     XCTAssertNotNil(sut.data)
-    XCTAssertEqual(sut.urlResponse, mockHTTPResponse)
+    XCTAssertEqual(sut.response, mockHTTPResponse)
     do {
       let _: MockDecodable = try sut.decode()
     } catch {

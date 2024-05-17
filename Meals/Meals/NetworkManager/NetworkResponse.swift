@@ -10,7 +10,11 @@ import Combine
 
 struct NetworkResponse: Equatable {
   let data: Data?
-  let urlResponse: HTTPURLResponse
+  let response: HTTPURLResponse
+  
+  var urlResponse: URLResponse {
+    response as URLResponse
+  }
 }
 
 extension NetworkResponse {

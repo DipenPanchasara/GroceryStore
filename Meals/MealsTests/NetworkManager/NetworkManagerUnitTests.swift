@@ -25,58 +25,95 @@ final class NetworkManagerUnitTests: XCTestCase {
     try await super.tearDown()
   }
 
-  func testNetworkRequestSuccess() async throws {
+  func testNetworkRequestSuccessWithoutCache() async throws {
     let mockResponseString = "mockResponseData"
     let mockResponseData = try XCTUnwrap(mockResponseString.data(using: .utf8))
     let mockHTTPResponse = try XCTUnwrap(HTTPURLResponse(
       url: XCTUnwrap(baseURL),
       statusCode: 200,
       httpVersion: "testVersion",
-      headerFields: nil
+      headerFields: ["anyHeaderKey": "anyHeaderValue"]
     ))
+    let mockNetworkResponse = NetworkResponse(data: mockResponseData, response: mockHTTPResponse)
+    let subject: PassthroughSubject<(data: Data, response: URLResponse), Error> = PassthroughSubject()
+    
     let mockSession = MockNetworkSessionProvider()
     stub(mockSession) { proxy in
       when(proxy)
         .dataTaskPublisher(for: any())
         .thenReturn(
-          Just(
-            (mockResponseData, mockHTTPResponse)
-          )
-          .setFailureType(to: Error.self)
-          .eraseToAnyPublisher()
+          subject.eraseToAnyPublisher()
         )
     }
-    let expectation = expectation(description: "wait for response")
+    
     let sut = NetworkManager(
       scheme: "https",
       baseURLString: baseURLString,
       session: mockSession,
+      cache: MockNetworkCacheManager(error: MockError.noCache),
       decoder: ResponseDecoder()
     )
-    sut.execute(
+    let publisher = sut.executeWithCache(
       networkRequest: NetworkRequest(
         httpMethod: .get,
         endpoint: .allCategories
       )
     )
-    .sink { completion in
-      switch completion {
-        case .finished:
-          expectation.fulfill()
-        case .failure(let error):
-          XCTFail("Expected success response, receive error: \(error)")
-      }
-    } receiveValue: { response in
-      guard let data = response.data else {
-        XCTFail("Invalid response.")
-        return
-      }
-      let string = String(bytes: data, encoding: .utf8)
-      XCTAssertEqual(string, mockResponseString)
-      XCTAssertEqual(response.urlResponse.statusCode, 200)
+    
+    let spy = NetworkPublisherSpy(publisher)
+    XCTAssertTrue(spy.values.isEmpty)
+    XCTAssertNil(spy.error)
+    
+    subject.send((data: mockResponseData, response: mockHTTPResponse))
+    XCTAssertEqual(spy.values, [mockNetworkResponse])
+    XCTAssertNil(spy.error)
+  }
+  
+  func testNetworkRequestSuccessWithCache() async throws {
+    let mockResponseString = "mockResponseData"
+    let mockResponseData = try XCTUnwrap(mockResponseString.data(using: .utf8))
+    let mockCacheResponseString = "mockCacheResponseData"
+    let mockCacheResponseData = try XCTUnwrap(mockCacheResponseString.data(using: .utf8))
+    let mockHTTPResponse = try XCTUnwrap(HTTPURLResponse(
+      url: XCTUnwrap(baseURL),
+      statusCode: 200,
+      httpVersion: "testVersion",
+      headerFields: ["anyHeaderKey": "anyHeaderValue"]
+    ))
+    let mockCacheNetworkResponse = NetworkResponse(data: mockCacheResponseData, response: mockHTTPResponse)
+    let mockNetworkResponse = NetworkResponse(data: mockResponseData, response: mockHTTPResponse)
+    let subject: PassthroughSubject<(data: Data, response: URLResponse), Error> = PassthroughSubject()
+    
+    let mockSession = MockNetworkSessionProvider()
+    stub(mockSession) { proxy in
+      when(proxy)
+        .dataTaskPublisher(for: any())
+        .thenReturn(
+          subject.eraseToAnyPublisher()
+        )
     }
-    .store(in: &cancellables)
-    await fulfillment(of: [expectation], timeout: .zero)
+
+    let sut = NetworkManager(
+      scheme: "https",
+      baseURLString: baseURLString,
+      session: mockSession,
+      cache: MockNetworkCacheManager(response: mockCacheNetworkResponse),
+      decoder: ResponseDecoder()
+    )
+    let publisher = sut.executeWithCache(
+      networkRequest: NetworkRequest(
+        httpMethod: .get,
+        endpoint: .allCategories
+      )
+    )
+
+    let spy = NetworkPublisherSpy(publisher)
+    XCTAssertEqual(spy.values, [mockCacheNetworkResponse])
+    XCTAssertNil(spy.error)
+    
+    subject.send((data: mockResponseData, response: mockHTTPResponse))
+    XCTAssertEqual(spy.values, [mockCacheNetworkResponse, mockNetworkResponse])
+    XCTAssertNil(spy.error)
   }
 
   func testNetworkRequest_whenPreparingURLRequestSucceed() async throws {
@@ -84,6 +121,7 @@ final class NetworkManagerUnitTests: XCTestCase {
       scheme: "https",
       baseURLString: "www.test.com",
       session: URLSession.shared,
+      cache: MockNetworkCacheManager(error: MockError.noCache),
       decoder: ResponseDecoder()
     )
     let request = NetworkRequest(
@@ -105,6 +143,7 @@ final class NetworkManagerUnitTests: XCTestCase {
       scheme: "https",
       baseURLString: "https://www.test.com",
       session: URLSession.shared,
+      cache: MockNetworkCacheManager(error: MockError.noCache),
       decoder: ResponseDecoder()
     )
     let request = NetworkRequest(
@@ -131,48 +170,42 @@ final class NetworkManagerUnitTests: XCTestCase {
       httpVersion: "testVersion",
       headerFields: ["anyHeaderKey": "anyHeaderValue"]
     ))
+    let subject: PassthroughSubject<(data: Data, response: URLResponse), Error> = PassthroughSubject()
+
     let mockSession = MockNetworkSessionProvider()
     stub(mockSession) { proxy in
       when(proxy)
         .dataTaskPublisher(for: any())
         .thenReturn(
-          Just(
-            (mockResponseData, mockHTTPResponse)
-          )
-          .setFailureType(to: Error.self)
-          .eraseToAnyPublisher()
+          subject.eraseToAnyPublisher()
         )
     }
-    let expectation = expectation(description: "wait for response")
+
     let sut = NetworkManager(
       scheme: "https",
       baseURLString: baseURLString,
       session: mockSession,
+      cache: MockNetworkCacheManager(error: MockError.noCache),
       decoder: ResponseDecoder()
     )
-    sut.execute(
+    let publisher = sut.executeWithCache(
       networkRequest: NetworkRequest(
         httpMethod: .get,
         endpoint: .allCategories
       )
     )
-    .sink { completion in
-      switch completion {
-        case .finished:
-          XCTFail("Should throw badServerResponse.")
-        case .failure(let error):
-          guard let urlError = error as? URLError else {
-            XCTFail("Should throw badServerResponse")
-            return
-          }
-          XCTAssertEqual(urlError, URLError(.badServerResponse))
-          expectation.fulfill()
-      }
-    } receiveValue: { _ in
-      XCTFail("Should throw badServerResponse.")
-    }
-    .store(in: &cancellables)
-    await fulfillment(of: [expectation], timeout: .zero)
+
+    let spy = NetworkPublisherSpy(publisher)
+    XCTAssertTrue(spy.values.isEmpty)
+    XCTAssertNil(spy.error)
+
+    subject.send((data: mockResponseData, response: mockHTTPResponse))
+    XCTAssertTrue(spy.values.isEmpty)
+    XCTAssertNotNil(spy.error)
   }
 }
 
+enum MockError: Error {
+  case networkFailure
+  case noCache
+}

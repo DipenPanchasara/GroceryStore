@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import Combine
+//import Combine
 
 class CategoriesViewModel: ObservableObject {
   struct ViewModel: Equatable {
@@ -17,7 +17,7 @@ class CategoriesViewModel: ObservableObject {
   private(set) var categoryRouter: CategoryRouterProtocol
   private(set) var categoryViewModelFactory: CategoryViewModelFactoryProtocol
   @Published var loadingState: ViewState<ViewModel> = .idle
-  private var subscriptions = Set<AnyCancellable>()
+//  private var subscriptions = Set<AnyCancellable>()
   
   init(
     useCase: CategoriesUseCaseProtocol,
@@ -27,9 +27,10 @@ class CategoriesViewModel: ObservableObject {
     self.useCase = useCase
     self.categoryRouter = categoryRouter
     self.categoryViewModelFactory = categoryViewModelFactory
-    self.subscribe()
+//    self.subscribe()
   }
 
+  /*
   private func subscribe() {
     useCase.publisher
       .receive(on: DispatchQueue.main)
@@ -53,15 +54,32 @@ class CategoriesViewModel: ObservableObject {
       }
       .store(in: &subscriptions)
   }
+   */
 
+  /*
   func loadData() {
     guard loadingState.canReload else { return }
     loadingState = .loading(model: ViewModel(categories: .mock))
     useCase.fetchCategories()
   }
+   */
+  
+  @MainActor
+  func fetchData() async {
+    guard loadingState.canReload else { return }
+    loadingState = .loading(model: ViewModel(categories: .mock))
 
-  func onRetryTap() {
-    loadData()
+    let result = await self.useCase.fetchCategories()
+    switch result {
+      case .success(let categories):
+        self.loadingState = .loaded(model: .init(categories: categories))
+      case .failure:
+        self.loadingState = .failed(model: ErrorModel(message: "Unable to load categories."))
+    }
+  }
+
+  func onRetryTap() async {
+    await fetchData()
   }
 
   @MainActor

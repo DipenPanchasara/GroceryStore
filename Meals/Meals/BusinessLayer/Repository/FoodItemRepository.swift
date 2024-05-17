@@ -30,7 +30,7 @@ final class FoodItemRepository: FoodItemRepositoryProtocol {
   func fetchFoodItems(
     by categoryName: String
   ) -> AnyPublisher<[FoodItemEntity], Error> {
-    networkManager.execute(
+    networkManager.executeWithCache(
       networkRequest: NetworkRequest(
         httpMethod: .get,
         endpoint: .foodItemsByCategory(categoryName: categoryName)

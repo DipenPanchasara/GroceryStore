@@ -13,10 +13,10 @@ final class MockCategoriesUseCase: CategoriesUseCaseProtocol {
   private var categoriesModel: [CategoryModel]? = []
   private let error: Error
 
-  @Published
-  private var result: Result<[CategoryModel], Error> = .failure(NoStubError())
-  var publisher: Published<Result<[CategoryModel], Error>>.Publisher {
-    $result
+  private var result: CurrentValueSubject<Result<[CategoryModel], Error>, Never> = .init(.failure(NoStubError()))
+
+  var publisher: AnyPublisher<Result<[CategoryModel], Error>, Never> {
+    result.eraseToAnyPublisher()
   }
 
   init(categories: [CategoryModel]) {
@@ -31,10 +31,17 @@ final class MockCategoriesUseCase: CategoriesUseCaseProtocol {
 
   func fetchCategories() {
     guard let categoriesModel else {
-      self.result = .failure(error)
+      self.result.send(.failure(error))
       return
     }
-    self.result = .success(categoriesModel)
+    self.result.send(.success(categoriesModel))
+  }
+
+  func fetchCategories() async -> Result<[CategoryModel], any Error> {
+    guard let categoriesModel else {
+      return .failure(error)
+    }
+    return .success(categoriesModel)
   }
 }
 #endif
