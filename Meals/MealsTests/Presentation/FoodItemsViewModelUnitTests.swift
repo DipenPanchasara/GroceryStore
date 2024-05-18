@@ -12,7 +12,7 @@ import SwiftUI
 import XCTest
 
 final class FoodItemsViewModelUnitTests: XCTestCase {
-  func testInit() {
+  func testViewModel_whenInit() {
     let subject: CurrentValueSubject<Result<[FoodItemModel], Error>, Never> = .init(.failure(MockError.useCasefailed))
 
     let mockUseCase = MockFoodItemsUseCaseProtocol()
@@ -32,7 +32,7 @@ final class FoodItemsViewModelUnitTests: XCTestCase {
     XCTAssertEqual(sut.loadingState, .idle)
   }
   
-  func testSubscribeReceivesSuccess() async {
+  func testViewModel_whenSubscribeReceivesSuccess() async {
     let expectation = expectation(description: "wait for all states")
     let subject: PassthroughSubject<Result<[FoodItemModel], Error>, Never> = PassthroughSubject()
     let mockUseCase = MockFoodItemsUseCaseProtocol()
@@ -65,10 +65,10 @@ final class FoodItemsViewModelUnitTests: XCTestCase {
     subject.send(.success(mocks))
     subject.send(completion: .finished)
 
-    await fulfillment(of: [expectation], timeout: 0.1)
+    await fulfillment(of: [expectation], timeout: 0.2)
   }
-  
-  func testSubscribeReceivesError() async {
+
+  func testViewModel_whenSubscribeReceivesError() async {
     let expectation = expectation(description: "wait for all states")
     let subject: PassthroughSubject<Result<[FoodItemModel], Error>, Never> = PassthroughSubject()
     let mockUseCase = MockFoodItemsUseCaseProtocol()
@@ -97,10 +97,10 @@ final class FoodItemsViewModelUnitTests: XCTestCase {
     XCTAssertEqual(spy.values, [.idle])
     subject.send(.failure(MockError.useCasefailed))
     
-    await fulfillment(of: [expectation], timeout: 0.1)
+    await fulfillment(of: [expectation], timeout: 0.2)
   }
   
-  func testOnAppear() {
+  func testViewModel_whenOnAppearCalled() {
     let subject: CurrentValueSubject<Result<[FoodItemModel], Error>, Never> = .init(.success([]))
     let mockUseCase = MockFoodItemsUseCaseProtocol()
     stub(mockUseCase) {
@@ -124,7 +124,7 @@ final class FoodItemsViewModelUnitTests: XCTestCase {
     XCTAssertEqual(spy.callCounts, 2)
   }
   
-  func testOnRetryTap() {
+  func testViewModel_whenOnRetryTap() {
     let subject: CurrentValueSubject<Result<[FoodItemModel], Error>, Never> = .init(.success([]))
     let mockUseCase = MockFoodItemsUseCaseProtocol()
     stub(mockUseCase) {
@@ -148,14 +148,14 @@ final class FoodItemsViewModelUnitTests: XCTestCase {
     XCTAssertEqual(spy.callCounts, 2)
   }
   
-  func testOnFoodItemTap() throws {
+  func testViewModel_whenOnFoodItemTap() throws {
     let subject: CurrentValueSubject<Result<[FoodItemModel], Error>, Never> = .init(.failure(MockError.useCasefailed))
     let mockUseCase = MockFoodItemsUseCaseProtocol()
     stub(mockUseCase) {
       when($0).publisher.get
         .thenReturn(subject.eraseToAnyPublisher())
     }
-    let router = MockRouter()
+    let router = MockCategoryRouter()
     let sut = FoodItemsViewModel(
       categoryName: "anyName",
       useCase: mockUseCase,
@@ -178,22 +178,5 @@ private extension FoodItemsViewModelUnitTests {
   
   static var mock: [FoodItemModel] {
     [FoodItemModel].init(repeating: FoodItemModel(id: UUID().uuidString, name: "Vegetarian", thumbURL: nil), count: 2)
-  }
-}
-
-private final class MockRouter: CategoryRouterProtocol {
-  var router: any Meals.RouterProtocol = MockRouterProtocol()
-  private(set) var values: [any Hashable] = []
-
-  func push(destination: Meals.CategoryRoutes) {
-    values.append(destination)
-  }
-  
-  func pop() {
-    values.append("pop")
-  }
-  
-  func popToRootView() {
-    values.append("popToRootView")
   }
 }

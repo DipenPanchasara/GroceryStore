@@ -1,4 +1,274 @@
-// MARK: - Mocks generated from file: Meals/Navigation/CategoryRouter.swift at 2024-05-16 20:52:32 +0000
+// MARK: - Mocks generated from file: Meals/BusinessLayer/Repository/CategoryRepository.swift at 2024-05-18 19:27:54 +0000
+
+//
+//  CategoryRepository.swift
+//  Meals
+//
+//  Created by Dipen Panchasara on 12/02/2024.
+//
+
+import Cuckoo
+@testable import Meals
+
+import Combine
+import Foundation
+
+
+
+
+
+
+ class MockCategoryRepositoryProtocol: CategoryRepositoryProtocol, Cuckoo.ProtocolMock {
+    
+     typealias MocksType = CategoryRepositoryProtocol
+    
+     typealias Stubbing = __StubbingProxy_CategoryRepositoryProtocol
+     typealias Verification = __VerificationProxy_CategoryRepositoryProtocol
+
+     let cuckoo_manager = Cuckoo.MockManager.preconfiguredManager ?? Cuckoo.MockManager(hasParent: false)
+
+    
+    private var __defaultImplStub: CategoryRepositoryProtocol?
+
+     func enableDefaultImplementation(_ stub: CategoryRepositoryProtocol) {
+        __defaultImplStub = stub
+        cuckoo_manager.enableDefaultStubImplementation()
+    }
+    
+
+    
+
+    
+
+    
+    
+    
+    
+     func allCategories() -> AnyPublisher<[CategoryEntity], Error> {
+        
+    return cuckoo_manager.call(
+    """
+    allCategories() -> AnyPublisher<[CategoryEntity], Error>
+    """,
+            parameters: (),
+            escapingParameters: (),
+            superclassCall:
+                
+                Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                ,
+            defaultCall: __defaultImplStub!.allCategories())
+        
+    }
+    
+    
+
+     struct __StubbingProxy_CategoryRepositoryProtocol: Cuckoo.StubbingProxy {
+        private let cuckoo_manager: Cuckoo.MockManager
+    
+         init(manager: Cuckoo.MockManager) {
+            self.cuckoo_manager = manager
+        }
+        
+        
+        
+        
+        func allCategories() -> Cuckoo.ProtocolStubFunction<(), AnyPublisher<[CategoryEntity], Error>> {
+            let matchers: [Cuckoo.ParameterMatcher<Void>] = []
+            return .init(stub: cuckoo_manager.createStub(for: MockCategoryRepositoryProtocol.self, method:
+    """
+    allCategories() -> AnyPublisher<[CategoryEntity], Error>
+    """, parameterMatchers: matchers))
+        }
+        
+        
+    }
+
+     struct __VerificationProxy_CategoryRepositoryProtocol: Cuckoo.VerificationProxy {
+        private let cuckoo_manager: Cuckoo.MockManager
+        private let callMatcher: Cuckoo.CallMatcher
+        private let sourceLocation: Cuckoo.SourceLocation
+    
+         init(manager: Cuckoo.MockManager, callMatcher: Cuckoo.CallMatcher, sourceLocation: Cuckoo.SourceLocation) {
+            self.cuckoo_manager = manager
+            self.callMatcher = callMatcher
+            self.sourceLocation = sourceLocation
+        }
+    
+        
+    
+        
+        
+        
+        @discardableResult
+        func allCategories() -> Cuckoo.__DoNotUse<(), AnyPublisher<[CategoryEntity], Error>> {
+            let matchers: [Cuckoo.ParameterMatcher<Void>] = []
+            return cuckoo_manager.verify(
+    """
+    allCategories() -> AnyPublisher<[CategoryEntity], Error>
+    """, callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+        }
+        
+        
+    }
+}
+
+
+ class CategoryRepositoryProtocolStub: CategoryRepositoryProtocol {
+    
+
+    
+
+    
+    
+    
+    
+     func allCategories() -> AnyPublisher<[CategoryEntity], Error>  {
+        return DefaultValueRegistry.defaultValue(for: (AnyPublisher<[CategoryEntity], Error>).self)
+    }
+    
+    
+}
+
+
+
+
+
+// MARK: - Mocks generated from file: Meals/BusinessLayer/Repository/FoodItemRepository.swift at 2024-05-18 19:27:54 +0000
+
+//
+//  FoodItemRepository.swift
+//  Meals
+//
+//  Created by Dipen Panchasara on 12/03/2024.
+//
+
+import Cuckoo
+@testable import Meals
+
+import Combine
+import Foundation
+
+
+
+
+
+
+ class MockFoodItemRepositoryProtocol: FoodItemRepositoryProtocol, Cuckoo.ProtocolMock {
+    
+     typealias MocksType = FoodItemRepositoryProtocol
+    
+     typealias Stubbing = __StubbingProxy_FoodItemRepositoryProtocol
+     typealias Verification = __VerificationProxy_FoodItemRepositoryProtocol
+
+     let cuckoo_manager = Cuckoo.MockManager.preconfiguredManager ?? Cuckoo.MockManager(hasParent: false)
+
+    
+    private var __defaultImplStub: FoodItemRepositoryProtocol?
+
+     func enableDefaultImplementation(_ stub: FoodItemRepositoryProtocol) {
+        __defaultImplStub = stub
+        cuckoo_manager.enableDefaultStubImplementation()
+    }
+    
+
+    
+
+    
+
+    
+    
+    
+    
+     func fetchFoodItems(by categoryName: String) -> AnyPublisher<[FoodItemEntity], Error> {
+        
+    return cuckoo_manager.call(
+    """
+    fetchFoodItems(by: String) -> AnyPublisher<[FoodItemEntity], Error>
+    """,
+            parameters: (categoryName),
+            escapingParameters: (categoryName),
+            superclassCall:
+                
+                Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                ,
+            defaultCall: __defaultImplStub!.fetchFoodItems(by: categoryName))
+        
+    }
+    
+    
+
+     struct __StubbingProxy_FoodItemRepositoryProtocol: Cuckoo.StubbingProxy {
+        private let cuckoo_manager: Cuckoo.MockManager
+    
+         init(manager: Cuckoo.MockManager) {
+            self.cuckoo_manager = manager
+        }
+        
+        
+        
+        
+        func fetchFoodItems<M1: Cuckoo.Matchable>(by categoryName: M1) -> Cuckoo.ProtocolStubFunction<(String), AnyPublisher<[FoodItemEntity], Error>> where M1.MatchedType == String {
+            let matchers: [Cuckoo.ParameterMatcher<(String)>] = [wrap(matchable: categoryName) { $0 }]
+            return .init(stub: cuckoo_manager.createStub(for: MockFoodItemRepositoryProtocol.self, method:
+    """
+    fetchFoodItems(by: String) -> AnyPublisher<[FoodItemEntity], Error>
+    """, parameterMatchers: matchers))
+        }
+        
+        
+    }
+
+     struct __VerificationProxy_FoodItemRepositoryProtocol: Cuckoo.VerificationProxy {
+        private let cuckoo_manager: Cuckoo.MockManager
+        private let callMatcher: Cuckoo.CallMatcher
+        private let sourceLocation: Cuckoo.SourceLocation
+    
+         init(manager: Cuckoo.MockManager, callMatcher: Cuckoo.CallMatcher, sourceLocation: Cuckoo.SourceLocation) {
+            self.cuckoo_manager = manager
+            self.callMatcher = callMatcher
+            self.sourceLocation = sourceLocation
+        }
+    
+        
+    
+        
+        
+        
+        @discardableResult
+        func fetchFoodItems<M1: Cuckoo.Matchable>(by categoryName: M1) -> Cuckoo.__DoNotUse<(String), AnyPublisher<[FoodItemEntity], Error>> where M1.MatchedType == String {
+            let matchers: [Cuckoo.ParameterMatcher<(String)>] = [wrap(matchable: categoryName) { $0 }]
+            return cuckoo_manager.verify(
+    """
+    fetchFoodItems(by: String) -> AnyPublisher<[FoodItemEntity], Error>
+    """, callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+        }
+        
+        
+    }
+}
+
+
+ class FoodItemRepositoryProtocolStub: FoodItemRepositoryProtocol {
+    
+
+    
+
+    
+    
+    
+    
+     func fetchFoodItems(by categoryName: String) -> AnyPublisher<[FoodItemEntity], Error>  {
+        return DefaultValueRegistry.defaultValue(for: (AnyPublisher<[FoodItemEntity], Error>).self)
+    }
+    
+    
+}
+
+
+
+
+
+// MARK: - Mocks generated from file: Meals/Navigation/CategoryRouter.swift at 2024-05-18 19:27:54 +0000
 
 //
 //  CategoryRouter.swift
@@ -275,7 +545,7 @@ import SwiftUI
 
 
 
-// MARK: - Mocks generated from file: Meals/Navigation/Router.swift at 2024-05-16 20:52:32 +0000
+// MARK: - Mocks generated from file: Meals/Navigation/Router.swift at 2024-05-18 19:27:54 +0000
 
 //
 //  Router.swift
@@ -622,7 +892,7 @@ import SwiftUI
 
 
 
-// MARK: - Mocks generated from file: Meals/NetworkManager/NetworkManager.swift at 2024-05-16 20:52:32 +0000
+// MARK: - Mocks generated from file: Meals/NetworkManager/NetworkManager.swift at 2024-05-18 19:27:54 +0000
 
 //
 //  NetworkManager.swift
@@ -928,7 +1198,7 @@ import Foundation
 
 
 
-// MARK: - Mocks generated from file: Meals/NetworkManager/NetworkSessionProvider.swift at 2024-05-16 20:52:32 +0000
+// MARK: - Mocks generated from file: Meals/NetworkManager/NetworkSessionProvider.swift at 2024-05-18 19:27:54 +0000
 
 //
 //  NetworkSessionProvider.swift
@@ -1104,7 +1374,7 @@ import Foundation
 
 
 
-// MARK: - Mocks generated from file: Meals/NetworkManager/ResponseDecoder.swift at 2024-05-16 20:52:32 +0000
+// MARK: - Mocks generated from file: Meals/NetworkManager/ResponseDecoder.swift at 2024-05-18 19:27:54 +0000
 
 //
 //  ResponseDecoder.swift
@@ -1238,7 +1508,7 @@ import Foundation
 
 
 
-// MARK: - Mocks generated from file: Meals/Presentation/UseCases/CategoriesUseCase.swift at 2024-05-16 20:52:32 +0000
+// MARK: - Mocks generated from file: Meals/UseCases/CategoriesUseCase.swift at 2024-05-18 19:27:54 +0000
 
 //
 //  CategoriesUseCase.swift
@@ -1465,7 +1735,7 @@ import SwiftUI
 
 
 
-// MARK: - Mocks generated from file: Meals/Presentation/UseCases/FoodItemsUseCase.swift at 2024-05-16 20:52:32 +0000
+// MARK: - Mocks generated from file: Meals/UseCases/FoodItemsUseCase.swift at 2024-05-18 19:27:54 +0000
 
 //
 //  FoodItemsUseCase.swift
@@ -1544,6 +1814,26 @@ import SwiftUI
     }
     
     
+    
+    
+    
+     func fetchFoodItems(by categoryName: String) async -> Result<[FoodItemModel], Error> {
+        
+    return await cuckoo_manager.call(
+    """
+    fetchFoodItems(by: String) async -> Result<[FoodItemModel], Error>
+    """,
+            parameters: (categoryName),
+            escapingParameters: (categoryName),
+            superclassCall:
+                
+                Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                ,
+            defaultCall: await __defaultImplStub!.fetchFoodItems(by: categoryName))
+        
+    }
+    
+    
 
      struct __StubbingProxy_FoodItemsUseCaseProtocol: Cuckoo.StubbingProxy {
         private let cuckoo_manager: Cuckoo.MockManager
@@ -1567,6 +1857,17 @@ import SwiftUI
             return .init(stub: cuckoo_manager.createStub(for: MockFoodItemsUseCaseProtocol.self, method:
     """
     fetchFoodItems(by: String)
+    """, parameterMatchers: matchers))
+        }
+        
+        
+        
+        
+        func fetchFoodItems<M1: Cuckoo.Matchable>(by categoryName: M1) -> Cuckoo.ProtocolStubFunction<(String), Result<[FoodItemModel], Error>> where M1.MatchedType == String {
+            let matchers: [Cuckoo.ParameterMatcher<(String)>] = [wrap(matchable: categoryName) { $0 }]
+            return .init(stub: cuckoo_manager.createStub(for: MockFoodItemsUseCaseProtocol.self, method:
+    """
+    fetchFoodItems(by: String) async -> Result<[FoodItemModel], Error>
     """, parameterMatchers: matchers))
         }
         
@@ -1606,6 +1907,18 @@ import SwiftUI
         }
         
         
+        
+        
+        @discardableResult
+        func fetchFoodItems<M1: Cuckoo.Matchable>(by categoryName: M1) -> Cuckoo.__DoNotUse<(String), Result<[FoodItemModel], Error>> where M1.MatchedType == String {
+            let matchers: [Cuckoo.ParameterMatcher<(String)>] = [wrap(matchable: categoryName) { $0 }]
+            return cuckoo_manager.verify(
+    """
+    fetchFoodItems(by: String) async -> Result<[FoodItemModel], Error>
+    """, callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+        }
+        
+        
     }
 }
 
@@ -1635,13 +1948,21 @@ import SwiftUI
     }
     
     
+    
+    
+    
+     func fetchFoodItems(by categoryName: String) async -> Result<[FoodItemModel], Error>  {
+        return DefaultValueRegistry.defaultValue(for: (Result<[FoodItemModel], Error>).self)
+    }
+    
+    
 }
 
 
 
 
 
-// MARK: - Mocks generated from file: Meals/Presentation/ViewModelFactory/CategoryViewModelFactory.swift at 2024-05-16 20:52:32 +0000
+// MARK: - Mocks generated from file: Meals/ViewModelFactory/CategoryViewModelFactory.swift at 2024-05-18 19:27:54 +0000
 
 //
 //  CategoryViewModelFactory.swift

@@ -21,6 +21,7 @@
 		251A8DA12BF68DAA004E1CA8 /* PublisherSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251A8DA02BF68DAA004E1CA8 /* PublisherSpy.swift */; };
 		251A8DA32BF6A828004E1CA8 /* MockNetworkCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251A8DA22BF6A828004E1CA8 /* MockNetworkCacheManager.swift */; };
 		251A8DA62BF6A869004E1CA8 /* NetworkPublisherSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251A8DA52BF6A869004E1CA8 /* NetworkPublisherSpy.swift */; };
+		2522AADF2BF9362600A887C7 /* MockCategoryRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2522AADE2BF9362600A887C7 /* MockCategoryRouter.swift */; };
 		25273D8E2BA8DD16008DC7EB /* EndpointsUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25273D8D2BA8DD16008DC7EB /* EndpointsUnitTests.swift */; };
 		25380E502BF76D9F002457B7 /* CategoriesUseCaseUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25380E4F2BF76D9F002457B7 /* CategoriesUseCaseUnitTests.swift */; };
 		255357452BA87EEE00258521 /* NetworkRequestUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255357442BA87EEE00258521 /* NetworkRequestUnitTests.swift */; };
@@ -93,6 +94,7 @@
 		251A8DA02BF68DAA004E1CA8 /* PublisherSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublisherSpy.swift; sourceTree = "<group>"; };
 		251A8DA22BF6A828004E1CA8 /* MockNetworkCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNetworkCacheManager.swift; sourceTree = "<group>"; };
 		251A8DA52BF6A869004E1CA8 /* NetworkPublisherSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkPublisherSpy.swift; sourceTree = "<group>"; };
+		2522AADE2BF9362600A887C7 /* MockCategoryRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCategoryRouter.swift; sourceTree = "<group>"; };
 		25273D8D2BA8DD16008DC7EB /* EndpointsUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndpointsUnitTests.swift; sourceTree = "<group>"; };
 		25380E4F2BF76D9F002457B7 /* CategoriesUseCaseUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesUseCaseUnitTests.swift; sourceTree = "<group>"; };
 		255357442BA87EEE00258521 /* NetworkRequestUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRequestUnitTests.swift; sourceTree = "<group>"; };
@@ -285,6 +287,7 @@
 			isa = PBXGroup;
 			children = (
 				251A8DA22BF6A828004E1CA8 /* MockNetworkCacheManager.swift */,
+				2522AADE2BF9362600A887C7 /* MockCategoryRouter.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -669,6 +672,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2522AADF2BF9362600A887C7 /* MockCategoryRouter.swift in Sources */,
 				251A8DA62BF6A869004E1CA8 /* NetworkPublisherSpy.swift in Sources */,
 				251A8D9F2BF64B5D004E1CA8 /* FoodItemsViewModelUnitTests.swift in Sources */,
 				25273D8E2BA8DD16008DC7EB /* EndpointsUnitTests.swift in Sources */,

@@ -43,7 +43,7 @@ struct CategoriesView: View {
 
   private func gridView(categories: [CategoryModel]) -> some View {
     ScrollView {
-      LazyVGrid(columns: viewModel.gridColumns(), spacing: .spacing.standard) {
+      LazyVGrid(columns: gridColumns(), spacing: .spacing.standard) {
         ForEach(categories, id: \.self) { category in
           VStack(spacing: .zero) {
             if let thumbnailURL = category.thumbnailURL {
@@ -57,7 +57,7 @@ struct CategoriesView: View {
               .foregroundStyle(Color.pink)
               .padding(.padding.standard)
           }
-          .frame(maxHeight: viewModel.itemWidth)
+          .frame(maxHeight: itemWidth)
           .background(.white)
           .cornerRadius(.radius.view)
           .onTapGesture {
@@ -68,6 +68,33 @@ struct CategoriesView: View {
       .padding(.padding.standard)
     }
     .backgroundColor()
+  }
+}
+
+extension CategoriesView {
+  var padding: CGFloat { 8 }
+  var noOfColumns: CGFloat  { 2 }
+  var totalPadding: CGFloat {
+    if noOfColumns == 1 {
+      return padding * 2
+    } else {
+      return padding * (noOfColumns + 1)
+    }
+  }
+  
+  var availableWidth: CGFloat {
+    (UIScreen.main.bounds.width - totalPadding)
+  }
+  
+  var itemWidth: CGFloat {
+    availableWidth/noOfColumns
+  }
+  
+  func gridColumns() -> [GridItem] {
+    return [
+      GridItem(.fixed(itemWidth)),
+      GridItem(.fixed(itemWidth))
+    ]
   }
 }
 

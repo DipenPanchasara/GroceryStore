@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-//import Combine
+import Combine
 
 class CategoriesViewModel: ObservableObject {
   struct ViewModel: Equatable {
@@ -17,7 +17,7 @@ class CategoriesViewModel: ObservableObject {
   private(set) var categoryRouter: CategoryRouterProtocol
   private(set) var categoryViewModelFactory: CategoryViewModelFactoryProtocol
   @Published var loadingState: ViewState<ViewModel> = .idle
-//  private var subscriptions = Set<AnyCancellable>()
+  private var subscriptions = Set<AnyCancellable>()
   
   init(
     useCase: CategoriesUseCaseProtocol,
@@ -27,10 +27,9 @@ class CategoriesViewModel: ObservableObject {
     self.useCase = useCase
     self.categoryRouter = categoryRouter
     self.categoryViewModelFactory = categoryViewModelFactory
-//    self.subscribe()
+    self.subscribe()
   }
 
-  /*
   private func subscribe() {
     useCase.publisher
       .receive(on: DispatchQueue.main)
@@ -54,15 +53,13 @@ class CategoriesViewModel: ObservableObject {
       }
       .store(in: &subscriptions)
   }
-   */
 
-  /*
   func loadData() {
     guard loadingState.canReload else { return }
     loadingState = .loading(model: ViewModel(categories: .mock))
     useCase.fetchCategories()
   }
-   */
+
   
   @MainActor
   func fetchData() async {
@@ -87,32 +84,5 @@ class CategoriesViewModel: ObservableObject {
     categoryRouter.push(
       destination: .foodItems(categoryName: category.name)
     )
-  }
-}
-
-extension CategoriesViewModel {
-  var padding: CGFloat { 8 }
-  var noOfColumns: CGFloat  { 2 }
-  var totalPadding: CGFloat {
-    if noOfColumns == 1 {
-      return padding * 2
-    } else {
-      return padding * (noOfColumns + 1)
-    }
-  }
-  
-  var availableWidth: CGFloat {
-    (UIScreen.main.bounds.width - totalPadding)
-  }
-  
-  var itemWidth: CGFloat {
-    availableWidth/noOfColumns
-  }
-  
-  func gridColumns() -> [GridItem] {
-    return [
-      GridItem(.fixed(itemWidth)),
-      GridItem(.fixed(itemWidth))
-    ]
   }
 }
